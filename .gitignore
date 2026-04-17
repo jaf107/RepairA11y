@@ -1,6 +1,10 @@
 node_modules/
 nava11y/node_modules/
-# nava11y/ is a vendored copy of the NavA11y sibling repo — do not edit it here
+# nava11y/ is a vendored copy of NavA11y. Edits allowed only for `nava11y:` prefixed
+# commits that get cherry-picked upstream to jaf107/NavA11y. Do not commit lockfiles
+# or build artifacts generated locally.
+nava11y/package-lock.json
+nava11y/pnpm-lock.yaml
 nava11y/reports/
 .env
 experiments/results/
