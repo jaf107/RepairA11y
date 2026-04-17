@@ -10,7 +10,7 @@ Thesis chapter 2 — automated repair of WCAG 2.4 focus-behavior violations. Fol
 
 ## NavA11y — how to use it
 
-Copied at `nava11y/`. Do not modify it; schema extensions go to the original NavA11y repo as a separate PR.
+Copied at `nava11y/`. Edits here are allowed **only for commits prefixed `nava11y:`** and must be cherry-picked to `jaf107/NavA11y` upstream as PRs. Re-sync `nava11y/` from upstream main after each merge to confirm byte-equivalence. Any non-`nava11y:` prefixed change to this directory is a bug.
 
 ```bash
 # Install (once)
