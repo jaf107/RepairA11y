@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Focus Visible & Appearance Test</title>
+    <style>
+        body { padding: 50px; font-family: sans-serif; }
+        .btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        /* 1. Normal (Pass AA & AAA) */
+        #btn-normal:focus {
+            outline: 3px solid #000;
+            outline-offset: 2px;
+        }
+
+        /* 2. No visible change (Fail AA & AAA) */
+        #btn-no-outline:focus {
+            outline: none;
+            /* Browser defaults removed, no custom focus indicator */
+        }
+
+        /* 3. Low contrast background change (Passes AA as there is *some* change, Fails AAA as contrast < 3:1) */
+        #btn-low-contrast {
+            background-color: #ffffff;
+        }
+        #btn-low-contrast:focus {
+            outline: none;
+            background-color: #f0f0f0; /* Contrast #fff vs #f0f0f0 is ~1.12:1 (well below 3:1 required by AAA) */
+        }
+
+        /* 4. Thin outline (Passes AA, Fails AAA which requires minimum 2px) */
+        #btn-thin-outline:focus {
+            outline: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Focus Visible (2.4.7) & Focus Appearance (2.4.13) Test Page</h1>
+    
+    <div>
+        <button id="btn-normal" class="btn">1. Normal (Passes AA & AAA)</button>
+    </div>
+    
+    <div>
+        <button id="btn-no-outline" class="btn">2. No Focus Indicator (Fails AA & AAA)</button>
+    </div>
+
+    <div>
+        <button id="btn-low-contrast" class="btn">3. Low Contrast Change (Passes AA, Fails AAA)</button>
+    </div>
+
+    <div>
+        <button id="btn-thin-outline" class="btn">4. Thin Outline (Passes AA, Fails AAA)</button>
+    </div>
+
+</body>
+</html>

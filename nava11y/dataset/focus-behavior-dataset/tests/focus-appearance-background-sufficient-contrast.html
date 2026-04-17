@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus appearance background with
+      sufficient contrast - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .aaa-bg {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        background: #fff;
+        color: #333;
+        cursor: pointer;
+      }
+      .aaa-bg:focus {
+        outline: none;
+        background-color: #005fcc;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus appearance background with sufficient contrast</h1>
+    <main>
+      <p>
+        The button below changes background to #005fcc on focus, yielding ~4.5:1
+        contrast against the white unfocused state. This meets WCAG 2.4.13
+        (AAA).
+      </p>
+      <button class="aaa-bg">
+        Button with high-contrast background change
+      </button>
+    </main>
+  </body>
+</html>

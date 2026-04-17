@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus appearance outline with
+      insufficient width - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .thin-outline {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        background: #fff;
+        cursor: pointer;
+      }
+      .thin-outline:focus {
+        outline: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus appearance outline with insufficient width</h1>
+    <main>
+      <p>
+        The button below has a 1px solid black outline on focus. The contrast is
+        excellent (21:1) but the width is below the 2px minimum required by WCAG
+        2.4.13 (AAA). Per technique C40, the indicator area must be at least a 2
+        CSS pixel thick perimeter.
+      </p>
+      <button class="thin-outline">
+        Button with 1px high-contrast outline
+      </button>
+    </main>
+  </body>
+</html>

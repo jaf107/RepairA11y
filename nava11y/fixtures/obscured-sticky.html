@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Focus Not Obscured — Sticky/Fixed Overlays (2.4.11 &amp; 2.4.12)
+    </title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: #fff;
+        color: #333;
+      }
+
+      /*
+         * Sticky header — remains fixed at top when scrolling.
+         * Focused elements near the top of content become obscured behind it.
+         * Reference: F110, C43
+         */
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #1a1a2e;
+        color: #fff;
+        padding: 15px 50px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      /*
+         * Fixed footer — stays at bottom of viewport at all times.
+         * Focused elements near the bottom of content become obscured behind it.
+         * Reference: F110, C43
+         */
+      .fixed-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: #2d2d44;
+        color: #fff;
+        padding: 15px 50px;
+        text-align: center;
+      }
+
+      /*
+         * Cookie/consent banner — full-width fixed overlay at bottom.
+         * Sits above the footer in z-index, obscuring focused elements.
+         * Reference: F110 (author-created content obscuring focus)
+         */
+      .cookie-banner {
+        position: fixed;
+        bottom: 60px; /* Just above the fixed footer */
+        left: 0;
+        right: 0;
+        z-index: 200;
+        background: #333;
+        color: #fff;
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cookie-banner button {
+        background: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      main {
+        padding: 20px 50px;
+        /* Enough padding at bottom so content flows behind the footer/banner */
+        padding-bottom: 200px;
+      }
+
+      .section {
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px dashed #ccc;
+      }
+
+      .btn {
+        display: block;
+        width: 250px;
+        padding: 15px 25px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background: #fff;
+        margin: 10px 0;
+      }
+
+      /* Clear focus style so we can test obscuration not focus visibility */
+      button:focus {
+        outline: 3px solid #005fcc;
+        outline-offset: 2px;
+      }
+
+      /* Spacer to force scrolling so buttons end up behind sticky/fixed elements */
+      .spacer {
+        height: 60vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sticky-header">Sticky Header — Navigation Bar</div>
+
+    <main>
+      <h1>Focus Not Obscured — Sticky/Fixed Overlays</h1>
+      <p>
+        Tests SC 2.4.11 (Minimum, AA) and 2.4.12 (Enhanced, AAA). Buttons below
+        are positioned so they sit behind the sticky header, fixed footer, or
+        cookie banner when focused.
+      </p>
+
+      <!--
+            Button 1: Positioned right below the sticky header.
+            The sticky header (position: sticky; top: 0) covers it.
+            The element must be scrolled so it sits under the header.
+            Expected: 2.4.11 FAIL (fully obscured), 2.4.12 FAIL
+        -->
+      <div class="section">
+        <h2>1. Under Sticky Header</h2>
+        <p>This button is placed so the sticky header obscures it.</p>
+        <div style="margin-top: -10px">
+          <button
+            id="btn-under-header"
+            class="btn"
+            style="position: relative; top: -60px; z-index: 1"
+          >
+            Under Sticky Header
+          </button>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!--
+            Button 2: Positioned at the very bottom of the page.
+            The fixed footer (position: fixed; bottom: 0) covers it.
+            Expected: 2.4.11 FAIL (fully obscured), 2.4.12 FAIL
+        -->
+      <div class="section">
+        <h2>2. Under Fixed Footer</h2>
+        <p>
+          This button is placed near the bottom so the fixed footer obscures it.
+        </p>
+        <button
+          id="btn-under-footer"
+          class="btn"
+          style="position: fixed; bottom: 5px; left: 50px; z-index: 50"
+        >
+          Under Fixed Footer
+        </button>
+      </div>
+
+      <!--
+            Button 3: Behind the cookie/consent banner overlay.
+            The banner (position: fixed; bottom: 60px) sits above the footer.
+            Expected: 2.4.11 FAIL (fully obscured), 2.4.12 FAIL
+        -->
+      <div class="section">
+        <h2>3. Behind Cookie Banner</h2>
+        <p>This button sits behind the cookie consent banner.</p>
+        <button
+          id="btn-under-banner"
+          class="btn"
+          style="position: fixed; bottom: 75px; left: 50px; z-index: 50"
+        >
+          Behind Cookie Banner
+        </button>
+      </div>
+    </main>
+
+    <div class="fixed-footer">Fixed Footer — © 2026 Example Site</div>
+
+    <div class="cookie-banner">
+      <span>This site uses cookies for analytics. Do you accept?</span>
+      <button>Accept All</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "dynamic-testing",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "check": "node run-check.js",
+    "benchmark": "node evaluation/run-all-benchmark.mjs",
+    "summary": "node evaluation/generate-benchmark-summary.mjs",
+    "select-sites": "node evaluation/select-precision-sites.mjs",
+    "precision": "node evaluation/compute-precision.mjs",
+    "tables": "node evaluation/generate-paper-tables.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.0",
+  "dependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@qualweb/act-rules": "^0.7.6",
+    "@qualweb/best-practices": "^0.7.7",
+    "@qualweb/core": "^0.8.7",
+    "@qualweb/wcag-techniques": "^0.4.2",
+    "chrome-launcher": "^1.2.1",
+    "lighthouse": "^13.0.3",
+    "pa11y": "^9.1.0",
+    "playwright": "^1.58.0"
+  }
+}

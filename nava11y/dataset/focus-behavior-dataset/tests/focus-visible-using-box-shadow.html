@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus visible using box shadow - GDS
+      accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .box-shadow-focus:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px #005fcc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus visible using box shadow</h1>
+    <main>
+      <button class="box-shadow-focus">
+        Button with box-shadow focus indicator
+      </button>
+    </main>
+  </body>
+</html>

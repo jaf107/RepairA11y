@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus order correct with skip link - GDS
+      accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 10px;
+        background: #005fcc;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        top: 10px;
+        outline: 3px solid #000;
+      }
+      .nav-btn {
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" tabindex="1"
+      >Skip to main content</a
+    >
+    <h1>Focus order correct with skip link</h1>
+    <main id="main-content">
+      <button class="nav-btn">Nav 1</button>
+      <button class="nav-btn">Nav 2</button>
+      <button class="nav-btn">Nav 3</button>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Focus Visible — Sufficient Techniques (2.4.7)</title>
+    <style>
+      body {
+        padding: 50px;
+        font-family: sans-serif;
+        background: #fff;
+        color: #333;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      p.desc {
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        margin: 20px;
+        padding: 15px 25px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #333;
+        text-decoration: none;
+      }
+
+      /*
+         * 1. Box-shadow as focus indicator (G195 — sufficient technique)
+         * A visible ring rendered via box-shadow instead of outline.
+         * Expected: 2.4.7 PASS (box-shadow-changed, high confidence)
+         */
+      #btn-box-shadow:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px #005fcc;
+      }
+
+      /*
+         * 2. Background-color change as focus indicator (G195)
+         * A strong background contrast shift on focus.
+         * #005fcc on #fff ≈ 4.5:1 contrast — clearly visible change.
+         * Expected: 2.4.7 PASS (background-contrast-changed, high confidence)
+         */
+      #btn-background:focus {
+        outline: none;
+        background-color: #005fcc;
+        color: #fff;
+      }
+
+      /*
+         * 3. Text-decoration underline on focus (G195)
+         * Adding an underline on focus is a visible change.
+         * Expected: 2.4.7 PASS (text-decoration-appeared, medium confidence)
+         */
+      #btn-text-decoration {
+        text-decoration: none;
+      }
+      #btn-text-decoration:focus {
+        outline: none;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-color: #000;
+      }
+
+      /*
+         * 4. Border width increase on focus (G195)
+         * Border grows from 1px to 3px on focus — visible width change.
+         * Expected: 2.4.7 PASS (border-width-increased, high confidence)
+         */
+      #btn-border-increase:focus {
+        border: 3px solid #000;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus Visible — Sufficient Techniques (SC 2.4.7)</h1>
+    <p class="desc">
+      Each button below uses a different WCAG-recognised technique (G195) to
+      provide a visible focus indicator. All should <strong>PASS</strong> 2.4.7.
+    </p>
+
+    <div>
+      <button id="btn-box-shadow" class="btn">1. Box-Shadow Ring</button>
+    </div>
+
+    <div>
+      <button id="btn-background" class="btn">
+        2. Background Color Change
+      </button>
+    </div>
+
+    <div>
+      <button id="btn-text-decoration" class="btn">
+        3. Text-Decoration Underline
+      </button>
+    </div>
+
+    <div>
+      <button id="btn-border-increase" class="btn">
+        4. Border Width Increase
+      </button>
+    </div>
+  </body>
+</html>

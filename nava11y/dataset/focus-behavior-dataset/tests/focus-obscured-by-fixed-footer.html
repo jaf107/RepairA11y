@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus obscured by fixed footer - GDS
+      accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .fixed-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: #2d2d44;
+        color: #fff;
+        padding: 15px 20px;
+        text-align: center;
+      }
+      .footer-btn {
+        position: fixed;
+        bottom: 5px;
+        left: 20px;
+        z-index: 50;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus obscured by fixed footer</h1>
+    <main>
+      <p>
+        The button below is positioned at the bottom of the viewport, behind the
+        fixed footer.
+      </p>
+      <button class="footer-btn">Button obscured by fixed footer</button>
+    </main>
+    <div class="fixed-footer">Fixed Footer — Site Information</div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Focus Order Test</title>
+    <style>
+        body { padding: 50px; font-family: sans-serif; }
+        .nav, .main, .sidebar {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        
+        /* Flexbox reordering visual vs DOM mismatch */
+        .flex-container {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            padding: 20px;
+            border: 2px dashed #f00;
+        }
+
+        /* Ensure focus visibility so the check doesn't fail on 2.4.7/2.4.13 during test */
+        button:focus, a:focus {
+            outline: 3px solid #000;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Focus Order (2.4.3) Test Page</h1>
+
+    <!-- Valid Flow -->
+    <div class="nav">
+        <h2>Header Navigation</h2>
+        <button class="btn" id="nav-1">Nav 1</button>
+        <button class="btn" id="nav-2">Nav 2</button>
+    </div>
+
+    <!-- Positive Tabindex Flow (Fails positive-tabindex checking and creates huge backward jumps) -->
+    <div class="sidebar">
+        <h2>Sidebar (Positive TabIndex Violations)</h2>
+        <p>These elements visually appear early, but tabIndex pushes them to the very end of the document flow.</p>
+        <button class="btn" id="side-1" tabindex="3">Side 1 (tabindex 3)</button>
+        <button class="btn" id="side-2" tabindex="1">Side 2 (tabindex 1)</button>
+        <button class="btn" id="side-3" tabindex="2">Side 3 (tabindex 2)</button>
+    </div>
+
+    <!-- Visual Order Mismatch (CSS Flexbox Row-Reverse changes visual order without changing DOM order) -->
+    <div class="main">
+        <h2>Main Content</h2>
+        <p>The flex container below uses `row-reverse` to reverse visual order opposite of DOM/Tab order.</p>
+        <div class="flex-container">
+            <button class="btn" id="flex-1">DOM 1 / Visual Last</button>
+            <button class="btn" id="flex-2">DOM 2 / Visual Middle</button>
+            <button class="btn" id="flex-3">DOM 3 / Visual First</button>
+        </div>
+    </div>
+
+</body>
+</html>

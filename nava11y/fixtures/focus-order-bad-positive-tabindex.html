@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCAG 2.4.3 Test - Bad Positive Tabindex</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+    }
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f5f5f5;
+      border-left: 4px solid #d32f2f;
+    }
+    button, input {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .expected-order {
+      background: #e8f5e9;
+      padding: 15px;
+      margin: 20px 0;
+      border-left: 4px solid #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>WCAG 2.4.3 Focus Order Test</h1>
+  <p><strong>Test Type:</strong> Positive tabindex values (WCAG Failure)</p>
+
+  <div class="expected-order">
+    <h2>Expected Behavior</h2>
+    <p>This page should <strong>FAIL</strong> WCAG 2.4.3 because it uses positive tabindex values that create confusing focus order.</p>
+    <p><strong>Expected Tab Order:</strong></p>
+    <ol>
+      <li>Button 3 (tabindex="1")</li>
+      <li>Button 2 (tabindex="2")</li>
+      <li>Button 5 (tabindex="3")</li>
+      <li>Button 1 (tabindex="0" or natural order)</li>
+      <li>Button 4 (tabindex="0" or natural order)</li>
+      <li>Input Field</li>
+      <li>Submit Button</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Form with Broken Focus Order</h2>
+    <p>Try pressing Tab repeatedly to experience the confusing focus order:</p>
+
+    <!-- Button 1: Natural order (should come 4th but appears first visually) -->
+    <button id="btn1" tabindex="0">Button 1 (tabindex="0")</button>
+
+    <!-- Button 2: Forced to second position with tabindex="2" -->
+    <button id="btn2" tabindex="2">Button 2 (tabindex="2") - Goes SECOND</button>
+
+    <!-- Button 3: Forced to first position with tabindex="1" -->
+    <button id="btn3" tabindex="1">Button 3 (tabindex="1") - Goes FIRST</button>
+
+    <!-- Button 4: Natural order -->
+    <button id="btn4" tabindex="0">Button 4 (tabindex="0")</button>
+
+    <!-- Button 5: Forced to third position with tabindex="3" -->
+    <button id="btn5" tabindex="3">Button 5 (tabindex="3") - Goes THIRD</button>
+
+    <br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="your@email.com">
+
+    <br>
+
+    <button type="submit">Submit</button>
+  </div>
+
+  <div class="section">
+    <h2>Why This Fails WCAG 2.4.3</h2>
+    <ul>
+      <li><strong>Positive tabindex values</strong> (1, 2, 3) override the natural DOM order</li>
+      <li>Focus jumps around unpredictably (Button 3 → Button 2 → Button 5 → Button 1)</li>
+      <li>Creates <strong>fragile</strong> focus order that breaks when content is added/removed</li>
+      <li>Violates user expectation of top-to-bottom, left-to-right navigation</li>
+    </ul>
+  </div>
+
+  <div class="expected-order">
+    <h2>Correct Implementation</h2>
+    <p>To fix: Remove all positive tabindex values and rely on natural DOM order, or use tabindex="0" for custom widgets.</p>
+  </div>
+</body>
+</html>

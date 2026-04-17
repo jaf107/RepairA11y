@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Focus Appearance — Edge Cases (2.4.13)</title>
+    <style>
+      body {
+        padding: 50px;
+        font-family: sans-serif;
+        background: #fff;
+        color: #333;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      p.desc {
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        margin: 20px;
+        padding: 15px 25px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #333;
+      }
+
+      /*
+         * 1. 2px outline but LOW contrast (< 3:1)
+         * outline: 2px solid #999 on white background
+         * #999 on #fff = contrast ≈ 2.85:1 (below 3:1 threshold)
+         * Width is sufficient (≥ 2px) but contrast is NOT.
+         * Expected: 2.4.7 PASS (some visual change), 2.4.13 FAIL (contrast < 3:1)
+         * Reference: C40
+         */
+      #btn-low-contrast-outline:focus {
+        outline: 2px solid #999;
+      }
+
+      /*
+         * 2. Background change with HIGH contrast (≥ 3:1)
+         * #005fcc on #fff ≈ 4.5:1 contrast — meets both width perception and contrast.
+         * Expected: 2.4.7 PASS, 2.4.13 PASS
+         * Reference: C41
+         */
+      #btn-bg-high-contrast:focus {
+        outline: none;
+        background-color: #005fcc;
+        color: #fff;
+      }
+
+      /*
+         * 3. 3px border with HIGH contrast
+         * border: 3px solid #000 (21:1 vs white bg)
+         * Both width (≥ 2px increase from 1px) and contrast (≥ 3:1) sufficient.
+         * Expected: 2.4.7 PASS, 2.4.13 PASS
+         * Reference: C40
+         */
+      #btn-border-thick-high:focus {
+        outline: none;
+        border: 3px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus Appearance — Edge Cases (SC 2.4.13)</h1>
+    <p class="desc">
+      These buttons test boundary conditions around the AAA requirement: ≥2px
+      indicator width AND ≥3:1 contrast ratio.
+    </p>
+
+    <div>
+      <button id="btn-low-contrast-outline" class="btn">
+        1. 2px Outline, Low Contrast (FAIL AAA)
+      </button>
+    </div>
+
+    <div>
+      <button id="btn-bg-high-contrast" class="btn">
+        2. Background Change, High Contrast (PASS AAA)
+      </button>
+    </div>
+
+    <div>
+      <button id="btn-border-thick-high" class="btn">
+        3. 3px Border, High Contrast (PASS AAA)
+      </button>
+    </div>
+  </body>
+</html>

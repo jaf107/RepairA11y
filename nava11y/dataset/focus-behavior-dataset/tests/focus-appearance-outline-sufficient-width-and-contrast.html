@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus appearance outline with sufficient
+      width and contrast - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .good-outline {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        background: #fff;
+        cursor: pointer;
+      }
+      .good-outline:focus {
+        outline: 2px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus appearance outline with sufficient width and contrast</h1>
+    <main>
+      <p>
+        The button below has a 2px solid black outline on focus. Width meets the
+        2px minimum and contrast is 21:1 against the white background — well
+        above the 3:1 minimum required by WCAG 2.4.13 (AAA). Per technique C40.
+      </p>
+      <button class="good-outline">
+        Button with 2px high-contrast outline
+      </button>
+    </main>
+  </body>
+</html>

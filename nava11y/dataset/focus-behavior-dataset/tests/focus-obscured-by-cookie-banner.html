@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus obscured by cookie banner - GDS
+      accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .cookie-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cookie-banner button {
+        background: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      .banner-btn {
+        position: fixed;
+        bottom: 10px;
+        left: 20px;
+        z-index: 50;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus obscured by cookie banner</h1>
+    <main>
+      <p>
+        The button below is positioned behind a cookie consent banner overlay.
+      </p>
+      <button class="banner-btn">Button obscured by cookie banner</button>
+    </main>
+    <div class="cookie-banner">
+      <span>This site uses cookies for analytics.</span>
+      <button>Accept All</button>
+    </div>
+  </body>
+</html>

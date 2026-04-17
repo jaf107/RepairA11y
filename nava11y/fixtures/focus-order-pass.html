@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Focus Order — Correct Implementations (2.4.3)</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        background: #fff;
+        color: #333;
+      }
+
+      /* Skip link — visually hidden until focused */
+      #skip-link {
+        position: absolute;
+        top: -100px;
+        left: 10px;
+        background: #005fcc;
+        color: #fff;
+        padding: 10px 20px;
+        z-index: 1000;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      #skip-link:focus {
+        top: 10px;
+        outline: 3px solid #000;
+      }
+
+      .page-header {
+        background: #f5f5f5;
+        padding: 20px 50px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      main {
+        padding: 30px 50px;
+      }
+
+      .nav-bar {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #333;
+      }
+
+      /* Clear focus visibility for all interactive elements */
+      button:focus,
+      a:focus {
+        outline: 3px solid #000;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+        Skip link with tabindex="1" — positive tabindex exception.
+        Per WCAG G1/G124, skip links are commonly given tabindex="1"
+        so they receive focus first. NavA11y's isSkipLink() should
+        recognise this and NOT flag it as an F44 violation.
+        Expected: 2.4.3 PASS (skip link exemption)
+    -->
+    <a id="skip-link" href="#main-content" tabindex="1">Skip to main content</a>
+
+    <div class="page-header">
+      <h1>Focus Order — Correct Implementations (SC 2.4.3)</h1>
+      <p>This page has correct DOM/visual order and a legitimate skip link.</p>
+    </div>
+
+    <main id="main-content">
+      <!--
+            Three navigation buttons in correct left-to-right order.
+            DOM order (nav-1, nav-2, nav-3) matches visual order.
+            No CSS reordering applied.
+            Reference: C27, G59
+            Expected: 2.4.3 PASS (DOM matches visual order)
+        -->
+      <h2>Navigation</h2>
+      <div class="nav-bar">
+        <button id="nav-1" class="btn">Nav 1</button>
+        <button id="nav-2" class="btn">Nav 2</button>
+        <button id="nav-3" class="btn">Nav 3</button>
+      </div>
+
+      <p>
+        Tab order should proceed: Skip Link → Nav 1 → Nav 2 → Nav 3, matching
+        the visual left-to-right reading order.
+      </p>
+    </main>
+  </body>
+</html>

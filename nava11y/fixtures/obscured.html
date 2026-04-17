@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Obscured Focus Test</title>
+    <style>
+        body {
+            padding: 50px;
+            font-family: sans-serif;
+        }
+        .container {
+            position: relative;
+            margin: 200px 0;
+            padding: 20px;
+            border: 1px dashed #ccc;
+        }
+        .btn {
+            display: block;
+            width: 200px;
+            height: 100px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cover-full {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 0, 0, 1);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cover-partial {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50px;
+            background: rgba(0, 0, 255, 1);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        button:focus {
+            outline: 4px solid black;
+            outline-offset: 2px;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Focus Obscuration Test Page</h1>
+    <p>This page tests WCAG 2.4.11 (Minimum) and 2.4.12 (Enhanced) Focus Not Obscured criteria.</p>
+
+    <div class="container">
+        <!-- Normal: Should pass both 2.4.11 and 2.4.12 -->
+        <button id="btn-normal" class="btn">1. Normal Button</button>
+    </div>
+
+    <div class="container">
+        <div class="cover-full">I cover elements fully</div>
+        <!-- Fully Obscured: Entirely hidden by .cover-full. Should fail 2.4.11 and 2.4.12. -->
+        <button id="btn-fully-obscured" class="btn">2. Fully Obscured</button>
+    </div>
+
+    <div class="container">
+        <div class="cover-partial">I cover partial</div>
+        <!-- Partially Obscured: Partially hidden by .cover-partial. 
+             Should pass 2.4.11 (Minimum) but fail 2.4.12 (Enhanced). -->
+        <button id="btn-partially-obscured" class="btn">3. Partially Obscured</button>
+    </div>
+
+</body>
+</html>

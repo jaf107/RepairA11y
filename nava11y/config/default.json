@@ -1,0 +1,96 @@
+{
+  "delays": {
+    "postFocus": 300,
+    "hydration": 3000,
+    "scrollSettle": 100
+  },
+  "browser": {
+    "headless": false,
+    "slowMo": 0
+  },
+  "checks": {
+    "enabled": ["2.4.11", "2.4.12", "2.4.7", "2.4.13", "2.4.3"],
+    "registry": {
+      "2.4.11": {
+        "name": "Focus Not Obscured (Minimum)",
+        "level": "AA",
+        "checkLevel": "element",
+        "module": "../checks/2_4_11_focus_not_obscured_minimum.js",
+        "function": "checkFocusNotObscuredMinimum"
+      },
+      "2.4.12": {
+        "name": "Focus Not Obscured (Enhanced)",
+        "level": "AAA",
+        "checkLevel": "element",
+        "module": "../checks/2_4_12_focus_not_obscured_enhanced.js",
+        "function": "checkFocusNotObscuredEnhanced"
+      },
+      "2.4.7": {
+        "name": "Focus Visible",
+        "level": "AA",
+        "checkLevel": "element",
+        "module": "../checks/2_4_7_focus_visible.js",
+        "function": "checkFocusAppearance"
+      },
+      "2.4.13": {
+        "name": "Focus Appearance",
+        "level": "AAA",
+        "checkLevel": "element",
+        "module": "../checks/2_4_13_focus_appearance.js",
+        "function": "checkFocusAppearance"
+      },
+      "2.4.3": {
+        "name": "Focus Order",
+        "level": "A",
+        "checkLevel": "page",
+        "module": "../checks/2_4_3_focus_order.js",
+        "function": "checkFocusOrder"
+      }
+    }
+  },
+  "thresholds": {
+    "2.4.11": {
+      "description": "WCAG 2.4.11 Focus Not Obscured Minimum (Level AA)",
+      "maxObscuredRatio": 0.99
+    },
+    "2.4.12": {
+      "description": "WCAG 2.4.12 Focus Not Obscured Enhanced (Level AAA)",
+      "maxObscuredRatio": 0.0
+    },
+    "2.4.7": {
+      "description": "WCAG 2.4.7 Focus Visible (Level AA)",
+      "requireVisibleChange": true,
+      "outlineMinWidth": 0.5,
+      "luminanceDelta": 0.05,
+      "opacityDelta": 0.1,
+      "borderWidthDelta": 1
+    },
+    "2.4.13": {
+      "description": "WCAG 2.4.13 Focus Appearance (Level AAA)",
+      "minContrastRatio": 3,
+      "minOutlineWidth": 2,
+      "minIndicatorArea": {
+        "description": "Minimum area = 2px perimeter around element",
+        "formula": "2 * (width + height + 4) square pixels"
+      },
+      "luminanceDelta": 0.08,
+      "opacityDelta": 0.15,
+      "borderWidthDelta": 2
+    },
+    "2.4.3": {
+      "description": "WCAG 2.4.3 Focus Order (Level A)",
+      "maxOrderDivergence": 0.1
+    }
+  },
+  "reporting": {
+    "outputDir": "reports",
+    "generateJson": true,
+    "generateHtml": true,
+    "captureScreenshots": true,
+    "cleanupBeforeRun": true
+  },
+  "limits": {
+    "maxElements": 1000,
+    "maxTestDuration": 600000
+  }
+}

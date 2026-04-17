@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus appearance background with
+      insufficient contrast - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .low-bg {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        background: #fff;
+        color: #333;
+        cursor: pointer;
+      }
+      .low-bg:focus {
+        outline: none;
+        background-color: #e8e8e8;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus appearance background with insufficient contrast</h1>
+    <main>
+      <p>
+        The button below changes background from #fff to #e8e8e8 on focus. This
+        yields only ~1.14:1 contrast between the focused and unfocused
+        background colours, well below the 3:1 minimum required by WCAG 2.4.13
+        (AAA). Per technique C41.
+      </p>
+      <button class="low-bg">Button with low-contrast background change</button>
+    </main>
+  </body>
+</html>

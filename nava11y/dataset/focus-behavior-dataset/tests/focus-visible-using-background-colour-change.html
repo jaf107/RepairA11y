@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus visible using background colour
+      change - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .bg-focus {
+        background: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      .bg-focus:focus {
+        outline: none;
+        background-color: #005fcc;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus visible using background colour change</h1>
+    <main>
+      <button class="bg-focus">
+        Button with background colour change on focus
+      </button>
+    </main>
+  </body>
+</html>

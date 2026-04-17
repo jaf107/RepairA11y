@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NavA11y — Focus Violation Showcase</title>
+    <style>
+      /* ── Base ───────────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f5f5f5;
+        padding: 40px 32px;
+        color: #222;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .subtitle {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 40px;
+      }
+
+      /* ── Showcase grid ──────────────────────────────────────── */
+      .showcase {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .case-block {
+        background: white;
+        border-radius: 10px;
+        padding: 28px 32px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      .case-header {
+        margin-bottom: 20px;
+      }
+      .case-header h2 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111;
+      }
+      .case-header p {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      .badge-fail {
+        background: #ffeaea;
+        color: #c62828;
+        border: 1px solid #f5c6c6;
+      }
+      .badge-sc {
+        background: #e8f0fe;
+        color: #1a56db;
+        border: 1px solid #c3d7fb;
+      }
+
+      /* ── Two-panel layout ───────────────────────────────────── */
+      .panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .panel {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .panel-label {
+        background: #fafafa;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 6px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .panel-label .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .dot-neutral {
+        background: #9e9e9e;
+      }
+      .dot-fail {
+        background: #e53935;
+      }
+      .dot-pass {
+        background: #43a047;
+      }
+
+      .panel-body {
+        padding: 24px 20px;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+      }
+
+      /* ── Annotation overlay for "after" panel ───────────────── */
+      .annotated-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .annotation-box {
+        position: absolute;
+        border: 2px dashed #e53935;
+        border-radius: 3px;
+        pointer-events: none;
+      }
+      .annotation-label {
+        position: absolute;
+        background: #e53935;
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 3px;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      /* ── Note box below panels ──────────────────────────────── */
+      .case-note {
+        margin-top: 14px;
+        font-size: 12px;
+        color: #555;
+        background: #fafafa;
+        border-left: 3px solid #1a56db;
+        padding: 8px 12px;
+        border-radius: 0 4px 4px 0;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 1 — SC 2.4.7  Barely-visible box-shadow focus
+          (like YouTube's search bar)
+       ══════════════════════════════════════════════════════════ */
+      .yt-search-wrap {
+        display: flex;
+        align-items: center;
+        width: 320px;
+        border: 1px solid #ccc;
+        border-radius: 24px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .yt-search-icon {
+        padding: 8px 14px;
+        color: #666;
+        font-size: 15px;
+        border-right: 1px solid #e0e0e0;
+      }
+      .yt-search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        padding: 8px 12px;
+        background: transparent;
+      }
+      /* Violation: only a faint inset box-shadow on focus — no outline */
+      .yt-search-input.violated:focus {
+        outline: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .yt-search-btn {
+        background: #f8f8f8;
+        border: none;
+        border-left: 1px solid #e0e0e0;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-size: 15px;
+        color: #444;
+      }
+      /* ── after-panel bounding box position for case 1 ── */
+      #case1-after .annotation-box {
+        top: 3px;
+        left: 0;
+        right: 0;
+        bottom: 3px;
+      }
+      #case1-after .annotation-label {
+        top: -18px;
+        left: 0;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 2 — SC 2.4.13  1 px outline (below 2 px minimum)
+       ══════════════════════════════════════════════════════════ */
+      .thin-outline-btn {
+        font-size: 14px;
+        padding: 10px 22px;
+        border: 1px solid #1a73e8;
+        border-radius: 4px;
+        background: white;
+        color: #1a73e8;
+        cursor: pointer;
+      }
+      .thin-outline-btn:focus {
+        outline: 1px solid #1a73e8; /* only 1px — violates SC 2.4.13 */
+        outline-offset: 2px;
+      }
+      #case2-after .annotation-box {
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+      }
+      #case2-after .annotation-label {
+        top: -20px;
+        left: 0;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 3 — SC 2.4.7  F78 — border REMOVED on focus
+                (border disappears when outline is added,
+                 net change is zero → no visible indicator)
+       ══════════════════════════════════════════════════════════ */
+      .f78-btn {
+        font-size: 14px;
+        padding: 10px 22px;
+        border: 2px solid #333;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        cursor: pointer;
+      }
+      /* On focus: border removed, 1px outline added — net regression */
+      .f78-btn:focus {
+        border: 2px solid transparent; /* border removed */
+        outline: 1px solid #999; /* weak outline added — net regression */
+        outline-offset: 0;
+      }
+      #case3-after .annotation-box {
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+      }
+      #case3-after .annotation-label {
+        top: -20px;
+        left: 0;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 4 — SC 2.4.13  Low-contrast outline (fails 3:1)
+       ══════════════════════════════════════════════════════════ */
+      .low-contrast-btn {
+        font-size: 14px;
+        padding: 10px 22px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        cursor: pointer;
+      }
+      /* Light grey outline: white bg (#fff) vs #c8c8c8 → contrast ~1.2:1, fails 3:1 */
+      .low-contrast-btn:focus {
+        outline: 3px solid #c8c8c8;
+        outline-offset: 2px;
+      }
+      #case4-after .annotation-box {
+        top: -8px;
+        left: -8px;
+        right: -8px;
+        bottom: -8px;
+      }
+      #case4-after .annotation-label {
+        top: -22px;
+        left: 0;
+      }
+
+      /* ── Shared: simulated focus ring ─────────────────────── */
+      .sim-focus {
+        outline: 3px solid #1a73e8 !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(26, 115, 232, 0.15);
+      }
+      .sim-focus-input {
+        border-color: #1a73e8 !important;
+        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
+      }
+      /* Skipped element marker */
+      .skipped {
+        position: relative;
+      }
+      .skipped::after {
+        content: "SKIPPED";
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 42px;
+        background: #e53935;
+        color: white;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 3px;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .skipped > input,
+      .skipped > button {
+        border: 2px dashed #e53935 !important;
+      }
+      /* Dimmed unreachable element */
+      .unreachable {
+        opacity: 0.35;
+        pointer-events: none;
+      }
+      .unreachable-label {
+        font-size: 10px;
+        color: #e53935;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 2px;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 5 — SC 2.4.3  Positive tabindex scrambles order
+       ══════════════════════════════════════════════════════════ */
+      .fo-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 260px;
+      }
+      .fo-field {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        position: relative;
+      }
+      .fo-field label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #333;
+      }
+      .fo-field input {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 13px;
+        outline: none;
+      }
+      .fo-submit {
+        padding: 9px 18px;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        align-self: flex-start;
+      }
+      .tabindex-tag {
+        display: block;
+        font-size: 10px;
+        color: #999;
+        font-family: monospace;
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 6 — SC 2.4.3  CSS flex row-reverse visual mismatch
+       ══════════════════════════════════════════════════════════ */
+      .nav-bar-reversed {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 10px;
+        align-items: center;
+      }
+      .nav-btn {
+        padding: 8px 18px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-btn-primary {
+        background: #1a73e8;
+        color: white;
+        border-color: #1a73e8;
+      }
+
+      /* ══════════════════════════════════════════════════════════
+       CASE 7 — SC 2.4.3  Focus trap
+       ══════════════════════════════════════════════════════════ */
+      .trap-modal {
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        width: 280px;
+        background: #fff;
+        position: relative;
+      }
+      .trap-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .trap-input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+      .trap-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        background: #1a73e8;
+        color: white;
+      }
+      .trap-outside {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .trap-outside-btn {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fafafa;
+        color: #333;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NavA11y — Focus Violation Examples</h1>
+    <p class="subtitle">
+      Each row shows the unfocused state (left) and the focused state (right).
+      Red dashed outlines mark the detected violation.
+    </p>
+
+    <div class="showcase">
+      <!-- ════════════════════════════════════════════════════
+         CASE 1 — SC 2.4.7  Barely-visible focus indicator
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.7</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Visible — inset box-shadow only, no outline
+          </h2>
+          <p>
+            The search input applies only a faint
+            <code>inset 0 1px 2px rgba(0,0,0,.3)</code> box-shadow on focus. No
+            outline, no border change. The change is imperceptible to low-vision
+            users.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- Before -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-neutral"></span> Before focus
+            </div>
+            <div class="panel-body">
+              <div class="yt-search-wrap">
+                <span class="yt-search-icon">&#128269;</span>
+                <input
+                  class="yt-search-input violated"
+                  type="text"
+                  placeholder="Search"
+                  tabindex="-1"
+                />
+                <button class="yt-search-btn" tabindex="-1">&#127908;</button>
+              </div>
+            </div>
+          </div>
+          <!-- After -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> After focus — violation
+              detected
+            </div>
+            <div class="panel-body">
+              <div class="annotated-wrap" id="case1-after">
+                <div
+                  class="yt-search-wrap"
+                  style="box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3)"
+                >
+                  <span class="yt-search-icon">&#128269;</span>
+                  <input
+                    class="yt-search-input violated"
+                    type="text"
+                    placeholder="Search"
+                    tabindex="-1"
+                    style="box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3)"
+                  />
+                  <button class="yt-search-btn" tabindex="-1">&#127908;</button>
+                </div>
+                <div class="annotation-box"></div>
+                <div class="annotation-label" style="top: -20px; left: 0">
+                  No visible focus indicator
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>detectFocusChanges()</code> — no
+          medium/high-confidence visual change found between before and after
+          states.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 2 — SC 2.4.13  1 px outline (min is 2 px)
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.13</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Appearance — outline width 1 px (minimum: 2 px)
+          </h2>
+          <p>
+            The button shows a <code>1px solid #1a73e8</code> outline on focus.
+            WCAG 2.4.13 requires a minimum perimeter thickness of 2 CSS pixels.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- Before -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-neutral"></span> Before focus
+            </div>
+            <div class="panel-body">
+              <button class="thin-outline-btn" tabindex="-1">Sign in</button>
+            </div>
+          </div>
+          <!-- After -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> After focus — violation
+              detected
+            </div>
+            <div class="panel-body">
+              <div class="annotated-wrap" id="case2-after">
+                <button
+                  class="thin-outline-btn"
+                  tabindex="-1"
+                  style="outline: 1px solid #1a73e8; outline-offset: 2px"
+                >
+                  Sign in
+                </button>
+                <div class="annotation-box"></div>
+                <div class="annotation-label" style="top: -20px; left: 0">
+                  outline-width: 1px &lt; 2px minimum
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>check2413()</code> —
+          <code>outlineWidth</code> snapshot = 1 px, below the 2 px threshold.
+          Also fails 3:1 contrast check if text colour is similar to outline
+          colour.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 3 — SC 2.4.7  F78 — border removed on focus
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.7</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Visible — F78 border regression (border removed on focus)
+          </h2>
+          <p>
+            The button has a solid <code>2px #333</code> border before focus. On
+            focus the border becomes <code>transparent</code> while only a weak
+            <code>1px #999</code> outline is added — a net negative change. WCAG
+            failure technique F78.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- Before -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-neutral"></span> Before focus
+            </div>
+            <div class="panel-body">
+              <button class="f78-btn" tabindex="-1">Subscribe</button>
+            </div>
+          </div>
+          <!-- After -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> After focus — violation
+              detected
+            </div>
+            <div class="panel-body">
+              <div class="annotated-wrap" id="case3-after">
+                <button
+                  class="f78-btn"
+                  tabindex="-1"
+                  style="
+                    border: 2px solid transparent;
+                    outline: 1px solid #999;
+                    outline-offset: 0;
+                  "
+                >
+                  Subscribe
+                </button>
+                <div class="annotation-box"></div>
+                <div class="annotation-label" style="top: -20px; left: 0">
+                  F78: border removed, weak outline added
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>detectFocusChanges()</code> —
+          border <em>decreased</em> on focus without a compensating positive
+          indicator (outline added &lt; border removed). Classified as F78
+          regression → FAIL.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 4 — SC 2.4.13  Low-contrast outline (fails 3:1)
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.13</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Appearance — outline contrast 1.2:1 (minimum: 3:1)
+          </h2>
+          <p>
+            The button shows a <code>3px solid #c8c8c8</code> outline on focus.
+            Width is sufficient (3 px ≥ 2 px) but the contrast of
+            <strong>#c8c8c8</strong>
+            against a white background is only ~1.2:1 — well below the 3:1
+            minimum.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- Before -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-neutral"></span> Before focus
+            </div>
+            <div class="panel-body">
+              <button class="low-contrast-btn" tabindex="-1">Learn more</button>
+            </div>
+          </div>
+          <!-- After -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> After focus — violation
+              detected
+            </div>
+            <div class="panel-body">
+              <div class="annotated-wrap" id="case4-after">
+                <button
+                  class="low-contrast-btn"
+                  tabindex="-1"
+                  style="outline: 3px solid #c8c8c8; outline-offset: 2px"
+                >
+                  Learn more
+                </button>
+                <div class="annotation-box"></div>
+                <div class="annotation-label" style="top: -22px; left: 0">
+                  outline contrast #c8c8c8/white ≈ 1.2:1 &lt; 3:1
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>check2413()</code> —
+          <code>outlineColor</code> snapshot gives #c8c8c8;
+          <code>calculateContrastRatio(#c8c8c8, #ffffff)</code> = 1.22, below
+          the 3.0 threshold.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 5 — SC 2.4.3  Positive tabindex scrambles order
+         (WCAG Failure Technique F44)
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.3</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Order — positive <code>tabindex</code> scrambles focus
+            sequence (F44)
+          </h2>
+          <p>
+            The form uses <code>tabindex</code> values of 1, 3, 2. The first Tab
+            lands on <em>Email</em> (tabindex="1"), then jumps to
+            <em>Phone</em> (tabindex="2") — skipping over <em>Name</em>
+            in the middle. Name (tabindex="3") won't receive focus until 3rd
+            Tab.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- State 1: first Tab press -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> 1st Tab — focus lands on Email
+              (top)
+            </div>
+            <div class="panel-body">
+              <div class="fo-form">
+                <div class="fo-field">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    placeholder="jane@example.com"
+                    tabindex="-1"
+                    class="sim-focus-input"
+                  />
+                  <span class="tabindex-tag">tabindex="1" ← focused</span>
+                </div>
+                <div class="fo-field">
+                  <label>Name</label>
+                  <input type="text" placeholder="Jane Doe" tabindex="-1" />
+                  <span class="tabindex-tag">tabindex="3"</span>
+                </div>
+                <div class="fo-field">
+                  <label>Phone</label>
+                  <input type="tel" placeholder="+1 555-1234" tabindex="-1" />
+                  <span class="tabindex-tag">tabindex="2"</span>
+                </div>
+                <button class="fo-submit" tabindex="-1">Submit</button>
+              </div>
+            </div>
+          </div>
+          <!-- State 2: second Tab press -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> 2nd Tab — jumps over Name to
+              Phone
+            </div>
+            <div class="panel-body">
+              <div class="fo-form">
+                <div class="fo-field">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    placeholder="jane@example.com"
+                    tabindex="-1"
+                  />
+                  <span class="tabindex-tag">tabindex="1"</span>
+                </div>
+                <div class="fo-field skipped">
+                  <label>Name</label>
+                  <input type="text" placeholder="Jane Doe" tabindex="-1" />
+                  <span class="tabindex-tag">tabindex="3"</span>
+                </div>
+                <div class="fo-field">
+                  <label>Phone</label>
+                  <input
+                    type="tel"
+                    placeholder="+1 555-1234"
+                    tabindex="-1"
+                    class="sim-focus-input"
+                  />
+                  <span class="tabindex-tag">tabindex="2" ← focused</span>
+                </div>
+                <button class="fo-submit" tabindex="-1">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong>
+          <code>detectPositiveTabindexViolations()</code> — flags all elements
+          with <code>tabindex &gt; 0</code>. Order divergence (Kendall&nbsp;τ)
+          rises above the 0.10 threshold because actual sequence deviates from
+          DOM order.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 6 — SC 2.4.3  CSS flex row-reverse mismatch
+         (WCAG Technique C27 — DOM order matches visual order)
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.3</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Order — CSS <code>flex-direction: row-reverse</code> breaks
+            visual sequence
+          </h2>
+          <p>
+            <code>flex-direction: row-reverse</code> renders buttons as
+            <em>Submit → Next → Back</em> visually. But Tab follows DOM order —
+            the first Tab focuses "Back" on the right, and the second Tab moves
+            focus <em>leftward</em> to "Next" instead of rightward.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- State 1: first Tab -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> 1st Tab — focus starts at
+              rightmost button
+            </div>
+            <div class="panel-body">
+              <div class="nav-bar-reversed">
+                <button class="nav-btn sim-focus" tabindex="-1">Back</button>
+                <button class="nav-btn" tabindex="-1">Next</button>
+                <button class="nav-btn nav-btn-primary" tabindex="-1">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- State 2: second Tab -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> 2nd Tab — focus moves left
+              (backward visually)
+            </div>
+            <div class="panel-body">
+              <div class="annotated-wrap">
+                <div class="nav-bar-reversed">
+                  <button class="nav-btn" tabindex="-1">Back</button>
+                  <button class="nav-btn sim-focus" tabindex="-1">Next</button>
+                  <button class="nav-btn nav-btn-primary" tabindex="-1">
+                    Submit
+                  </button>
+                </div>
+                <div
+                  class="annotation-label"
+                  style="
+                    bottom: -24px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
+                  "
+                >
+                  Focus moved ← instead of → (DOM order ≠ visual order)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>calculateSpatialOrder()</code> —
+          compares bounding-box left-to-right / top-to-bottom positions against
+          actual tab sequence. Spatial order divergence exceeds the 0.10
+          Kendall&nbsp;τ threshold.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+         CASE 7 — SC 2.4.3  Focus trap
+         ════════════════════════════════════════════════════ -->
+      <div class="case-block">
+        <div class="case-header">
+          <h2>
+            <span class="badge badge-sc">SC 2.4.3</span>
+            <span class="badge badge-fail">FAIL</span>
+            Focus Order — keyboard focus trap
+          </h2>
+          <p>
+            A modal traps keyboard focus. The first Tab enters the modal input.
+            After several more Tabs, focus is <em>still</em> stuck inside — the
+            page links outside remain unreachable.
+          </p>
+        </div>
+
+        <div class="panels">
+          <!-- State 1: Enter the modal -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-neutral"></span> 1st Tab — focus enters modal
+            </div>
+            <div class="panel-body">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  align-items: center;
+                "
+              >
+                <div class="trap-modal">
+                  <div class="trap-modal-title">Newsletter Signup</div>
+                  <input
+                    class="trap-input sim-focus-input"
+                    type="email"
+                    placeholder="your@email.com"
+                    tabindex="-1"
+                  />
+                  <button class="trap-btn" tabindex="-1">Subscribe</button>
+                </div>
+                <div class="trap-outside">
+                  <button class="trap-outside-btn" tabindex="-1">
+                    Main page link
+                  </button>
+                  <button class="trap-outside-btn" tabindex="-1">
+                    Footer link
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- State 2: Still stuck after many tabs -->
+          <div class="panel">
+            <div class="panel-label">
+              <span class="dot dot-fail"></span> 5th Tab — still trapped, page
+              content unreachable
+            </div>
+            <div class="panel-body">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  align-items: center;
+                "
+              >
+                <div class="trap-modal" style="border-color: #e53935">
+                  <div class="trap-modal-title">Newsletter Signup</div>
+                  <input
+                    class="trap-input sim-focus-input"
+                    type="email"
+                    placeholder="your@email.com"
+                    tabindex="-1"
+                  />
+                  <button class="trap-btn" tabindex="-1">Subscribe</button>
+                </div>
+                <div class="trap-outside">
+                  <button class="trap-outside-btn unreachable" tabindex="-1">
+                    Main page link
+                  </button>
+                  <div class="unreachable-label">unreachable</div>
+                  <button class="trap-outside-btn unreachable" tabindex="-1">
+                    Footer link
+                  </button>
+                  <div class="unreachable-label">unreachable</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-note">
+          <strong>Detected by:</strong> <code>detectFocusTraps()</code> — if the
+          same element selector appears 3+ times consecutively in the recorded
+          tab sequence, it is flagged as a keyboard trap. Also triggers
+          truncated-sequence detection when &lt;50% of focusable elements are
+          reached.
+        </div>
+      </div>
+    </div>
+    <!-- /.showcase -->
+  </body>
+</html>

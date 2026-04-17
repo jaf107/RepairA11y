@@ -1,4 +1,7 @@
 node_modules/
+nava11y/node_modules/
+# nava11y/ is a vendored copy of the NavA11y sibling repo — do not edit it here
+nava11y/reports/
 .env
 experiments/results/
 # screenshot artifacts

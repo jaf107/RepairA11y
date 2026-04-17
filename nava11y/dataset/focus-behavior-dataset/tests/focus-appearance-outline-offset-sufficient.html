@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Accessibility tools audit test - Focus appearance outline offset with
+      sufficient width and contrast - GDS accessibility team
+    </title>
+    <script src="../assets/javascript/jquery-1.12.0.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/tests.css" />
+    <style>
+      .offset-outline {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        background: #fff;
+        cursor: pointer;
+      }
+      .offset-outline:focus {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Focus appearance outline offset with sufficient width and contrast</h1>
+    <main>
+      <p>
+        The button below has a 2px solid black outline with a 2px offset on
+        focus. Width meets the 2px minimum, contrast is 21:1 against the white
+        background, and the offset provides additional visual prominence. Meets
+        WCAG 2.4.13 (AAA). Per technique C42.
+      </p>
+      <button class="offset-outline">
+        Button with offset high-contrast outline
+      </button>
+    </main>
+  </body>
+</html>
