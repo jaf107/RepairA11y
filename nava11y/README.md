@@ -58,6 +58,31 @@ Reports are generated in `reports/<site>/`:
 - `index.html` — interactive report with per-SC filtering and annotated screenshots
 - `results.json` — machine-readable results with full evidence
 
+### Evidence schema — style snapshots (SC 2.4.7 / 2.4.13)
+
+For element-level records with `sc: "2.4.7"` or `sc: "2.4.13"` and `result: "FAIL" | "REVIEW"`, `evidence.styleSnapshots` contains the raw computed-style snapshots captured before and after focus:
+
+```json
+"evidence": {
+  "styleSnapshots": {
+    "before": {
+      "outlineStyle": "none", "outlineWidth": 0, "outlineColor": "rgb(...)", "outlineOffset": 0,
+      "boxShadow": "none",
+      "borderTopWidth": 0, "borderTopColor": "rgb(...)", "borderColor": "rgb(...)",
+      "backgroundColor": "rgb(...)", "color": "rgb(...)", "opacity": 1,
+      "transform": "none", "visibility": "visible", "display": "inline-block",
+      "textDecoration": "none", "textDecorationColor": "rgb(...)",
+      "fontWeight": "400", "position": "static", "zIndex": "auto",
+      "transition": "all 0s ease 0s", "filter": "none",
+      "clip": "auto", "clipPath": "none"
+    },
+    "after": { ...same shape, post-focus values... }
+  }
+}
+```
+
+Absent on PASS records and on other SCs. Consumers should treat the field as optional for forward compat with older reports.
+
 ## Datasets
 
 ### D_d — Focus Behavior Dataset (Synthetic, Labeled)
