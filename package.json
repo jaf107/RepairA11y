@@ -1,0 +1,19 @@
+{
+  "name": "repair-a11y",
+  "version": "0.1.0",
+  "description": "Automated repair system for WCAG 2.4 focus-behavior violations — thesis chapter 2 follow-up to NavA11y",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "run:rq1": "node scripts/run_rq1.js",
+    "run:rq2": "node scripts/run_rq2.js",
+    "run:rq3": "node scripts/run_rq3.js",
+    "run:rq4": "node scripts/run_rq4.js"
+  },
+  "dependencies": {
+    "playwright": "^1.58.0"
+  },
+  "devDependencies": {}
+}

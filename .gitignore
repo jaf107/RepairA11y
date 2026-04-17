@@ -1,0 +1,11 @@
+node_modules/
+.env
+experiments/results/
+# screenshot artifacts
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.webp
+# playwright state
+playwright-state/
+test-results/
