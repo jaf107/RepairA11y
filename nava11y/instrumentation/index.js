@@ -44,10 +44,18 @@ window.__snapshotComputedStyle = function (el) {
     visibility: cs.visibility,
     display: cs.display,
 
+    textDecoration: cs.textDecoration,
     textDecorationLine: cs.textDecorationLine,
     textDecorationStyle: cs.textDecorationStyle,
     textDecorationColor: cs.textDecorationColor,
     textDecorationThickness: cs.textDecorationThickness,
+
+    fontWeight: cs.fontWeight,
+    position: cs.position,
+    zIndex: cs.zIndex,
+    transition: cs.transition,
+    clip: cs.clip,
+    clipPath: cs.clipPath,
 
     filter: cs.filter,
     isFocusVisible: el.matches ? el.matches(":focus-visible") : false,

@@ -496,9 +496,22 @@ async function run(url) {
             );
           }
 
+          // Attach raw style snapshots to evidence for focus-appearance SCs
+          // (consumed by downstream repair tooling; preserves backwards compat).
+          const attachSnapshots =
+            (check.id === "2.4.7" || check.id === "2.4.13") &&
+            (result.result === "FAIL" || result.result === "REVIEW");
+          const evidenceWithSnapshots = attachSnapshots
+            ? {
+                ...(result.evidence || {}),
+                styleSnapshots: { before: beforeStyle, after: afterStyle },
+              }
+            : result.evidence;
+
           // Push result for this check
           results.push({
             ...result,
+            ...(attachSnapshots && { evidence: evidenceWithSnapshots }),
             ...(result.result === "FAIL" && { id: crypto.randomUUID() }),
             element: elMetadata,
             screenshot: screenshot,
