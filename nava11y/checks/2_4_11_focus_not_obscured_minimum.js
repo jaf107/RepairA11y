@@ -25,7 +25,8 @@ export function checkFocusNotObscuredMinimum(trace, config = {}) {
       reason: `Focused element is entirely hidden by other content (obscured by: ${(obscuration.obscuredBy || []).join(', ')})`,
       evidence: {
         obscuredRatio: obscuration.obscuredRatio,
-        obscuredBy: obscuration.obscuredBy
+        obscuredBy: obscuration.obscuredBy,
+        obscurers: obscuration.obscurers || []
       },
       sc: '2.4.11'
     };
@@ -37,7 +38,8 @@ export function checkFocusNotObscuredMinimum(trace, config = {}) {
       reason: `Focused element is partially obscured but still visible (${(obscuration.obscuredRatio * 100).toFixed(1)}% hidden)`,
       evidence: {
         obscuredRatio: obscuration.obscuredRatio,
-        obscuredBy: obscuration.obscuredBy
+        obscuredBy: obscuration.obscuredBy,
+        obscurers: obscuration.obscurers || []
       },
       sc: '2.4.11'
     };

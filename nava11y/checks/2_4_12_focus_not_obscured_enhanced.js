@@ -26,7 +26,8 @@ export function checkFocusNotObscuredEnhanced(trace, config = {}) {
       reason: `Focused element is obscured by other content (${(obscuration.obscuredRatio * 100).toFixed(1)}% hidden. Obscured by: ${(obscuration.obscuredBy || []).join(', ')})`,
       evidence: {
         obscuredRatio: obscuration.obscuredRatio,
-        obscuredBy: obscuration.obscuredBy
+        obscuredBy: obscuration.obscuredBy,
+        obscurers: obscuration.obscurers || []
       },
       sc: '2.4.12'
     };

@@ -83,6 +83,27 @@ For element-level records with `sc: "2.4.7"` or `sc: "2.4.13"` and `result: "FAI
 
 Absent on PASS records and on other SCs. Consumers should treat the field as optional for forward compat with older reports.
 
+### Evidence schema — obscurer details (SC 2.4.11 / 2.4.12)
+
+For element-level records with `sc: "2.4.11"` or `sc: "2.4.12"`, `evidence.obscurers` lists each distinct element detected as obscuring the focused target, with full positional + stacking context needed by repair tooling. The pre-existing `evidence.obscuredBy` array (selector strings only) is retained for backwards compatibility.
+
+```json
+"evidence": {
+  "obscuredRatio": 0.24,
+  "obscuredBy": ["header.site-header"],
+  "obscurers": [
+    {
+      "selector": "header.site-header",
+      "bbox": { "top": 0, "left": 0, "width": 1280, "height": 80 },
+      "position": "fixed",
+      "zIndex": 1000
+    }
+  ]
+}
+```
+
+`zIndex` is the string `"auto"` when the computed value is `auto`, otherwise an integer. `obscurers` is an empty array on PASS records with no detected obscurer and on REVIEW records with missing obscuration data.
+
 ## Datasets
 
 ### D_d — Focus Behavior Dataset (Synthetic, Labeled)

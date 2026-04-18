@@ -91,6 +91,8 @@ window.__getObscurationData = function (el) {
       obscuredRatio: 0,
       isFullyObscured: false,
       isPartiallyObscured: false,
+      obscuredBy: [],
+      obscurers: [],
     };
 
   const rect = el.getBoundingClientRect();
@@ -99,6 +101,8 @@ window.__getObscurationData = function (el) {
       obscuredRatio: 1,
       isFullyObscured: true,
       isPartiallyObscured: true,
+      obscuredBy: [],
+      obscurers: [],
     };
   }
 
@@ -121,6 +125,8 @@ window.__getObscurationData = function (el) {
       obscuredRatio: 1,
       isFullyObscured: true,
       isPartiallyObscured: true,
+      obscuredBy: [],
+      obscurers: [],
     };
   }
 
@@ -132,7 +138,10 @@ window.__getObscurationData = function (el) {
   const stepX = visibleWidth / (pointsX + 1);
   const stepY = visibleHeight / (pointsY + 1);
 
-  const obscuringElements = new Set();
+  // Track each distinct obscurer once, keyed by its computed selector.
+  // Value carries bbox + position + zIndex so downstream tooling can reason
+  // about sticky headers / overlays without re-querying the DOM.
+  const obscurers = new Map();
 
   for (let i = 1; i <= pointsX; i++) {
     for (let j = 1; j <= pointsY; j++) {
@@ -174,16 +183,34 @@ window.__getObscurationData = function (el) {
         ) {
           isObscuredAtPoint = true;
 
+          let selector;
           if (topEl.id) {
-            obscuringElements.add("#" + topEl.id);
+            selector = "#" + topEl.id;
           } else if (topEl.className && typeof topEl.className === "string") {
-            obscuringElements.add(
+            selector =
               topEl.tagName.toLowerCase() +
-                "." +
-                topEl.className.split(" ").join("."),
-            );
+              "." +
+              topEl.className.split(" ").join(".");
           } else {
-            obscuringElements.add(topEl.tagName.toLowerCase());
+            selector = topEl.tagName.toLowerCase();
+          }
+
+          if (!obscurers.has(selector)) {
+            const oRect = topEl.getBoundingClientRect();
+            const rawZ = style.zIndex;
+            const zIndex =
+              rawZ === "auto" || rawZ === "" ? "auto" : parseInt(rawZ, 10) || 0;
+            obscurers.set(selector, {
+              selector,
+              bbox: {
+                top: oRect.top,
+                left: oRect.left,
+                width: oRect.width,
+                height: oRect.height,
+              },
+              position: style.position,
+              zIndex,
+            });
           }
           break;
         }
@@ -203,7 +230,8 @@ window.__getObscurationData = function (el) {
     obscuredRatio,
     isPartiallyObscured: obscuredRatio > 0,
     isFullyObscured,
-    obscuredBy: Array.from(obscuringElements),
+    obscuredBy: Array.from(obscurers.keys()),
+    obscurers: Array.from(obscurers.values()),
   };
 };
 
