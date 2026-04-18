@@ -81,6 +81,10 @@ function detectPositiveTabindexViolations(elements) {
       selector: el.selector,
       tabIndex: el.tabIndex,
       tagName: el.tagName,
+      position: {
+        top: el.bbox?.top ?? null,
+        left: el.bbox?.left ?? null,
+      },
     })),
     count: positiveTabIndexElements.length,
     severity: "high",
@@ -337,6 +341,9 @@ export function checkFocusOrder(pageData, config = {}) {
     (v) => v.severity === "medium",
   );
 
+  const positiveTabindexElements =
+    violations.find((v) => v.type === "positive-tabindex")?.elements || [];
+
   if (highSeverityViolations.length > 0) {
     return {
       result: "FAIL",
@@ -348,6 +355,7 @@ export function checkFocusOrder(pageData, config = {}) {
           tabIndex: el.tabIndex,
           position: { top: el.bbox?.top, left: el.bbox?.left },
         })),
+        positiveTabindexElements,
         summary: {
           totalFocusable: tabSequence.length,
           positiveTabindex:
@@ -371,6 +379,7 @@ export function checkFocusOrder(pageData, config = {}) {
           tabIndex: el.tabIndex,
           position: { top: el.bbox?.top, left: el.bbox?.left },
         })),
+        positiveTabindexElements,
         summary: {
           totalFocusable: tabSequence.length,
           orderDivergence: orderDivergence.toFixed(2),
