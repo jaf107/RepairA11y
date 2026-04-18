@@ -7,6 +7,9 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "smoke:detector": "node scripts/smoke-detector.js",
     "run:rq1": "node scripts/run_rq1.js",
     "run:rq2": "node scripts/run_rq2.js",
     "run:rq3": "node scripts/run_rq3.js",
@@ -15,5 +18,7 @@
   "dependencies": {
     "playwright": "^1.58.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "vitest": "^2.1.0"
+  }
 }
