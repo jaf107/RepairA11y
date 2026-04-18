@@ -104,6 +104,19 @@ For element-level records with `sc: "2.4.11"` or `sc: "2.4.12"`, `evidence.obscu
 
 `zIndex` is the string `"auto"` when the computed value is `auto`, otherwise an integer. `obscurers` is an empty array on PASS records with no detected obscurer and on REVIEW records with missing obscuration data.
 
+### Evidence schema — positive tabindex elements (SC 2.4.3)
+
+Page-level records for SC 2.4.3 with `result: "FAIL"` or `result: "REVIEW"` expose a top-level `evidence.positiveTabindexElements[]` array listing every element flagged under W3C Failure Technique F44 (positive `tabindex`). Each entry carries the element's selector, effective `tabIndex`, `tagName`, and its on-page `position` (top / left from `getBoundingClientRect()`), enabling downstream consumers to localize and remediate each offender without replaying the page.
+
+```json
+"evidence": {
+  "positiveTabindexElements": [
+    { "selector": "#save-btn", "tabIndex": 3, "tagName": "button", "position": { "top": 120, "left": 800 } }
+  ]
+}
+```
+
+Skip links (anchors targeting `#…` with conventional class/id patterns) are exempt and therefore excluded from this array.
 ## Datasets
 
 ### D_d — Focus Behavior Dataset (Synthetic, Labeled)
