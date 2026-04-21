@@ -1,0 +1,14 @@
+{
+  "fixture": "nava11y/dataset/focus-behavior-dataset/tests/keyboard-access-tabindex-greater-than-0.html",
+  "sc": "2.4.3",
+  "patch": {
+    "patch_type": "attr_set",
+    "target_selector": "a[tabindex='5']",
+    "payload": {
+      "attribute": "tabindex",
+      "value": "0"
+    },
+    "rationale": "A tabindex value > 0 (here: 5) inserts the element ahead of all tabindex=0 elements in the tab sequence, violating natural DOM order. Setting tabindex to 0 restores the element's position in the natural tab sequence without removing keyboard reachability.",
+    "wcag_technique_cited": "F44"
+  }
+}

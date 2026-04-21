@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "repaira11y/patch",
+  "title": "RepairA11y Typed Patch",
+  "description": "A single typed repair action produced by a generator and applied by the patch applier.",
+  "oneOf": [
+    { "$ref": "#/definitions/css_inject" },
+    { "$ref": "#/definitions/attr_set" },
+    { "$ref": "#/definitions/dom_reorder" },
+    { "$ref": "#/definitions/style_override" }
+  ],
+  "definitions": {
+    "common_fields": {
+      "type": "object",
+      "required": ["patch_type", "target_selector", "payload", "rationale", "wcag_technique_cited"],
+      "properties": {
+        "target_selector": {
+          "type": "string",
+          "minLength": 1,
+          "description": "CSS selector identifying the element to repair."
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable explanation of why this patch fixes the violation."
+        },
+        "wcag_technique_cited": {
+          "description": "Relevant W3C technique or failure identifier, or null.",
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "enum": ["C15", "C27", "C40", "F44", "F78", "G1"] }
+          ]
+        }
+      }
+    },
+    "css_inject": {
+      "allOf": [
+        { "$ref": "#/definitions/common_fields" },
+        {
+          "properties": {
+            "patch_type": { "type": "string", "const": "css_inject" },
+            "payload": {
+              "type": "object",
+              "required": ["rule"],
+              "properties": {
+                "rule": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "A complete CSS rule string to inject into a <style> block."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": ["patch_type"]
+        }
+      ]
+    },
+    "attr_set": {
+      "allOf": [
+        { "$ref": "#/definitions/common_fields" },
+        {
+          "properties": {
+            "patch_type": { "type": "string", "const": "attr_set" },
+            "payload": {
+              "type": "object",
+              "required": ["attribute", "value"],
+              "properties": {
+                "attribute": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "HTML attribute name to set on target_selector."
+                },
+                "value": {
+                  "type": ["string", "null"],
+                  "description": "New attribute value, or null to remove the attribute."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": ["patch_type"]
+        }
+      ]
+    },
+    "dom_reorder": {
+      "allOf": [
+        { "$ref": "#/definitions/common_fields" },
+        {
+          "properties": {
+            "patch_type": { "type": "string", "const": "dom_reorder" },
+            "payload": {
+              "type": "object",
+              "required": ["parent_selector", "insert_before_selector"],
+              "properties": {
+                "parent_selector": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "CSS selector of the new parent element."
+                },
+                "insert_before_selector": {
+                  "type": ["string", "null"],
+                  "description": "Move target before this sibling, or null to append last."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": ["patch_type"]
+        }
+      ]
+    },
+    "style_override": {
+      "allOf": [
+        { "$ref": "#/definitions/common_fields" },
+        {
+          "properties": {
+            "patch_type": { "type": "string", "const": "style_override" },
+            "payload": {
+              "type": "object",
+              "required": ["property", "value"],
+              "properties": {
+                "property": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "CSS property name (camelCase or kebab-case)."
+                },
+                "value": {
+                  "type": "string",
+                  "description": "CSS property value to apply via element.style."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": ["patch_type"]
+        }
+      ]
+    }
+  }
+}

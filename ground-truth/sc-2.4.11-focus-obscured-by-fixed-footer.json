@@ -1,0 +1,13 @@
+{
+  "fixture": "nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+  "sc": "2.4.11",
+  "patch": {
+    "patch_type": "css_inject",
+    "target_selector": "button.footer-btn",
+    "payload": {
+      "rule": ".footer-btn { z-index: 150; }"
+    },
+    "rationale": "The focused button (z-index: 50, position: fixed) is visually covered by the fixed footer (z-index: 100). Raising the button's z-index to 150 places it above the footer, ensuring the focused element is not obscured (SC 2.4.11 Minimum). The fixed-footer stacking context is the only obscurer detected.",
+    "wcag_technique_cited": null
+  }
+}
