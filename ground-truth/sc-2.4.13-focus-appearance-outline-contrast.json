@@ -1,0 +1,13 @@
+{
+  "fixture": "nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-contrast.html",
+  "sc": "2.4.13",
+  "patch": {
+    "patch_type": "css_inject",
+    "target_selector": "button.aaa-outline",
+    "payload": {
+      "rule": "button.aaa-outline:focus { outline-color: #767676; }"
+    },
+    "rationale": "The existing :focus rule uses outline-color #999 (2.85:1 contrast against white #fff), below the SC 2.4.13 minimum of 3:1. Replacing with #767676 achieves 4.54:1 contrast while preserving the 2px solid outline width and focus-indicator area.",
+    "wcag_technique_cited": null
+  }
+}
