@@ -4,18 +4,20 @@
   "description": "Automated repair system for WCAG 2.4 focus-behavior violations — thesis chapter 2 follow-up to NavA11y",
   "type": "module",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.6.0"
   },
   "scripts": {
     "test": "vitest run",
     "test:fast": "vitest run --exclude tests/patches/applier.test.js --exclude tests/detector/integration.test.js",
     "test:watch": "vitest",
-    "smoke:detector": "node scripts/smoke-detector.js",
-    "smoke:batch1": "node scripts/batch-1-e2e.js",
-    "smoke:batch2": "node scripts/batch-2-e2e.js",
-    "run:rq1": "node experiments/rq1_effectiveness/run.js",
-    "run:rq2": "node experiments/rq2_evidence_ablation/run.js",
-    "run:rq4": "node experiments/rq4_regression/run.js"
+    "smoke:detector": "node --env-file=.env scripts/smoke-detector.js",
+    "smoke:batch1": "node --env-file=.env scripts/batch-1-e2e.js",
+    "smoke:batch2": "node --env-file=.env scripts/batch-2-e2e.js",
+    "repair:url": "node --env-file=.env scripts/repair-url.js",
+    "validate:patch": "node --env-file=.env scripts/validate-patch.js",
+    "run:rq1": "node --env-file=.env experiments/rq1_effectiveness/run.js",
+    "run:rq2": "node --env-file=.env experiments/rq2_evidence_ablation/run.js",
+    "run:rq4": "node --env-file=.env experiments/rq4_regression/run.js"
   },
   "dependencies": {
     "pixelmatch": "^7.2.0",
