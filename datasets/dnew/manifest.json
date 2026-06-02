@@ -1,0 +1,29 @@
+{
+  "$schema": "./manifest.schema.json",
+  "version": "0.1.0",
+  "license": "CC-BY-4.0",
+  "description": "D_new — hand-curated edge cases for WCAG 2.4 focus-behavior repair benchmarks. Cases are deliberately broken to test repair effectiveness across patterns not well-represented in D_d.",
+  "cases": [
+    {
+      "id": "dnew-01",
+      "file": "cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "expectedScs": ["2.4.11", "2.4.12"],
+      "rationale": "Real-world pattern: modal close button rendered below translucent backdrop due to z-index mistake.",
+      "notes": "Verifier should detect obscuration; fix should raise modal z-index above backdrop."
+    },
+    {
+      "id": "dnew-02",
+      "file": "cases/dnew-02-input-focus-color-only.html",
+      "expectedScs": ["2.4.13"],
+      "rationale": "Common anti-pattern: outline:none with subtle border-color change as sole focus indicator.",
+      "notes": "Width and contrast both below AAA minima."
+    },
+    {
+      "id": "dnew-03",
+      "file": "cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "expectedScs": ["2.4.3"],
+      "rationale": "Positive tabindex inserts nav link out of natural order. NOTE: SC 2.4.3 dropped from project scope; case retained for completeness.",
+      "notes": "Not exercised by current generators."
+    }
+  ]
+}

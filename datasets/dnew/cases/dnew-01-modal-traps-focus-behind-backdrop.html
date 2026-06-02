@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 01 — modal close button focus obscured by translucent backdrop</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      .backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 1000;
+      }
+      .modal {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 1rem;
+        z-index: 999; /* BUG: modal below backdrop */
+      }
+      button.close { padding: 0.5rem 1rem; }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 01 — modal focus obscured by backdrop</h1>
+    <p>The modal close button is rendered beneath the backdrop (z-index ordering bug),
+       so keyboard focus on the close button is visually obscured (SC 2.4.11).</p>
+    <div class="backdrop"></div>
+    <div class="modal">
+      <p>Are you sure?</p>
+      <button class="close">Close</button>
+    </div>
+  </body>
+</html>

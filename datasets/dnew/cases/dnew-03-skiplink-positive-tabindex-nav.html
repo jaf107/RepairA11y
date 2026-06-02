@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 03 — primary nav link forced ahead with tabindex=3</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      nav a { margin-right: 1rem; }
+      a:focus { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 03 — positive tabindex on nav link breaks natural order</h1>
+    <nav>
+      <a href="#a">A</a>
+      <a href="#b">B</a>
+      <!-- BUG: this link forces itself to receive focus 3rd despite being last in DOM -->
+      <a href="#c" tabindex="3">C (forced ahead)</a>
+      <a href="#d">D</a>
+    </nav>
+    <main>
+      <a href="#skip">Skip to content</a>
+      <p>...content...</p>
+    </main>
+  </body>
+</html>
