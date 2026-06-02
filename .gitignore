@@ -10,6 +10,7 @@ nava11y/reports/
 experiments/results/
 experiments/*/results/
 experiments/oracle/
+review-output/
 # screenshot artifacts
 **/*.png
 **/*.jpg

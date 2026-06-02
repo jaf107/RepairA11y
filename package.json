@@ -15,6 +15,7 @@
     "smoke:batch2": "node --env-file=.env scripts/batch-2-e2e.js",
     "repair:url": "node --env-file=.env scripts/repair-url.js",
     "validate:patch": "node --env-file=.env scripts/validate-patch.js",
+    "review": "node --env-file=.env scripts/manual-review.js",
     "run:rq1": "node --env-file=.env experiments/rq1_effectiveness/run.js",
     "run:rq2": "node --env-file=.env experiments/rq2_evidence_ablation/run.js",
     "run:rq4": "node --env-file=.env experiments/rq4_regression/run.js"
