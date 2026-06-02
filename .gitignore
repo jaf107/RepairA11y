@@ -8,6 +8,8 @@ nava11y/pnpm-lock.yaml
 nava11y/reports/
 .env
 experiments/results/
+experiments/*/results/
+experiments/oracle/
 # screenshot artifacts
 **/*.png
 **/*.jpg

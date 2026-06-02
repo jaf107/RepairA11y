@@ -8,15 +8,19 @@
   },
   "scripts": {
     "test": "vitest run",
+    "test:fast": "vitest run --exclude tests/patches/applier.test.js --exclude tests/detector/integration.test.js",
     "test:watch": "vitest",
     "smoke:detector": "node scripts/smoke-detector.js",
-    "run:rq1": "node scripts/run_rq1.js",
-    "run:rq2": "node scripts/run_rq2.js",
-    "run:rq3": "node scripts/run_rq3.js",
-    "run:rq4": "node scripts/run_rq4.js"
+    "smoke:batch1": "node scripts/batch-1-e2e.js",
+    "smoke:batch2": "node scripts/batch-2-e2e.js",
+    "run:rq1": "node experiments/rq1_effectiveness/run.js",
+    "run:rq2": "node experiments/rq2_evidence_ablation/run.js",
+    "run:rq4": "node experiments/rq4_regression/run.js"
   },
   "dependencies": {
-    "playwright": "^1.58.0"
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.58.0",
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "ajv": "^8.18.0",
