@@ -11,6 +11,7 @@ experiments/results/
 experiments/*/results/
 experiments/oracle/
 review-output/
+scripts/probe-dr-results/
 # screenshot artifacts
 **/*.png
 **/*.jpg

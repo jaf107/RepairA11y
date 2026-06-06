@@ -394,19 +394,29 @@ bundle in a folder:
 
 ```
 review-output/qualtrics-2026-06-03/
-├── baseline.html           ← original page (open in browser)
+├── REVIEW.md               ← your checklist (open this first!)
+├── baseline.html           ← VERIFIER's view (scripts stripped — looks basic)
+├── baseline-live.html      ← VISUAL REVIEW (scripts kept — open this in browser)
 ├── baseline.png            ← screenshot of original
-├── patched.html            ← page with ALL patches applied
-├── patched.png             ← screenshot of fully-patched page
+├── baseline-focused.png    ← screenshot with target element focused
+├── patched.html            ← all patches, verifier's view
+├── patched-live.html       ← all patches, visual fidelity (open in browser)
+├── patched.png             ← screenshot
 ├── case-1/
-│   ├── patched.html        ← just patch 1 applied
-│   ├── patched.png
-│   └── patch.json
-├── case-2/...
-├── case-3/...
-├── patches.json            ← machine-readable record of every patch
-└── REVIEW.md               ← your checklist (open this first!)
+│   ├── patched.html        ← just patch 1, stripped
+│   ├── patched-live.html   ← just patch 1, visual fidelity
+│   ├── patched.png         ← screenshot
+│   ├── patched-focused.png ← screenshot with the target focused (quickest check)
+│   └── patch.json          ← the typed patch
+├── case-2/ … case-3/ …
+└── patches.json            ← machine-readable record
 ```
+
+**Important:** `baseline.html` and `patched.html` are the **stripped**
+versions — scripts removed so NavA11y can re-load them without
+timing out. They look basic because they are. For visual review,
+always open the `-live.html` files instead — those preserve the
+site's real styling.
 
 ### The review workflow
 
