@@ -34,11 +34,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolvePath(__dirname, "..");
 
 function parseArgs(argv) {
-  const out = { max: Infinity, include: null };
+  const out = {
+    max: Infinity,
+    include: null,
+    detect: true,
+    detectTimeoutMs: 180_000,
+  };
   const a = argv.slice(2);
   for (let i = 0; i < a.length; i++) {
     if (a[i] === "--max") out.max = parseInt(a[++i], 10);
-    else if (a[i] === "--include") {
+    else if (a[i] === "--fast" || a[i] === "--no-detect") out.detect = false;
+    else if (a[i] === "--detect-timeout") {
+      out.detectTimeoutMs = parseInt(a[++i], 10) * 1000;
+    } else if (a[i] === "--include") {
       out.include = [];
       while (i + 1 < a.length && !a[i + 1].startsWith("--")) {
         out.include.push(a[++i].toLowerCase());
@@ -100,7 +108,16 @@ async function screenshotFile(htmlPath) {
   }
 }
 
-async function probeSite(site) {
+function withTimeout(promise, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+async function probeSite(site, opts = {}) {
+  const { detect = true, detectTimeoutMs = 180_000 } = opts;
   const url = site.url;
   const row = {
     url,
@@ -175,26 +192,35 @@ async function probeSite(site) {
     row.ssim = null;
   }
 
-  // --- 5) NavA11y detection on stripped snapshot
-  try {
-    row.stage = "detect";
-    const t0 = Date.now();
-    const det = await runDetection({ htmlFile: stripped.file });
-    row.detectMs = Date.now() - t0;
-    row.detectFails = det.violations.filter(
-      (v) =>
-        v.result === "FAIL" &&
-        ["2.4.7", "2.4.11", "2.4.12", "2.4.13"].includes(v.sc),
-    ).length;
-  } catch (e) {
-    row.detectError = e.message;
+  // --- 5) NavA11y detection on stripped snapshot (optional, bounded)
+  if (detect) {
+    try {
+      row.stage = "detect";
+      const t0 = Date.now();
+      const det = await withTimeout(
+        runDetection({ htmlFile: stripped.file }),
+        detectTimeoutMs,
+        "NavA11y detection",
+      );
+      row.detectMs = Date.now() - t0;
+      row.detectFails = det.violations.filter(
+        (v) =>
+          v.result === "FAIL" &&
+          ["2.4.7", "2.4.11", "2.4.12", "2.4.13"].includes(v.sc),
+      ).length;
+    } catch (e) {
+      row.detectError = e.message;
+    }
   }
 
   // --- 6) Verdict
-  if (row.ssim != null && row.ssim >= 0.85 && row.detectFails > 0) {
-    row.verdict = "good";
-  } else if (row.ssim != null && row.ssim >= 0.85) {
-    row.verdict = "renders-well-no-fails";
+  //   - "good" requires both high SSIM and at least one in-scope FAIL
+  //     (but only when detection was actually run).
+  //   - "renders-well" = high SSIM, detection skipped or no fails.
+  if (row.ssim != null && row.ssim >= 0.85) {
+    if (detect && row.detectFails > 0) row.verdict = "good";
+    else if (!detect) row.verdict = "renders-well-undetected";
+    else row.verdict = "renders-well-no-fails";
   } else if (row.ssim != null && row.ssim >= 0.5) {
     row.verdict = "partial";
   } else {
@@ -309,7 +335,10 @@ async function main() {
     }
     console.log(`${tag}  …`);
     const t0 = Date.now();
-    const row = await probeSite(site);
+    const row = await probeSite(site, {
+      detect: opts.detect,
+      detectTimeoutMs: opts.detectTimeoutMs,
+    });
     const totalMs = Date.now() - t0;
     console.log(
       `  → ${row.verdict}  ssim=${row.ssim?.toFixed(3) ?? "—"}  fails=${row.detectFails ?? "—"}  ${totalMs}ms`,
