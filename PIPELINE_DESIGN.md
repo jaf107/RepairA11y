@@ -610,15 +610,21 @@ Effect size: Cohen's h
 
 ## Positioning Against Prior Work
 
-| System | Coverage | Evidence | Gap filled by RepairA11y |
-|--------|----------|----------|--------------------------|
-| GenA11y (FSE 2025) | axe-core SCs | Static HTML | 0% recall on 2.4.7 — no runtime evidence |
-| AccessGuru (ASSETS 2025) | axe-core SCs | Static | Focus-behavior SCs absent entirely |
-| DesignRepair (ICSE 2025) | Material Design | Dual-stream screenshots | Not WCAG, not focus behavior |
-| Fernández-Navarro & Chicano (2026) | axe-core SCs | Selenium runtime | Focus SCs not covered, no evidence ablation |
+See [docs/LITERATURE.md](docs/LITERATURE.md) for the verified bibliography
+(every citation looked up directly on arXiv/ACM DL/ACL Anthology) and
+[docs/papers/](docs/papers/) for the PDFs.
 
-**One-sentence claim:**  
-> NavA11y closed the focus-behavior detection gap; RepairA11y closes the repair gap — and proves that runtime evidence is the key ingredient prior systems lacked.
+| System | Type | What it does | Evidence model | Tests evidence ablation? |
+|--------|------|--------------|----------------|--------------------------|
+| GenA11y (He et al., FSE 2025) | Detection | LLM detection across 37 WCAG SCs; 94.5% precision, 87.6% recall | DOM-traversal context, GPT-4o | n/a (detection only) |
+| AccessGuru (Fathallah et al., ASSETS 2025) | Repair | LLM repair; up to 84% violation-score reduction | HTML + axe summary | ❌ |
+| DesignRepair (Yuan et al., ICSE 2025) | Repair | Dual-stream LLM repair with Material Design RAG | Source + Playwright view | ❌ |
+| Fernández-Navarro & Chicano (2026) | Repair | LLM repair; 80% static / 86% Angular | HTML + axe summary | ❌ |
+
+**One-sentence claim:**
+> No prior WCAG repair system has performed evidence-level ablation;
+> RepairA11y's RQ2 fills that methodological gap by isolating the
+> contribution of runtime detection evidence at four monotonic levels.
 
 ---
 
@@ -638,17 +644,17 @@ Effect size: Cohen's h
 
 ## Design Decisions — Literature Justification
 
-Each major design choice below maps to citations in [LITERATURE_REVIEW.md](LITERATURE_REVIEW.md).
+Each major design choice below maps to verified citations in [docs/LITERATURE.md](docs/LITERATURE.md) (with PDFs in [docs/papers/](docs/papers/)).
 
-| Decision | Justification | Literature Cluster |
-| -------- | ------------- | ------------------ |
-| Automate repair (don't stop at detection) | 95.9% of sites fail WCAG; manual repair not scalable | Cluster 1 — WebAIM Million 2024 |
-| Target SC 2.4.7/2.4.11/2.4.12/2.4.13 | No prior repair tool covers these SCs; axe-core cannot detect them | Cluster 2 — Alsaeedi & Joy 2020; Cluster 3 — AccessGuru, GenA11y |
-| Use LLM generator (not rule-based only) | Rule-based handles formulaic cases; LLMs handle varied, context-dependent repairs | Cluster 4 — Xia et al. 2023 survey; ChatRepair |
-| Four evidence levels E1–E4 (RQ2 ablation) | Context quality is independent variable in LLM repair quality | Cluster 5 — Kang et al. ICSE 2023; Nashid et al. CEDAR |
-| Runtime evidence (E3/E4) specifically | Focus violations are computed-style problems — not recoverable from static HTML | Cluster 6 — Ball 1999; GenA11y 0% recall (Cluster 3) |
-| Iterative repair loop (RQ3) | Conversational/iterative LLM repair outperforms single-shot | Cluster 4 — ChatRepair ISSTA 2024 |
-| Human review oracle (RQ5) | NavA11y pass rate alone is insufficient — oracle overfitting risk | Cluster 3 — AccessGuru re-prompting similarity threat |
-| Free LLM via OpenRouter | $0 budget; one-line swap to paid model once pipeline proven | Practical constraint — RepairAgent cost model (Cluster 4) |
-| Rule-based baseline for SC 2.4.13 | Establishes ceiling for well-structured cases; enables RQ3 rule vs LLM comparison | Standard APR baseline practice — Cluster 4 |
-| NavA11y as Stage 1 (not axe-core) | axe-core misses all 4 target SCs; NavA11y is the only runtime detector | Cluster 2 — NavA11y ENASE 2026 |
+| Decision | Justification | Verified citation |
+| -------- | ------------- | ----------------- |
+| Target SC 2.4.7/2.4.11/2.4.12/2.4.13 for repair | No published WCAG repair system covers focus-behavior SCs | AccessGuru (Fathallah et al., ASSETS 2025) — axe-bounded; Fernández-Navarro & Chicano (2026) — axe-bounded |
+| Use LLM generator alongside rule-based | Zero-shot LLM repair is competitive against template-based APR | Xia & Zhang, AlphaRepair (ESEC/FSE 2022) — `docs/papers/2022-xia-alpharepair.pdf` |
+| Four evidence levels E1–E4 (RQ2 ablation) | Graduated retrieval-ablation is established methodology for measuring evidence contribution | Asai et al., Self-RAG (ICLR 2024); Cuconasu et al., Power of Noise (SIGIR 2024) |
+| Detector output as LLM repair input | Static-analyzer-to-LLM pipeline is established precedent in adjacent domain (APR) | Jin et al., InferFix (ESEC/FSE 2023) — `docs/papers/2023-jin-inferfix.pdf` |
+| RAG foundational pattern | Retrieved evidence improves LLM task accuracy | Lewis et al. (NeurIPS 2020) — `docs/papers/2020-lewis-rag.pdf` |
+| Evidence-ablation is a real empirical question (not foregone) | Documented cases where more context degrades LLM performance | Liu et al., Lost in the Middle (TACL 2024); Shi et al., LLMs Distracted (ICML 2023); Levy et al., Same Task More Tokens (ACL 2024) |
+| Visual-grounding alternative (E4 motivation) | Dual-stream visual + textual analysis works for UI repair | Yuan et al., DesignRepair (ICSE 2025) |
+| Free LLM via OpenRouter | Practical $0-budget constraint; swap to paid is a one-line change | Project decision (see CLAUDE.md) |
+| Rule-based baseline for SC 2.4.13 | Standard APR practice to compare against a deterministic baseline | Xia & Zhang (FSE 2022) demonstrates baselines drive APR evaluation |
+| NavA11y as Stage 1 (not axe-core) | axe-core does not cover focus-behavior SCs; NavA11y closes that gap | NavA11y (ENASE 2026, Chapter 1 of thesis) |

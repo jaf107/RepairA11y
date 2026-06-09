@@ -63,19 +63,22 @@ screenshot) are insufficient for this class of violations.
 
 ### 1.3 Positioning against related work
 
-Prior automated-repair systems for accessibility violations fall into
-three groups. (a) **Static-rule fixers** (e.g., axe-driven linters)
-operate on the HTML and accessibility tree without runtime grounding;
-they are well-suited to alt-text, ARIA, and form-label violations but
-have been shown to miss focus-behavior issues that depend on
-post-render style and obscuration. (b) **LLM repair systems**
-(e.g., GenA11y, AccessGuru) prompt a language model with the HTML
-context and an axe-style violation summary, achieving high overall
-recall on axe-bounded targets but reporting near-zero recall on the
-focus-behavior SCs that NavA11y addresses. (c) **Visual-grounding
-systems** (e.g., DesignRepair) use UI screenshots and design-system
-references but are constrained to specific component vocabularies
-rather than WCAG conformance.
+Recent automated work on web accessibility falls into three groups
+(see `docs/LITERATURE.md` for verified citations and `docs/papers/`
+for PDFs). (a) **Static-rule fixers** (axe-driven linters) operate on
+the HTML and accessibility tree without runtime grounding; they
+target alt-text, ARIA, and form-label categories. (b) **LLM repair
+systems** prompt a language model with the HTML context and an
+axe-style violation summary: AccessGuru (Fathallah et al., ASSETS
+2025) reports up to 84% violation-score reduction;
+Fernández-Navarro & Chicano (2026) report 80% on static sites and
+86% on Angular SPAs. Both are axe-bounded and neither performs
+evidence-level ablation. (c) **Visual-grounding systems** such as
+DesignRepair (Yuan et al., ICSE 2025) use UI screenshots and design
+guideline retrieval but target Material Design conformance, not
+WCAG. On the detection side, GenA11y (He et al., FSE 2025)
+demonstrates LLM-based detection of 37 WCAG SCs at 94.5% precision
+and 87.6% recall but does not propose repairs.
 
 RepairA11y differs along two axes. First, its evidence model is
 **runtime-grounded by construction**: every repair receives the same

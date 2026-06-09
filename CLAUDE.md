@@ -142,10 +142,21 @@ Stage 5: Verification → src/verifier/ → re-run NavA11y, SSIM diff
 
 ## Key related work (for positioning)
 
-- **GenA11y (FSE 2025):** 0% recall on SC 2.4.3 and 2.4.7 — explicit motivation for runtime evidence claim
-- **AccessGuru (ASSETS 2025):** ~84% violation reduction, axe-core only, no focus-behavior SCs
-- **Fernández-Navarro & Chicano (arXiv 2026):** Selenium + LLM, axe-bounded
-- **DesignRepair (ICSE 2025):** dual-stream repair, Material Design targets, not WCAG
+See `docs/LITERATURE.md` for the verified bibliography (every citation
+looked up directly on arXiv/ACM DL/ACL Anthology) and `docs/papers/` for
+PDFs of the cited works. Closest competitors:
+
+- **GenA11y** (He et al., FSE 2025) — LLM-based detection (not repair) of
+  37 WCAG SCs; 94.5% precision, 87.6% recall.
+- **AccessGuru** (Fathallah et al., ASSETS 2025) — LLM repair, axe-bounded,
+  up to 84% violation-score reduction.
+- **Fernández-Navarro & Chicano** (arXiv:2602.17887, 2026) — LLM repair
+  with axe-core + Selenium; 80% static / 86% Angular.
+- **DesignRepair** (Yuan et al., ICSE 2025) — dual-stream frontend repair
+  with RAG over Material Design guidelines.
+
+None of the published repair systems perform evidence-level ablation;
+that is the methodological gap RepairA11y's RQ2 fills.
 
 One-sentence positioning: NavA11y closed the focus-behavior detection gap; RepairA11y closes the repair gap.
 

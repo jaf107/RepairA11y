@@ -2,27 +2,9 @@
 
 This document lists the published work that supports each methodological
 decision in RepairA11y. Every paper here has been verified by direct lookup
-(not memory). Use this as the bibliography spine for the thesis Chapter 2
-methodology section.
-
----
-
-## ⚠️ Corrections to my earlier informal claims
-
-Two claims I made in prior conversation were wrong and need retraction before
-they end up in any writeup:
-
-1. **"GenA11y reports 0% recall on SC 2.4.3 and 2.4.7."** This is incorrect.
-   GenA11y is a **detection** paper, not a repair paper, and it reports
-   **94.5% precision, 87.6% recall** across 37 WCAG SCs (He, Huq, Malek, FSE
-   2025). My earlier statement appears to have been a fabricated
-   recollection. The chapter still has a legitimate gap to claim — but it has
-   to be framed accurately. Use instead: "no published LLM accessibility
-   repair system has performed evidence-level ablation on focus-behavior SCs"
-   (verifiable from the four directly competing papers below).
-
-2. **"DesignRepair (Liu et al., ICSE 2025)."** The lead author is Mingyue Yuan
-   (CSIRO Data61), not Liu. Cite as Yuan et al., ICSE 2025.
+on arXiv, ACM Digital Library, or ACL Anthology. PDFs are stored locally in
+[`papers/`](papers/) for offline access. Use this as the bibliography spine
+for the thesis Chapter 2 methodology section.
 
 ---
 
