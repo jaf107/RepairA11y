@@ -51,7 +51,24 @@ describe("createOpenRouterClient — auth + fetch shape", () => {
     expect(init.headers["HTTP-Referer"]).toBeTruthy();
   });
 
-  it("throws OpenRouterError with status on non-2xx", async () => {
+  it("throws OpenRouterError with status on non-retryable 4xx", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+      text: async () => "unauthorized",
+    });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+    });
+    await expect(client.complete({ prompt: "hi" })).rejects.toMatchObject({
+      name: "OpenRouterError",
+      status: 401,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(1); // not retried
+  });
+
+  it("throws immediately on 429 when retries disabled", async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: false,
       status: 429,
@@ -60,11 +77,131 @@ describe("createOpenRouterClient — auth + fetch shape", () => {
     const client = createOpenRouterClient({
       fetch: fetchMock,
       apiKey: "sk-test",
+      maxRetries: 0,
     });
     await expect(client.complete({ prompt: "hi" })).rejects.toMatchObject({
       name: "OpenRouterError",
       status: 429,
     });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("createOpenRouterClient — retry/backoff on transient failures", () => {
+  const noSleep = () => Promise.resolve();
+
+  it("retries a 429 then succeeds (this is the gemma bug)", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 429, text: async () => "rl" })
+      .mockResolvedValueOnce({ ok: false, status: 429, text: async () => "rl" })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          choices: [{ message: { content: "hi" } }],
+          model: "test",
+        }),
+      });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+      sleep: noSleep,
+    });
+    const out = await client.complete({ prompt: "hi" });
+    expect(out.text).toBe("hi");
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it("exhausts retries on persistent 429 and throws with status", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue({ ok: false, status: 429, text: async () => "rl" });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+      maxRetries: 2,
+      sleep: noSleep,
+    });
+    await expect(client.complete({ prompt: "hi" })).rejects.toMatchObject({
+      status: 429,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(3); // 1 + 2 retries
+  });
+
+  it("retries network errors then succeeds", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("ECONNRESET"))
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          choices: [{ message: { content: "ok" } }],
+          model: "test",
+        }),
+      });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+      sleep: noSleep,
+    });
+    const out = await client.complete({ prompt: "hi" });
+    expect(out.text).toBe("ok");
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("paces requests by minIntervalMs (throttle / batch pacing)", async () => {
+    let clock = 0;
+    const sleeps = [];
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        choices: [{ message: { content: "ok" } }],
+        model: "test",
+      }),
+    });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+      minIntervalMs: 4000,
+      now: () => clock,
+      sleep: (ms) => {
+        sleeps.push(ms);
+        clock += ms; // advance virtual clock by the slept time
+        return Promise.resolve();
+      },
+    });
+    await client.complete({ prompt: "a" }); // first call: no wait
+    await client.complete({ prompt: "b" }); // second: must wait full interval
+    expect(sleeps).toEqual([4000]);
+  });
+
+  it("honors Retry-After header for delay", async () => {
+    const sleeps = [];
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        text: async () => "rl",
+        headers: { get: (h) => (h === "retry-after" ? "2" : null) },
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          choices: [{ message: { content: "ok" } }],
+          model: "test",
+        }),
+      });
+    const client = createOpenRouterClient({
+      fetch: fetchMock,
+      apiKey: "sk-test",
+      sleep: (ms) => {
+        sleeps.push(ms);
+        return Promise.resolve();
+      },
+    });
+    await client.complete({ prompt: "hi" });
+    expect(sleeps[0]).toBe(2000); // 2s from Retry-After
   });
 });
 

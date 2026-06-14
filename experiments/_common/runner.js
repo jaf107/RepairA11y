@@ -22,11 +22,17 @@ export async function runCase({
   generator,
   generatorName,
   maxIterations = 1,
+  targetSelector = null,
 }) {
   try {
     const detection = await runDetection({ htmlFile: fixturePath });
+    // When targetSelector is given (D_r: many FAILs per page), pin the exact
+    // element so each distinct FAIL is repaired — not just the first of its SC.
     const target = detection.violations.find(
-      (v) => v.sc === sc && v.result === "FAIL",
+      (v) =>
+        v.sc === sc &&
+        v.result === "FAIL" &&
+        (!targetSelector || v.element?.selector === targetSelector),
     );
     if (!target) {
       return {

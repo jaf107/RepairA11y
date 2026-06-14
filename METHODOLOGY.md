@@ -38,28 +38,35 @@ regressions?
 
 ### 1.2 Research questions
 
-We pose three research questions, scoped tightly to the four target
-success criteria. Two further questions (RQ3 loop-iteration impact;
-RQ5 developer-utility study) have been documented in earlier scoping
-work and deferred from this chapter to keep the contribution focused.
+We pose two research questions, scoped tightly to the four target
+success criteria. Two further questions — one on loop-iteration
+impact, one on a developer-utility study — have been documented in
+earlier scoping work and deferred from this chapter to keep the
+contribution focused.
 
-- **RQ1 (Effectiveness):** Across the four target SCs, what fraction
-  of violations does each generator (rule-based, LLM-based) resolve
-  on a controlled dataset (D_d) and on a production dataset (D_r)?
-- **RQ2 (Runtime evidence ablation — core claim):** For LLM-based
-  repair, does providing runtime evidence (style snapshots, contrast
-  measurements, obscurer details) yield a statistically significant
-  improvement in resolution rate over providing only static evidence
-  (HTML and a screenshot)?
-- **RQ4 (Regression):** Do generated patches introduce new
-  accessibility failures or unacceptable visual changes? We measure
-  regression rate, structural visual similarity, and patch
-  invasiveness.
+- **RQ1 — Does runtime evidence help LLM-based repair?** When an LLM
+  is asked to fix a focus-behavior violation, does adding the runtime
+  measurements that NavA11y already collected — the focused-state
+  CSS, the measured contrast ratio, which element is covering the
+  focused one, and the tab order — produce more correct patches than
+  giving the LLM only the page's HTML and a screenshot? *This is the
+  central claim of the chapter.*
 
-The central research claim of the chapter is RQ2: that runtime
-evidence is the distinguishing input for LLM-based focus-behavior
-repair, and that classical static-only approaches (HTML +
-screenshot) are insufficient for this class of violations.
+- **RQ2 — How well do the generators perform in practice?** We
+  compare two generators (a hand-authored rule-based generator and
+  the LLM-based generator) along two dimensions:
+  - **RQ2.1 (Effectiveness):** Across the four target SCs, what
+    fraction of violations does each generator resolve on the
+    controlled dataset (D_d) and the production dataset (D_r)?
+  - **RQ2.2 (Regression):** Do those patches break anything else? We
+    measure how often a patch introduces a new accessibility failure,
+    how much the page changes visually (SSIM), and how invasive each
+    patch is (selector specificity).
+
+RQ1 isolates the evidence variable on the LLM path; RQ2 places both
+generators side-by-side and asks whether the patches they emit are
+useful in practice. RQ1 is the thesis claim; RQ2 is what tells the
+reader whether the system is worth using at all.
 
 ### 1.3 Positioning against related work
 
@@ -125,7 +132,7 @@ matching).
 
 ### 2.2 Stage 2 — Evidence packaging
 
-The evidence packager is the experimental lever for RQ2. Given one
+The evidence packager is the experimental lever for RQ1. Given one
 violation record, it produces a single typed bundle at one of four
 strictly monotonic levels:
 
@@ -142,7 +149,7 @@ observed difference in downstream LLM behavior can be attributed to
 the *added* information, not to substitution.
 
 E3 is the level at which detection-derived runtime measurements first
-enter the prompt. The hypothesis underlying RQ2 is that the step from
+enter the prompt. The hypothesis underlying RQ1 is that the step from
 E2 to E3 produces the largest single improvement in resolution rate.
 
 ### 2.3 Stage 3 — Generation
@@ -153,7 +160,7 @@ function-call interface:
 - **Rule-based generators** (one module per SC) are deterministic
   JavaScript functions that pattern-match on the runtime slice and
   emit typed patches. They serve two purposes: as a competitive
-  baseline for RQ1, and as a sanity check on the rest of the
+  baseline for RQ2.1, and as a sanity check on the rest of the
   pipeline — any failure in detection, application, or verification
   surfaces first against the deterministic baseline before being
   attributed to LLM stochasticity.
@@ -253,18 +260,9 @@ navigation context.
 
 ## 4. Experimental design
 
-### 4.1 RQ1 — Effectiveness
+### 4.1 RQ1 — Evidence ablation (core claim)
 
-The RQ1 experiment runs each generator over the union of D_d (FAIL
-records only) and D_r, single-iteration, and reports per-SC
-resolution rate. LLM runs are repeated across multiple seeds to
-measure variance. Rule-based runs are executed once: they are
-deterministic by construction. The script is
-`experiments/rq1_effectiveness/run.js`.
-
-### 4.2 RQ2 — Evidence ablation (core claim)
-
-The RQ2 experiment fixes the corpus (D_d FAIL records for the chosen
+The RQ1 experiment fixes the corpus (D_d FAIL records for the chosen
 SC) and the generator family (LLM) and varies the evidence level.
 Each (case, seed, level) triple is treated as a paired observation
 across levels.
@@ -292,15 +290,27 @@ Results are aggregated per level (mean and standard deviation of
 resolution rate across runs) and per pairwise comparison (McNemar's
 test, Cohen's *h*).
 
-### 4.3 RQ4 — Regression analysis
+### 4.2 RQ2.1 — Effectiveness
 
-The RQ4 experiment reuses the patches produced by RQ1 and reports,
-per generator and per SC: regression rate (fraction of cases where
-at least one new FAIL was introduced), mean SSIM (visual stability),
-and mean selector specificity (a syntactic proxy for invasiveness).
-A patch with high specificity targets a single element narrowly; a
-patch with low specificity casts a wide net and is more likely to
-have side effects.
+The RQ2.1 experiment runs each generator over the union of D_d (FAIL
+records only) and D_r, single-iteration, and reports per-SC
+resolution rate. LLM runs are repeated across multiple seeds to
+measure variance. Rule-based runs are executed once: they are
+deterministic by construction. The script is
+`experiments/rq1_effectiveness/run.js` (directory name retained for
+reproducibility against earlier results files).
+
+### 4.3 RQ2.2 — Regression analysis
+
+The RQ2.2 experiment reuses the patches produced by RQ2.1 and
+reports, per generator and per SC: regression rate (fraction of
+cases where at least one new FAIL was introduced), mean SSIM (visual
+stability), and mean selector specificity (a syntactic proxy for
+invasiveness). A patch with high specificity targets a single
+element narrowly; a patch with low specificity casts a wide net and
+is more likely to have side effects. The script is
+`experiments/rq4_regression/run.js` (directory name retained for
+reproducibility against earlier results files).
 
 ---
 
@@ -318,9 +328,9 @@ have side effects.
 - **Iterations.** Mean number of generator attempts the loop
   consumed before accepting (or giving up on) a patch.
 
-### 5.2 Inferential statistics for RQ2
+### 5.2 Inferential statistics for RQ1
 
-RQ2 compares LLM resolution rate at four evidence levels evaluated
+RQ1 compares LLM resolution rate at four evidence levels evaluated
 on the same case set. The natural inferential test for paired
 binary outcomes is **McNemar's test** (with continuity correction
 for small N):
@@ -399,7 +409,7 @@ reported, not hidden.
 
 ### 6.2 Internal
 
-The RQ2 experiment relies on independent draws across seeds and runs
+The RQ1 experiment relies on independent draws across seeds and runs
 for paired comparison. Free-tier LLM providers occasionally substitute
 backend models without notice. We mitigate this by (a) recording the
 model identifier in every result; (b) pinning the model via the
@@ -431,7 +441,7 @@ extractor.
 
 ### 6.4 Conclusion
 
-The RQ2 corpus is small (N ≈ 8 SC 2.4.13 cases). To increase
+The RQ1 corpus is small (N ≈ 8 SC 2.4.13 cases). To increase
 statistical power we run 10 full replications and report effect
 sizes alongside p-values, but the small N remains a limitation and
 we report it explicitly. Where statistical significance is not
@@ -467,7 +477,7 @@ NavA11y violation records and produces verified repairs for four
 WCAG 2.4 focus-behavior success criteria. Its central
 methodological contributions are: (a) a strictly monotonic four-
 level evidence model that exposes runtime-evidence value as the
-RQ2 ablation lever; (b) a verifier decoupled from the generator
+RQ1 ablation lever; (b) a verifier decoupled from the generator
 that combines NavA11y re-detection, regression diffing, and visual
 similarity into three independent checks; (c) a manual-oracle
 workflow that pairs every automated verdict with a human verdict,
@@ -475,7 +485,7 @@ addressing the oracle-overfitting threat that has weakened prior
 work in this area; and (d) full reproducibility including a fixed-
 point ground-truth oracle and a CC-BY release artifact.
 
-The experimental design (RQ1, RQ2, RQ4), the statistical procedure
+The experimental design (RQ1, RQ2.1, RQ2.2), the statistical procedure
 (McNemar with continuity correction and Cohen's *h*), the dataset
 strategy (controlled D_d, production D_r, release D_new), and the
 threats-to-validity analysis above together provide a methodology

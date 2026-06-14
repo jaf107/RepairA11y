@@ -126,24 +126,29 @@ async function main() {
     const drCases = await loadDrCases();
     console.log(`[RQ1] D_r — ${drCases.length} sites (this is slow!)`);
     // D_r enumeration: detect each site, repair every FAIL across our 4 SCs.
+    const { fetchPageToFile } = await import("../../src/utils/fetchPage.js");
     for (const site of drCases) {
       const url = site.url;
       try {
-        const { runDetection } = await import("../../src/detector/index.js");
-        const det = await runDetection({ url });
+        // Capture the live, post-hydration page to a static snapshot so the
+        // verifier can re-test a patched copy (live SPAs can't be re-tested in
+        // place). Detection + repair + verify all run against this one artifact.
+        const { file: snapshot } = await fetchPageToFile(url);
+        const det = await runDetection({ htmlFile: snapshot });
         const fails = det.violations.filter(
           (v) => v.result === "FAIL" && SCS.includes(v.sc),
         );
+        console.log(`[RQ1]   ${url} — ${fails.length} in-scope FAILs`);
         for (const v of fails) {
           for (const [genName, gen] of activeGenerators(opts)) {
-            const evidence = { sc: v.sc, level: opts.evidenceLevel, element: v.element };
             const result = await runCase({
-              fixturePath: null, // D_r: we don't have an htmlFile for the verifier yet
+              fixturePath: snapshot,
               sc: v.sc,
               evidenceLevel: opts.evidenceLevel,
               generator: gen,
               generatorName: genName,
               maxIterations: 1,
+              targetSelector: v.element?.selector ?? null,
             });
             all.push({
               ...result,
