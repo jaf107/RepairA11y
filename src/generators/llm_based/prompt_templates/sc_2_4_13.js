@@ -9,8 +9,8 @@ A passing focus indicator must:
       focused and unfocused states.
 
 Common fix patterns for this SC:
-  - Inject a :focus-visible rule with outline: 2px solid <high-contrast color>
-    when no indicator exists.
+  - Inject a :focus rule with outline: 2px solid <high-contrast color>
+    when no indicator exists. Use :focus (not :focus-visible).
   - Adjust outline-color (or border-color) to a value with ≥3:1 contrast
     against the element's backdrop, preserving width/area.
 `;

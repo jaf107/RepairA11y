@@ -70,6 +70,18 @@ export function createOpenRouterClient(opts = {}) {
 
     if (!res.ok) {
       const text = await res.text().catch(() => "");
+      // Retry on 429 rate-limit after Retry-After header (or 60s default).
+      if (res.status === 429) {
+        const retryAfter = parseInt(res.headers?.get?.("retry-after") ?? "60", 10);
+        const wait = Math.min(Math.max(retryAfter, 10), 120) * 1000;
+        console.warn(`[openrouter] 429 rate-limited — waiting ${wait / 1000}s`);
+        await new Promise((r) => setTimeout(r, wait));
+        throw new OpenRouterError(`OpenRouter HTTP 429 (retried after ${wait}ms)`, {
+          status: 429,
+          body: text,
+          retryable: true,
+        });
+      }
       throw new OpenRouterError(
         `OpenRouter HTTP ${res.status}: ${text.slice(0, 500)}`,
         { status: res.status, body: text },
@@ -91,13 +103,23 @@ export function createOpenRouterClient(opts = {}) {
   }
 
   async function completeJson(reqOpts) {
-    const { maxAttempts = 3, ...rest } = reqOpts;
+    const { maxAttempts = 5, ...rest } = reqOpts;
     let lastErr;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      const result = await complete({
-        ...rest,
-        responseFormat: { type: "json_object" },
-      });
+      let result;
+      try {
+        result = await complete({
+          ...rest,
+          responseFormat: { type: "json_object" },
+        });
+      } catch (err) {
+        // Retry rate-limit errors (already waited inside complete()).
+        if (err.retryable && attempt < maxAttempts) {
+          lastErr = err;
+          continue;
+        }
+        throw err;
+      }
       const parsed = tryParseJson(result.text);
       if (parsed != null) {
         return { ...result, json: parsed };

@@ -55,7 +55,9 @@ export async function runCase({
       evidence,
       maxIterations,
     });
-    const lastVerify = result.history.at(-1)?.verify ?? null;
+    const lastHistory = result.history.at(-1);
+    const lastVerify = lastHistory?.verify ?? null;
+    const loopError = lastHistory?.error ?? null;
 
     return {
       fixturePath,
@@ -64,8 +66,9 @@ export async function runCase({
       generator: generatorName,
       status: result.status,
       iterations: result.iterations,
-      patch: result.acceptedPatch ?? result.history.at(-1)?.patch ?? null,
+      patch: result.acceptedPatch ?? lastHistory?.patch ?? null,
       verify: lastVerify,
+      error: result.status === "ERROR" ? loopError : undefined,
     };
   } catch (e) {
     return {

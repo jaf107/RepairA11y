@@ -26,7 +26,8 @@ Payload shape per patch_type:
 - dom_reorder:   { "parent_selector": "<sel>", "insert_before_selector": "<sel|null>" }
 
 RULES:
-- Use :focus-visible (not :focus) for keyboard focus indicators.
+- Use :focus (NOT :focus-visible) for keyboard focus indicators. The verifier triggers focus via JavaScript .focus(), which does not activate :focus-visible. :focus is the correct pseudo-class.
+- Always add !important to every CSS property in your injected rule to override existing author styles regardless of selector specificity.
 - Prefer the smallest change that resolves the violation.
 - If you cannot resolve it, respond with { "patch_type": null, "rationale": "<why>" }.
 `;

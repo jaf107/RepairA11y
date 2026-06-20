@@ -54,7 +54,7 @@ export function createLlmGenerator(opts = {}) {
         model,
         temperature,
         seed,
-        maxAttempts: 1,
+        maxAttempts: 3,
       });
       usageRecord.calls.push({
         sc,

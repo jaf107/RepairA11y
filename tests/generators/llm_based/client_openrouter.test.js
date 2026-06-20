@@ -54,8 +54,8 @@ describe("createOpenRouterClient — auth + fetch shape", () => {
   it("throws OpenRouterError with status on non-2xx", async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: false,
-      status: 429,
-      text: async () => "rate limit",
+      status: 500,
+      text: async () => "server error",
     });
     const client = createOpenRouterClient({
       fetch: fetchMock,
@@ -63,7 +63,7 @@ describe("createOpenRouterClient — auth + fetch shape", () => {
     });
     await expect(client.complete({ prompt: "hi" })).rejects.toMatchObject({
       name: "OpenRouterError",
-      status: 429,
+      status: 500,
     });
   });
 });
