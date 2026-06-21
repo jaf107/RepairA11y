@@ -1,28 +1,86 @@
 # RepairA11y — Experiment Results Summary
 
-_Generated: 2026-06-20T19:05:06.113Z_
+_Generated: 2026-06-21T06:11:17.628Z_
 
 ---
 
-## RQ1 — Repair Effectiveness (D_d Controlled Dataset)
+## RQ1 — Repair Effectiveness
 
-**Source:** run-2026-06-20T18-47-44-021Z.json
+**Source:** run-2026-06-21T06-10-45-808Z.json
 
+
+### D_d
 | Generator | Resolved | Total | Rate |
 |---|---|---|---|
-| rule_based | 6 | 10 | 60.0% |
-| llm_based | 21 | 30 | 70.0% |
+| rule_based | 6 | 6 | 100.0% |
+| llm_based | 17 | 18 | 94.4% |
 
 | SC | Resolved | Total | Rate |
 |---|---|---|---|
-| 2.4.11 | 5 | 8 | 62.5% |
-| 2.4.12 | 5 | 8 | 62.5% |
-| 2.4.13 | 17 | 24 | 70.8% |
+| 2.4.13 | 23 | 24 | 95.8% |
+
+### D_new
+| Generator | Resolved | Total | Rate |
+|---|---|---|---|
+| rule_based | 7 | 7 | 100.0% |
+| llm_based | 16 | 21 | 76.2% |
+
+| SC | Resolved | Total | Rate |
+|---|---|---|---|
+| 2.4.13 | 23 | 28 | 82.1% |
 
 ---
 ## RQ2 — Evidence Ablation (SC 2.4.13)
 
-_No RQ2 results found._
+# RQ2 — Evidence Ablation (SC 2.4.13)
+
+- runs: **1**, seeds: **1**, dry: **true**
+- generated: 2026-06-21T06:07:22.468Z
+
+## Per-level resolution rate (mean ± std across runs)
+| Level | Mean | Std | Cases (n_trials) |
+|---|---|---|---|
+| E1 | 14.3% | ±0.0% | 7 |
+| E2 | 14.3% | ±0.0% | 7 |
+| E3 | 14.3% | ±0.0% | 7 |
+| E4 | 14.3% | ±0.0% | 7 |
+
+## McNemar paired tests
+| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
+|---|---|---|---|---|---|---|---|---|
+| E1_vs_E2 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E3 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E4 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E2_vs_E3 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E3_vs_E4 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+
+## Overall aggregate
+# Experiment report — RQ2
+
+## Summary
+- **Cases**: 28
+- **Resolution rate**: 14.3% (4/28)
+- **Regression rate**: 0.0%
+- **Mean iterations**: 1.00
+- **Mean SSIM**: 1.000
+
+## By status
+| Status | Count |
+|---|---|
+| RESOLVED | 4 |
+| UNRESOLVED | 24 |
+| REGRESSED | 0 |
+| DECLINED | 0 |
+| ERROR | 0 |
+
+## By evidence level
+| Level | Resolved | Total | Rate |
+|---|---|---|---|
+| E1 | 1 | 7 | 14.3% |
+| E2 | 1 | 7 | 14.3% |
+| E3 | 1 | 7 | 14.3% |
+| E4 | 1 | 7 | 14.3% |
+
 
 ---
 ## RQ4 — Regression Analysis
@@ -91,6 +149,10 @@ _No RQ2 results found._
 ---
 ## Key Observations
 
-1. **Rule-based** resolves 60% of D_d FAIL cases (6/10)
-2. **LLM-based** resolves 70% of D_d FAIL cases (21/30)
-3. **Regression rate**: 0.0% — patches safe (SSIM 1.000)
+1. **Rule-based (D_d)** resolves 100.0% (6/6)
+2. **LLM-based (D_d)** resolves 94.4% (17/18)
+3. **Rule-based (D_new)** resolves 100.0% (7/7)
+4. **LLM-based (D_new)** resolves 76.2% (16/21)
+- **Regression rate**: 0.0% — patches safe (SSIM 1.000)
+4. **Evidence ablation**: E1 (static) 14.3% vs E3 (runtime) 14.3% resolution rate
+   McNemar E1 vs E3: p=1.0000, Cohen's h=0.000, not significant
