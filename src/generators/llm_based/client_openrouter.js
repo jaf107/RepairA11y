@@ -28,6 +28,7 @@ export function createOpenRouterClient(opts = {}) {
   const baseModel = opts.model ?? process.env.OPENROUTER_MODEL ?? DEFAULT_MODEL;
   const referer = opts.referer ?? "https://github.com/jaf107/RepairA11y";
   const title = opts.title ?? "RepairA11y";
+  const fetchTimeoutMs = opts.fetchTimeoutMs ?? 60_000;
 
   if (!fetchImpl) {
     throw new OpenRouterError(
@@ -57,16 +58,32 @@ export function createOpenRouterClient(opts = {}) {
     if (seed != null) body.seed = seed;
     if (responseFormat) body.response_format = responseFormat;
 
-    const res = await fetchImpl(ENDPOINT, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": referer,
-        "X-Title": title,
-      },
-      body: JSON.stringify(body),
-    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), fetchTimeoutMs);
+    let res;
+    try {
+      res = await fetchImpl(ENDPOINT, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": referer,
+          "X-Title": title,
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if (err.name === "AbortError") {
+        throw new OpenRouterError(
+          `OpenRouter request timed out after ${fetchTimeoutMs / 1000}s`,
+          { status: 408, retryable: true },
+        );
+      }
+      throw err;
+    } finally {
+      clearTimeout(timer);
+    }
 
     if (!res.ok) {
       const text = await res.text().catch(() => "");
