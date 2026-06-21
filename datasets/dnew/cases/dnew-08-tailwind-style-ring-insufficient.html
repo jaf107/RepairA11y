@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 08 — Tailwind-style focus ring insufficient width</title>
+    <style>
+      /* Mimics Tailwind CSS focus-ring utility — ring-2 = 2px but ring-offset
+         on same-color background means effective perimeter area < minimum */
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: ui-sans-serif, system-ui, sans-serif; padding: 1.5rem; background: #f9fafb; }
+      h1 { font-size: 1.5rem; font-weight: 600; color: #111827; margin-bottom: 1rem; }
+      .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; max-width: 480px; }
+      .input {
+        width: 100%;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        color: #111827;
+        background: #fff;
+        margin-bottom: 0.75rem;
+      }
+      /* ring-2 ring-offset-2 ring-blue-300 — offset creates white gap = same bg,
+         effective contrast of blue ring against white bg is ~2.8:1 (fails 3:1) */
+      .input:focus {
+        outline: 2px solid #93c5fd; /* blue-300 — ~2.8:1 vs white */
+        outline-offset: 2px;
+      }
+      .btn {
+        background: #4f46e5;
+        color: #fff;
+        border: none;
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+      }
+      .btn:focus {
+        outline: 2px solid #a5b4fc; /* indigo-300 — ~2.5:1 vs white, fails */
+        outline-offset: 2px;
+      }
+      .link { color: #4f46e5; font-size: 0.875rem; }
+      .link:focus {
+        outline: 1px solid #a5b4fc; /* also under-width */
+        outline-offset: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Sign in</h1>
+      <label style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:0.25rem" for="email">Email</label>
+      <input id="email" class="input" type="email" placeholder="you@example.com" />
+      <label style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:0.25rem" for="password">Password</label>
+      <input id="password" class="input" type="password" placeholder="••••••••" />
+      <button class="btn">Sign in</button>
+      <p style="margin-top:0.75rem;text-align:center">
+        <a class="link" href="#">Forgot password?</a>
+      </p>
+    </div>
+  </body>
+</html>

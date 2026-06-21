@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 09 — dark theme focus ring invisible on dark background</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: system-ui, sans-serif; background: #1e1e2e; color: #cdd6f4; min-height: 100vh; padding: 1.5rem; }
+      .sidebar {
+        background: #181825;
+        border-right: 1px solid #313244;
+        padding: 1rem;
+        width: 200px;
+        float: left;
+        min-height: 300px;
+      }
+      .sidebar nav a {
+        display: block;
+        color: #cdd6f4;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+      }
+      /* Dark outline on dark background — completely invisible */
+      .sidebar nav a:focus {
+        outline: 2px solid #313244; /* same as bg, contrast ~1:1 */
+        outline-offset: 0;
+      }
+      .main-content { margin-left: 220px; padding: 0 1.5rem; }
+      .action-btn {
+        background: #cba6f7;
+        color: #1e1e2e;
+        border: none;
+        padding: 0.5rem 1.25rem;
+        border-radius: 0.375rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-right: 0.5rem;
+      }
+      /* Focus ring color matches the dark background — invisible */
+      .action-btn:focus {
+        outline: 2px solid #1e1e2e;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <nav>
+        <a href="#">Dashboard</a>
+        <a href="#">Projects</a>
+        <a href="#">Analytics</a>
+        <a href="#">Settings</a>
+        <a href="#">Billing</a>
+      </nav>
+    </div>
+    <div class="main-content">
+      <h1 style="margin-top:0">Dashboard</h1>
+      <p>Focus indicators use the same color as the dark background, making them invisible to keyboard users.</p>
+      <button class="action-btn">New project</button>
+      <button class="action-btn">Import</button>
+    </div>
+  </body>
+</html>

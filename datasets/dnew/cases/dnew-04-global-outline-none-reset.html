@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 04 — global outline:none CSS reset</title>
+    <style>
+      /* Very common real-world anti-pattern: blanket focus suppression in a CSS reset */
+      * {
+        box-sizing: border-box;
+        outline: none;
+      }
+      body { font-family: system-ui, sans-serif; padding: 1.5rem; background: #fff; }
+      .nav { display: flex; gap: 1rem; margin-bottom: 1.5rem; padding: 0.75rem 1rem; background: #f5f5f5; }
+      .nav a { color: #0066cc; text-decoration: none; padding: 0.25rem 0.5rem; font-size: 0.9rem; }
+      .btn-primary {
+        background: #0066cc;
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1.4rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .btn-secondary {
+        background: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        padding: 0.6rem 1.4rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+    <h1>Sign up</h1>
+    <p>The global <code>* { outline: none }</code> reset removes all keyboard focus indicators from every interactive element on this page.</p>
+    <div>
+      <button class="btn-primary">Create account</button>
+      <button class="btn-secondary">Cancel</button>
+    </div>
+  </body>
+</html>

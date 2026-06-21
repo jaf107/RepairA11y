@@ -21,7 +21,7 @@ import { dirname, join, resolve } from "node:path";
 import { runCase } from "../_common/runner.js";
 import { mcNemar, cohensH, mean, std } from "../_common/stats.js";
 import { createLlmGenerator } from "../../src/generators/llm_based/index.js";
-import { ddCasesForSc } from "../../src/datasets/index.js";
+import { ddCasesForSc, dnewCasesForSc } from "../../src/datasets/index.js";
 import { aggregate, renderAggregateMarkdown } from "../../src/reporting/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -38,12 +38,14 @@ function parseArgs(argv) {
     sc: DEFAULT_SC,
     seeds: DEFAULT_SEEDS,
     dry: false,
+    dnew: false,
   };
   const args = argv.slice(2);
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--runs") out.runs = parseInt(args[++i], 10);
     else if (args[i] === "--sc") out.sc = args[++i];
     else if (args[i] === "--dry") out.dry = true;
+    else if (args[i] === "--dnew") out.dnew = true;
     else if (args[i] === "--seeds")
       out.seeds = args[++i].split(",").map(Number);
   }
@@ -74,14 +76,17 @@ function makeDryGenerator() {
 
 async function main() {
   const opts = parseArgs(process.argv);
-  const cases = ddCasesForSc(opts.sc, { failOnly: true });
+  const cases = opts.dnew
+    ? dnewCasesForSc(opts.sc, { failOnly: true })
+    : ddCasesForSc(opts.sc, { failOnly: true });
+  const corpusLabel = opts.dnew ? "D_new" : "D_d";
   if (!cases.length) {
-    console.error(`No D_d FAIL cases registered for SC ${opts.sc}`);
+    console.error(`No ${corpusLabel} FAIL cases registered for SC ${opts.sc}`);
     process.exit(1);
   }
 
   console.log(
-    `[RQ2] sc=${opts.sc}  cases=${cases.length}  levels=${LEVELS.length}  seeds=${opts.seeds.length}  runs=${opts.runs}  dry=${opts.dry}`,
+    `[RQ2] corpus=${corpusLabel}  sc=${opts.sc}  cases=${cases.length}  levels=${LEVELS.length}  seeds=${opts.seeds.length}  runs=${opts.runs}  dry=${opts.dry}`,
   );
   const totalTrials = cases.length * LEVELS.length * opts.seeds.length * opts.runs;
   console.log(`[RQ2] total trials: ${totalTrials}`);
@@ -110,6 +115,7 @@ async function main() {
           allResults.push({
             ...result,
             caseId: c.id,
+            corpus: corpusLabel,
             runIdx,
             seed,
             ms: Date.now() - t0,

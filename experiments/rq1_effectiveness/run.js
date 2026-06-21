@@ -18,7 +18,7 @@ import { dirname, join, resolve } from "node:path";
 import { runCase } from "../_common/runner.js";
 import { ruleBasedGenerator } from "../../src/generators/rule_based/index.js";
 import { createLlmGenerator } from "../../src/generators/llm_based/index.js";
-import { ddCasesForSc } from "../../src/datasets/index.js";
+import { ddCasesForSc, dnewCasesForSc } from "../../src/datasets/index.js";
 import { aggregate, renderAggregateMarkdown } from "../../src/reporting/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -32,6 +32,7 @@ function parseArgs(argv) {
     ruleOnly: false,
     llmOnly: false,
     dr: false,
+    dnew: false,
     dry: false,
     scs: SCS,
     evidenceLevel: "E3",
@@ -42,6 +43,7 @@ function parseArgs(argv) {
     else if (a[i] === "--rule-only") out.ruleOnly = true;
     else if (a[i] === "--llm-only") out.llmOnly = true;
     else if (a[i] === "--dr") out.dr = true;
+    else if (a[i] === "--dnew") out.dnew = true;
     else if (a[i] === "--dry") out.dry = true;
     else if (a[i] === "--sc") out.scs = [a[++i]];
     else if (a[i] === "--level") out.evidenceLevel = a[++i];
@@ -78,7 +80,7 @@ async function loadDrCases() {
 
 async function main() {
   const opts = parseArgs(process.argv);
-  console.log(`[RQ1] runs=${opts.runs} dr=${opts.dr} dry=${opts.dry}`);
+  console.log(`[RQ1] runs=${opts.runs} dr=${opts.dr} dnew=${opts.dnew} dry=${opts.dry}`);
 
   const all = [];
 
@@ -117,6 +119,48 @@ async function main() {
             maxIterations: 1,
           });
           all.push({ ...r, caseId: c.id, corpus: "D_d", runIdx: run, seed: run });
+        }
+      }
+    }
+  }
+
+  if (opts.dnew) {
+    for (const sc of opts.scs) {
+      const dnewCases = dnewCasesForSc(sc, { failOnly: true });
+      console.log(`[RQ1] SC ${sc} — ${dnewCases.length} D_new FAIL cases`);
+
+      if (!opts.llmOnly) {
+        console.log(`[RQ1] running rule-based on D_new…`);
+        for (const c of dnewCases) {
+          const r = await runCase({
+            fixturePath: c.file,
+            sc,
+            evidenceLevel: "E1",
+            generator: ruleBasedGenerator,
+            generatorName: "rule_based",
+            maxIterations: 1,
+          });
+          all.push({ ...r, caseId: c.id, corpus: "D_new", runIdx: 1, seed: 0 });
+        }
+      }
+
+      if (!opts.ruleOnly) {
+        console.log(`[RQ1] running LLM (${opts.runs} seeds) on D_new…`);
+        for (let run = 1; run <= opts.runs; run++) {
+          const gen = opts.dry
+            ? makeDryGenerator()
+            : createLlmGenerator({ evidenceLevel: opts.evidenceLevel });
+          for (const c of dnewCases) {
+            const r = await runCase({
+              fixturePath: c.file,
+              sc,
+              evidenceLevel: opts.evidenceLevel,
+              generator: gen,
+              generatorName: "llm_based",
+              maxIterations: 1,
+            });
+            all.push({ ...r, caseId: c.id, corpus: "D_new", runIdx: run, seed: run });
+          }
         }
       }
     }
