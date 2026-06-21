@@ -1,10 +1,11 @@
 /**
- * Screenshot annotation utilities for showcase / D_r experiment output.
+ * Screenshot utilities for showcase / D_r experiment output.
  *
- * annotateWithBbox: draws a red rectangle over an existing PNG and writes to outputPath.
- * captureBeforeAfter: takes before/after screenshots around a mutation, annotates both.
+ * annotateWithBbox: draws a red rectangle over an existing PNG (used by E4 evidence).
+ * captureBeforeAfter: focuses a selector, crops to element bounds, applies mutation,
+ *   re-focuses, crops again. Shows :focus-visible state before/after the patch.
  *
- * Sharp is lazy-loaded so E1–E3 paths that never call these functions pay no import cost.
+ * Sharp is lazy-loaded so E1–E3 paths pay no import cost.
  */
 
 function normalizeBbox(bbox) {
@@ -16,13 +17,24 @@ function normalizeBbox(bbox) {
   };
 }
 
+async function addRedBorder(input, outputPath) {
+  const sharp = (await import("sharp")).default;
+  const meta = await sharp(input).metadata();
+  const overlay = Buffer.from(
+    `<svg width="${meta.width}" height="${meta.height}">` +
+      `<rect x="2" y="2" width="${meta.width - 4}" height="${meta.height - 4}" ` +
+      `fill="none" stroke="red" stroke-width="3"/>` +
+      `</svg>`,
+  );
+  await sharp(input)
+    .composite([{ input: overlay, top: 0, left: 0 }])
+    .png()
+    .toFile(outputPath);
+}
+
 /**
  * Draw a 3px red rectangle at `bbox` over `inputPath` and write to `outputPath`.
- *
- * @param {object} opts
- * @param {string} opts.inputPath   Source PNG path
- * @param {object} opts.bbox        { x, y, width, height } or { left, top, right, bottom }
- * @param {string} opts.outputPath  Destination PNG path (may equal inputPath for in-place)
+ * Used by E4 evidence annotator (full-page screenshot + element bbox overlay).
  */
 export async function annotateWithBbox({ inputPath, bbox, outputPath }) {
   const sharp = (await import("sharp")).default;
@@ -44,24 +56,36 @@ export async function annotateWithBbox({ inputPath, bbox, outputPath }) {
 }
 
 /**
- * Capture before/after screenshots around `applyFn`, annotating both with `bbox`.
+ * Capture focused element before/after a patch mutation.
+ *
+ * Focuses `selector`, screenshots just that element (crop via Playwright locator),
+ * annotates with red border, applies mutation, re-focuses, screenshots again.
+ * This reveals the :focus-visible state that the patch is designed to fix.
  *
  * @param {object} opts
  * @param {import("playwright").Page} opts.page
- * @param {object}   opts.bbox        Bounding box to annotate
- * @param {string}   opts.beforePath  Path for pre-mutation screenshot
- * @param {string}   opts.afterPath   Path for post-mutation screenshot
- * @param {Function} opts.applyFn     Async function that mutates the page
+ * @param {string}   opts.selector   CSS selector for the violating element
+ * @param {string}   opts.beforePath Path for pre-patch screenshot
+ * @param {string}   opts.afterPath  Path for post-patch screenshot
+ * @param {Function} opts.applyFn    Async function that mutates the page (receives page)
  * @returns {Promise<{ beforePath: string, afterPath: string }>}
  */
-export async function captureBeforeAfter({ page, bbox, beforePath, afterPath, applyFn }) {
-  await page.screenshot({ path: beforePath, fullPage: true });
-  await annotateWithBbox({ inputPath: beforePath, bbox, outputPath: beforePath });
+export async function captureBeforeAfter({ page, selector, beforePath, afterPath, applyFn }) {
+  const locator = page.locator(selector).first();
+
+  await locator.scrollIntoViewIfNeeded();
+  await locator.focus();
+  await page.waitForTimeout(150);
+  const beforeBuf = await locator.screenshot();
+  await addRedBorder(beforeBuf, beforePath);
 
   await applyFn(page);
 
-  await page.screenshot({ path: afterPath, fullPage: true });
-  await annotateWithBbox({ inputPath: afterPath, bbox, outputPath: afterPath });
+  await locator.scrollIntoViewIfNeeded();
+  await locator.focus();
+  await page.waitForTimeout(150);
+  const afterBuf = await locator.screenshot();
+  await addRedBorder(afterBuf, afterPath);
 
   return { beforePath, afterPath };
 }

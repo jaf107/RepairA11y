@@ -29,9 +29,22 @@ export async function detectWithPatchLive({ url, patch }) {
 
   const browser = await chromium.launch();
   try {
-    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    // Match NavA11y's real-desktop UA. The default headless UA contains
+    // "HeadlessChrome", which Cloudflare and similar WAFs serve a bot-challenge
+    // page to — that challenge page has no real content, producing false
+    // RESOLVED verdicts. NavA11y already uses this exact UA for detection, so
+    // matching it keeps the patch/verify pass on the same page the baseline saw.
+    const context = await browser.newContext({
+      viewport: { width: 1280, height: 800 },
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    });
     const page = await context.newPage();
-    await page.goto(url, { waitUntil: "networkidle" });
+    // "networkidle" never fires on production sites (ads/analytics/polling keep
+    // the network busy). Wait for DOM + a fixed settle window instead.
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await page.waitForLoadState("load").catch(() => {});
+    await page.waitForTimeout(2000);
 
     await page.screenshot({ path: baselineScreenshotPath, fullPage: true });
 

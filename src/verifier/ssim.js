@@ -22,39 +22,55 @@ export async function compareScreenshots(a, b, opts = {}) {
   const pngA = PNG.sync.read(bufA);
   const pngB = PNG.sync.read(bufB);
 
-  if (pngA.width !== pngB.width || pngA.height !== pngB.height) {
-    // Resize-tolerant fallback: report similarity = 0 if dimensions differ.
-    return {
-      similarity: 0,
-      diffPixels:
-        Math.max(pngA.width, pngB.width) * Math.max(pngA.height, pngB.height),
-      totalPixels:
-        Math.max(pngA.width, pngB.width) * Math.max(pngA.height, pngB.height),
-      width: Math.max(pngA.width, pngB.width),
-      height: Math.max(pngA.height, pngB.height),
-      mismatchedDimensions: true,
-    };
-  }
+  // Live pages reflow between before/after captures (focus outline adds height,
+  // lazy content settles), so full-page screenshots differ in dimensions. Rather
+  // than report similarity=0 (a false REGRESSED), crop both to the common
+  // top-left overlap region and compare that. The cropped fraction is reported
+  // so callers can see how much was excluded.
+  const dimMismatch =
+    pngA.width !== pngB.width || pngA.height !== pngB.height;
 
-  const { width, height } = pngA;
+  const width = Math.min(pngA.width, pngB.width);
+  const height = Math.min(pngA.height, pngB.height);
+  const dataA = dimMismatch ? cropTopLeft(pngA, width, height) : pngA.data;
+  const dataB = dimMismatch ? cropTopLeft(pngB, width, height) : pngB.data;
+
   const diff = new PNG({ width, height });
-  const diffPixels = pixelmatch(
-    pngA.data,
-    pngB.data,
-    diff.data,
-    width,
-    height,
-    { threshold },
-  );
+  const diffPixels = pixelmatch(dataA, dataB, diff.data, width, height, {
+    threshold,
+  });
 
   const totalPixels = width * height;
+  const comparedArea = width * height;
+  const maxArea =
+    Math.max(pngA.width, pngB.width) * Math.max(pngA.height, pngB.height);
+
   return {
     similarity: 1 - diffPixels / totalPixels,
     diffPixels,
     totalPixels,
     width,
     height,
+    ...(dimMismatch
+      ? {
+          mismatchedDimensions: true,
+          comparedFraction: comparedArea / maxArea,
+        }
+      : {}),
   };
+}
+
+/**
+ * Extract the top-left (cropW × cropH) region of a PNG as a fresh RGBA buffer.
+ */
+function cropTopLeft(png, cropW, cropH) {
+  const out = Buffer.alloc(cropW * cropH * 4);
+  for (let y = 0; y < cropH; y++) {
+    const srcStart = y * png.width * 4;
+    const dstStart = y * cropW * 4;
+    png.data.copy(out, dstStart, srcStart, srcStart + cropW * 4);
+  }
+  return out;
 }
 
 async function toBuffer(input) {

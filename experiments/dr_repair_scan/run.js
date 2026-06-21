@@ -13,13 +13,16 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { chromium } from "playwright";
+
 import { detectWithPatchLive } from "../../src/verifier/runWithPatchLive.js";
 import { diffViolations } from "../../src/verifier/diff.js";
 import { compareScreenshots } from "../../src/verifier/ssim.js";
-import { annotateWithBbox } from "../../src/showcase/screenshot.js";
+import { captureBeforeAfter } from "../../src/showcase/screenshot.js";
 import { runDetection, sanitizeUrl } from "../../src/detector/index.js";
 import { packageEvidence } from "../../src/evidence/packager.js";
 import { createLlmGenerator } from "../../src/generators/llm_based/index.js";
+import { applyPatch } from "../../src/patches/applier.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SCAN_RESULTS_DIR = join(__dirname, "../dr_detection_scan/results");
@@ -172,16 +175,39 @@ async function main() {
       await mkdir(siteDir, { recursive: true });
       const beforePath = join(siteDir, "before.png");
       const afterPath = join(siteDir, "after.png");
-      const bbox = violation.element?.bbox ?? null;
+      const selector = violation.element?.selector;
 
-      if (bbox) {
-        await annotateWithBbox({ inputPath: baselineScreenshotPath, bbox, outputPath: beforePath });
-        await annotateWithBbox({ inputPath: screenshotPath, bbox, outputPath: afterPath });
-      } else {
-        // No bbox available — copy screenshots without annotation
-        const { copyFile } = await import("node:fs/promises");
-        await copyFile(baselineScreenshotPath, beforePath);
-        await copyFile(screenshotPath, afterPath);
+      let screenshotError = null;
+      if (selector) {
+        // Dedicated browser for focused :focus-visible showcase — separate from
+        // detectWithPatchLive. Failures here are cosmetic; don't sink the result.
+        const showcaseBrowser = await chromium.launch();
+        try {
+          const ctx = await showcaseBrowser.newContext({ viewport: { width: 1280, height: 800 } });
+          const pg = await ctx.newPage();
+          await pg.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+          await pg.waitForLoadState("load").catch(() => {});
+          await pg.waitForTimeout(2000);
+          // Guard: skip if element not present (JS-rendered, bot-blocked, etc.)
+          const elCount = await pg.locator(selector).count();
+          if (elCount > 0) {
+            await captureBeforeAfter({
+              page: pg,
+              selector,
+              beforePath,
+              afterPath,
+              applyFn: (p) => applyPatch(p, patch),
+            });
+          } else {
+            screenshotError = `element not found: ${selector}`;
+          }
+          await ctx.close();
+        } catch (e) {
+          screenshotError = e.message;
+          console.warn(`  screenshot failed: ${e.message}`);
+        } finally {
+          await showcaseBrowser.close();
+        }
       }
 
       const status = resolveStatus(delta);
@@ -197,8 +223,9 @@ async function main() {
         ssim,
         resolved: delta.resolved.length,
         newFailures: delta.newFailures.length,
-        beforePath,
-        afterPath,
+        beforePath: screenshotError ? null : beforePath,
+        afterPath: screenshotError ? null : afterPath,
+        screenshotError: screenshotError ?? undefined,
       });
     } catch (e) {
       console.error(`  ERROR: ${e.message}`);
