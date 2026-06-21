@@ -261,6 +261,53 @@ Solid blue `#005fcc` on white = 4.56:1 contrast. ✓
 
 ---
 
+### Example E — Focus obscured by cookie banner (SC 2.4.11 / 2.4.12)
+
+**A different SC — obstruction, not contrast.** The focused button is fully
+covered by a `position: fixed` cookie banner (`z-index: 200`). A keyboard user
+tabs to it but sees nothing — the banner paints over it.
+
+| Before (button hidden behind banner) | After (patch applied) |
+|---|---|
+| ![before](report_screenshots/obstruction-before.png) | ![after](report_screenshots/obstruction-after.png) |
+
+**What the runtime slice told the generator:**
+```jsonc
+{
+  "sc": "2.4.11",
+  "obscuredRatio": 1,                          // fully hidden
+  "obscurers": [
+    { "selector": "div.cookie-banner",
+      "position": "fixed", "zIndex": 200 }     // the thing on top
+  ]
+}
+```
+
+**Rule-based patch (RESOLVED):**
+```json
+{
+  "patch_type": "css_inject",
+  "target_selector": "html > body > main > button",
+  "payload": {
+    "rule": "html > body > main > button { z-index: 250 !important; position: relative; }"
+  }
+}
+```
+
+Bumps the focused element's stacking order above the obscurer (250 > 200) so it
+paints on top. Verified RESOLVED on both the cookie-banner and fixed-footer
+fixtures, for both SC 2.4.11 and 2.4.12 (0 new failures, SSIM 0.993).
+
+**The `!important` lesson (cross-SC):** the bump only works with `!important`.
+The injected element-selector rule loses CSS specificity to the focused
+element's own class rule (`.banner-btn { z-index: 50 }`), so without `!important`
+the z-index change is silently dropped and the element stays obscured. This is
+the same dominant real-world failure mode seen in the contrast cases: author
+styles use class selectors, and any patch must out-specify them. Both the
+rule-based generators and the LLM schema now enforce `!important`.
+
+---
+
 ## 5. Results
 
 ### RQ1 — Repair Effectiveness
@@ -298,6 +345,20 @@ benefit beyond runtime data alone.
 
 - Regression rate: **0.0%** across 8 cases
 - Mean SSIM: **1.000** (patches are visually non-invasive)
+
+### SC coverage beyond 2.4.13
+
+The RQ1/RQ2/RQ4 numbers above are **SC 2.4.13** (the primary evaluated
+criterion). Obstruction repair (SC 2.4.11 / 2.4.12) is also working on the
+rule-based path:
+
+| SC | Fixtures | Result |
+|---|---|---|
+| 2.4.11 (Focus Not Obscured, Min) | cookie-banner, fixed-footer | RESOLVED, 0 regressions, SSIM 0.993 |
+| 2.4.12 (Focus Not Obscured, Enhanced) | cookie-banner, fixed-footer | RESOLVED, 0 regressions, SSIM 0.993 |
+
+This is verified end-to-end (detect → generate → apply → re-detect) but not yet
+run through the E1–E4 evidence ablation — only SC 2.4.13 has ablation numbers.
 
 ---
 
