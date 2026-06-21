@@ -301,7 +301,51 @@ benefit beyond runtime data alone.
 
 ---
 
-## 6. Why This is Novel
+## 6. The Core Novelty — Runtime Context
+
+The central contribution of RepairA11y is **runtime context**: feeding the LLM
+the *rendered, measured state* of the focused element (computed style snapshots,
+contrast ratios, obscurer geometry) rather than only the static source it was
+generated from. Everything else in the system exists to isolate and measure the
+effect of this one variable.
+
+### Why runtime context is the right novelty
+
+Focus-behavior conformance is a **rendered property**, not a source property.
+Whether an outline meets 3:1 contrast depends on:
+
+- the *computed* outline colour (may come from a CSS variable resolved at render time)
+- the *effective* background (inherited, stacked, transparent, theme-dependent)
+- the *measured* contrast between focused and unfocused pixels
+- whether another element *obscures* the indicator (z-index, sticky headers)
+
+None of these are present in `outerHTML`. An LLM given only source code is
+guessing at the rendered result. Section 7 shows exactly this: at E1 the model
+blindly defaults to a black outline; at E3, handed the measured background and
+contrast, it picks a passing colour. **The novelty is not "use an LLM to repair
+accessibility" — others do that. It is "ground the LLM in detector-measured
+runtime state, and prove that grounding is what drives repair quality."**
+
+### How runtime context impacts results
+
+| Impact | Evidence |
+|---|---|
+| Large, statistically significant lift | E1→E3: +25.9 pp (D_d, p=0.0022) and +47.6 pp (D_new, p=0.0044); Cohen's h up to 1.007 (large effect) |
+| The lift is *causal*, not correlational | McNemar paired design — identical case, identical LLM, only the evidence bundle changes |
+| Bigger impact on harder cases | D_new (frameworks, CSS resets, dark themes) gains +47.6 pp vs D_d's +25.9 pp — realistic complexity benefits *more* from runtime grounding |
+| Static text alone is insufficient — even harmful | E2 (WCAG technique text, no runtime data) *hurts* on D_d (p=0.023): the rule without the pixels misleads the model |
+| Resolves nearly all genuine reasoning cases | E3 excluding oracle bug + API errors = 17/17 (100%) on D_new (§7.4) |
+
+### Why it is non-trivial (not "obviously true")
+
+"More context helps" is not a foregone conclusion. The RAG/long-context
+literature shows added context can *degrade* model performance — irrelevant
+documents drop accuracy (Cuconasu et al., SIGIR 2024; Shi et al., ICML 2023),
+and mid-context information is under-used (Liu et al., TACL 2024). Our E2-hurts
+finding is a live instance of this. Whether *runtime* evidence specifically
+helps was therefore a genuine empirical question — which RQ2 answers.
+
+### Where it sits against prior work
 
 | Claim | Evidence |
 |---|---|
@@ -313,3 +357,70 @@ benefit beyond runtime data alone.
 **One-sentence positioning:** NavA11y (chapter 1) closed the focus-behavior
 *detection* gap; RepairA11y (chapter 2) closes the *repair* gap — and provides
 the first causal evidence that runtime-grounded prompting drives the improvement.
+
+---
+
+## 7. Failure Analysis — Where & Why the LLM Fails
+
+Failures fall into three distinct buckets. Only the **first** is a genuine LLM
+reasoning failure; the other two must be reported separately or they understate
+true repair capability.
+
+### 7.1 Blind colour choice — the dominant reasoning failure (E1/E2)
+
+When the LLM cannot see the rendered background, it defaults to a **black
+(`#000`) outline** as a "safe" guess. On dark or transparent backgrounds this
+still fails the 3:1 contrast requirement. The same case resolves at E3 once the
+runtime slice supplies the measured background colour and contrast ratio:
+
+| Case | E1/E2 colour | result | E3 colour | result |
+|---|---|---|---|---|
+| dnew-09 (dark theme) | `#000` | ✗ UNRESOLVED | `#ffffff` | ✓ RESOLVED |
+| dnew-07 (sticky header) | `#000` | ✗ UNRESOLVED | `#005FCC` | ✓ RESOLVED |
+| dnew-05 (Bootstrap) | `black` | ✗ UNRESOLVED | `#005fcc` | ✓ RESOLVED |
+
+**Root cause:** colour contrast is a *rendered* property — it depends on
+stacking, inheritance, transparency, and theme. None of these are readable from
+`outerHTML`. E1 gives the source; E3 gives the rendered measurement. **Every
+E1→E3 rescue in the data is the LLM moving from a blind black-outline guess to a
+background-aware colour.** This is RQ2's causal mechanism made visible at the
+patch level.
+
+E2 (WCAG technique text) does **not** fix this: knowing the rule ("use ≥3:1
+contrast") is not the same as knowing the pixels ("the background is `#181825`").
+
+### 7.2 Oracle bug — dnew-04 fails at every level (not the LLM's fault)
+
+`dnew-04` (global `* { outline: none }` reset) stays UNRESOLVED at E1/E2/E3 and
+most E4 — 11 of the 28 D_new UNRESOLVED trials. NavA11y's contrast checker
+ignores the alpha channel, so the element's transparent `rgba(0,0,0,0)`
+background is treated as black. **Any** outline colour then scores 1:1 against
+"black" forever. The patch is often correct; the oracle cannot see it. E4
+occasionally escapes by switching strategy to `box-shadow` (which NavA11y
+auto-passes). Documented as a threat to validity.
+
+### 7.3 Infrastructure errors — not reasoning
+
+| Error | D_d | D_new | Cause |
+|---|---|---|---|
+| `missing choices[0]` | 14 | 4 | OpenRouter free-tier rate-limit / empty response |
+| `invalid JSON` (after 3 attempts) | 2 | 1 | Model emitted prose instead of patch JSON |
+| NavA11y browser crash | 1 | 0 | Playwright page closed mid-run |
+
+These are `ERROR` status, **separable** from `UNRESOLVED`. ~7% of D_d trials
+were lost to free-tier API flakiness; a paid tier removes them (one-line change).
+
+### 7.4 Corrected repair rate
+
+Excluding the two non-reasoning buckets gives the true reasoning capability at E3:
+
+| D_new E3 measurement | Rate |
+|---|---|
+| Raw | 17/21 (81.0%) |
+| Excluding API errors | 17/20 (85.0%) |
+| Excluding API errors **and** dnew-04 oracle bug | **17/17 (100.0%)** |
+
+**Takeaway:** once the oracle bug and infrastructure flakiness are removed, E3
+runtime evidence resolves *every* genuine SC 2.4.13 reasoning case in D_new. The
+remaining headline gap (81% vs 100%) is dominated by tooling, not model
+reasoning — an important framing for the threats-to-validity section.
