@@ -18,12 +18,14 @@
     "review": "node --env-file=.env scripts/manual-review.js",
     "run:rq1": "node --env-file=.env experiments/rq1_effectiveness/run.js",
     "run:rq2": "node --env-file=.env experiments/rq2_evidence_ablation/run.js",
-    "run:rq4": "node --env-file=.env experiments/rq4_regression/run.js"
+    "run:rq4": "node --env-file=.env experiments/rq4_regression/run.js",
+    "run:dr": "node --env-file=.env experiments/dr_repair_scan/run.js"
   },
   "dependencies": {
     "pixelmatch": "^7.2.0",
     "playwright": "^1.58.0",
-    "pngjs": "^7.0.0"
+    "pngjs": "^7.0.0",
+    "sharp": "^0.35.2"
   },
   "devDependencies": {
     "ajv": "^8.18.0",
