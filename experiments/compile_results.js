@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-async function latestJson(dir) {
+async function latestJson(dir, { preferNonDry = false } = {}) {
   let files;
   try {
     files = await readdir(dir);
@@ -28,6 +28,14 @@ async function latestJson(dir) {
   }
   const jsons = files.filter((f) => f.endsWith(".json")).sort().reverse();
   if (!jsons.length) return null;
+  if (preferNonDry) {
+    for (const f of jsons) {
+      const raw = await readFile(join(dir, f), "utf8").catch(() => null);
+      if (!raw) continue;
+      const data = JSON.parse(raw);
+      if (!data?.opts?.dry) return { file: f, data };
+    }
+  }
   const raw = await readFile(join(dir, jsons[0]), "utf8");
   return { file: jsons[0], data: JSON.parse(raw) };
 }
@@ -46,11 +54,11 @@ async function latestMd(dir) {
 
 async function main() {
   const rq1 = await latestJson(join(__dirname, "rq1_effectiveness/results"));
-  const rq2 = await latestJson(join(__dirname, "rq2_evidence_ablation/results"));
+  const rq2 = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true });
   const rq4 = await latestJson(join(__dirname, "rq4_regression/results"));
   const dr = await latestJson(join(__dirname, "dr_detection_scan/results"));
 
-  const rq2md = await latestMd(join(__dirname, "rq2_evidence_ablation/results"));
+  const rq2md = rq2 ? await readFile(join(__dirname, "rq2_evidence_ablation/results", rq2.file.replace(".json", ".md")), "utf8").catch(() => null) : null;
   const rq4md = await latestMd(join(__dirname, "rq4_regression/results"));
 
   const lines = [];
@@ -59,25 +67,33 @@ async function main() {
   lines.push("\n---\n");
 
   // RQ1
-  lines.push("## RQ1 — Repair Effectiveness (D_d Controlled Dataset)");
+  lines.push("## RQ1 — Repair Effectiveness");
   if (rq1) {
     const d = rq1.data;
     const all = d.all ?? [];
-    const byGen = groupBy(all.filter(r => r.status !== "NO_FAIL"), "generator");
     lines.push(`\n**Source:** ${rq1.file}\n`);
-    lines.push("| Generator | Resolved | Total | Rate |");
-    lines.push("|---|---|---|---|");
-    for (const [gen, rows] of Object.entries(byGen)) {
-      const res = rows.filter(r => r.status === "RESOLVED").length;
-      lines.push(`| ${gen} | ${res} | ${rows.length} | ${pct(res, rows.length)} |`);
-    }
-    lines.push("");
-    const bySc = groupBy(all.filter(r => r.status !== "NO_FAIL"), "sc");
-    lines.push("| SC | Resolved | Total | Rate |");
-    lines.push("|---|---|---|---|");
-    for (const [sc, rows] of Object.entries(bySc).sort()) {
-      const res = rows.filter(r => r.status === "RESOLVED").length;
-      lines.push(`| ${sc} | ${res} | ${rows.length} | ${pct(res, rows.length)} |`);
+
+    // Split by corpus
+    const corpora = [...new Set(all.map(r => r.corpus ?? "D_d"))].sort();
+    for (const corpus of corpora) {
+      const rows = all.filter(r => (r.corpus ?? "D_d") === corpus && r.status !== "NO_FAIL");
+      if (!rows.length) continue;
+      lines.push(`\n### ${corpus}`);
+      const byGen = groupBy(rows, "generator");
+      lines.push("| Generator | Resolved | Total | Rate |");
+      lines.push("|---|---|---|---|");
+      for (const [gen, gr] of Object.entries(byGen)) {
+        const res = gr.filter(r => r.status === "RESOLVED").length;
+        lines.push(`| ${gen} | ${res} | ${gr.length} | ${pct(res, gr.length)} |`);
+      }
+      lines.push("");
+      const bySc = groupBy(rows, "sc");
+      lines.push("| SC | Resolved | Total | Rate |");
+      lines.push("|---|---|---|---|");
+      for (const [sc, sr] of Object.entries(bySc).sort()) {
+        const res = sr.filter(r => r.status === "RESOLVED").length;
+        lines.push(`| ${sc} | ${res} | ${sr.length} | ${pct(res, sr.length)} |`);
+      }
     }
   } else {
     lines.push("_No RQ1 results found._");
@@ -137,16 +153,23 @@ async function main() {
 
   // Key observations
   lines.push("\n---\n## Key Observations\n");
-  if (rq1 && rq4) {
-    const ruleRows = (rq1.data.all ?? []).filter(r => r.generator === "rule_based" && r.status !== "NO_FAIL");
-    const llmRows = (rq1.data.all ?? []).filter(r => r.generator === "llm_based" && r.status !== "NO_FAIL");
-    const ruleRate = ruleRows.length ? ruleRows.filter(r => r.status === "RESOLVED").length / ruleRows.length : 0;
-    const llmRate = llmRows.length ? llmRows.filter(r => r.status === "RESOLVED").length / llmRows.length : 0;
-    lines.push(`1. **Rule-based** resolves ${(ruleRate * 100).toFixed(0)}% of D_d FAIL cases (${ruleRows.filter(r=>r.status==="RESOLVED").length}/${ruleRows.length})`);
-    lines.push(`2. **LLM-based** resolves ${(llmRate * 100).toFixed(0)}% of D_d FAIL cases (${llmRows.filter(r=>r.status==="RESOLVED").length}/${llmRows.length})`);
-
+  if (rq1) {
+    const allRq1 = rq1.data.all ?? [];
+    let obsIdx = 1;
+    for (const corpus of ["D_d", "D_new"]) {
+      const corpusRows = allRq1.filter(r => (r.corpus ?? "D_d") === corpus && r.status !== "NO_FAIL");
+      if (!corpusRows.length) continue;
+      const ruleRows = corpusRows.filter(r => r.generator === "rule_based");
+      const llmRows = corpusRows.filter(r => r.generator === "llm_based");
+      if (ruleRows.length)
+        lines.push(`${obsIdx++}. **Rule-based (${corpus})** resolves ${pct(ruleRows.filter(r=>r.status==="RESOLVED").length, ruleRows.length)} (${ruleRows.filter(r=>r.status==="RESOLVED").length}/${ruleRows.length})`);
+      if (llmRows.length)
+        lines.push(`${obsIdx++}. **LLM-based (${corpus})** resolves ${pct(llmRows.filter(r=>r.status==="RESOLVED").length, llmRows.length)} (${llmRows.filter(r=>r.status==="RESOLVED").length}/${llmRows.length})`);
+    }
+  }
+  if (rq4) {
     const s = rq4.data.summary;
-    lines.push(`3. **Regression rate**: ${(s.regressionRate * 100).toFixed(1)}% — patches safe (SSIM ${s.meanSsim?.toFixed(3) ?? "n/a"})`);
+    lines.push(`- **Regression rate**: ${(s.regressionRate * 100).toFixed(1)}% — patches safe (SSIM ${s.meanSsim?.toFixed(3) ?? "n/a"})`);
   }
   if (rq2) {
     const perLevel = rq2.data.summary?.perLevel ?? {};

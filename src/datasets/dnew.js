@@ -34,6 +34,13 @@ export const DNEW_CASES = [
     description: "outline:none with 1px border-color change only — fails width + contrast",
   },
   {
+    id: "dnew-03",
+    file: f("dnew-03-skiplink-positive-tabindex-nav.html"),
+    scs: ["2.4.3"],
+    expectFail: true,
+    description: "Primary nav link has tabindex=3, forcing it ahead in tab order — SC 2.4.3 violation",
+  },
+  {
     id: "dnew-04",
     file: f("dnew-04-global-outline-none-reset.html"),
     scs: ["2.4.13"],
