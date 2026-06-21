@@ -39,9 +39,15 @@ export function generateZIndexBump(violation, { strict }) {
     patch_type: "css_inject",
     target_selector: selector,
     payload: {
-      rule: `${selector} { z-index: ${target}; position: relative; }`,
+      // z-index needs !important to beat the author's own (usually class-based,
+      // higher-specificity) rule on the focused element — without it the bump is
+      // silently dropped and the element stays obscured. position:relative is
+      // left non-important so it only fills in for statically-positioned
+      // elements (where z-index would otherwise be inert) and does not force a
+      // layout shift on elements that are already fixed/absolute/sticky.
+      rule: `${selector} { z-index: ${target} !important; position: relative; }`,
     },
-    rationale: `Element obscured by ${obscurers.length || "unknown"} overlay(s) (max z-index ${maxZ}). Raised focused element's stacking order to ${target}; added position:relative so z-index takes effect.${strict ? " (Enhanced/AAA buffer of +100 applied.)" : ""}`,
+    rationale: `Element obscured by ${obscurers.length || "unknown"} overlay(s) (max z-index ${maxZ}). Raised focused element's stacking order to ${target} (with !important to override author styles); position:relative ensures z-index applies to statically-positioned elements.${strict ? " (Enhanced/AAA buffer of +100 applied.)" : ""}`,
     wcag_technique_cited: null,
   };
 }
