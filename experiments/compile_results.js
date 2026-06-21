@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-async function latestJson(dir, { preferNonDry = false } = {}) {
+async function latestJson(dir, { preferNonDry = false, dnew = null } = {}) {
   let files;
   try {
     files = await readdir(dir);
@@ -28,16 +28,16 @@ async function latestJson(dir, { preferNonDry = false } = {}) {
   }
   const jsons = files.filter((f) => f.endsWith(".json")).sort().reverse();
   if (!jsons.length) return null;
-  if (preferNonDry) {
-    for (const f of jsons) {
-      const raw = await readFile(join(dir, f), "utf8").catch(() => null);
-      if (!raw) continue;
-      const data = JSON.parse(raw);
-      if (!data?.opts?.dry) return { file: f, data };
-    }
+  for (const f of jsons) {
+    const raw = await readFile(join(dir, f), "utf8").catch(() => null);
+    if (!raw) continue;
+    const data = JSON.parse(raw);
+    if (preferNonDry && data?.opts?.dry) continue;
+    if (dnew === true && !data?.opts?.dnew) continue;
+    if (dnew === false && data?.opts?.dnew) continue;
+    return { file: f, data };
   }
-  const raw = await readFile(join(dir, jsons[0]), "utf8");
-  return { file: jsons[0], data: JSON.parse(raw) };
+  return null;
 }
 
 async function latestMd(dir) {
@@ -54,11 +54,13 @@ async function latestMd(dir) {
 
 async function main() {
   const rq1 = await latestJson(join(__dirname, "rq1_effectiveness/results"));
-  const rq2 = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true });
+  const rq2Dd = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: false });
+  const rq2Dnew = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: true });
   const rq4 = await latestJson(join(__dirname, "rq4_regression/results"));
   const dr = await latestJson(join(__dirname, "dr_detection_scan/results"));
 
-  const rq2md = rq2 ? await readFile(join(__dirname, "rq2_evidence_ablation/results", rq2.file.replace(".json", ".md")), "utf8").catch(() => null) : null;
+  const rq2DdMd = rq2Dd ? await readFile(join(__dirname, "rq2_evidence_ablation/results", rq2Dd.file.replace(".json", ".md")), "utf8").catch(() => null) : null;
+  const rq2DnewMd = rq2Dnew ? await readFile(join(__dirname, "rq2_evidence_ablation/results", rq2Dnew.file.replace(".json", ".md")), "utf8").catch(() => null) : null;
   const rq4md = await latestMd(join(__dirname, "rq4_regression/results"));
 
   const lines = [];
@@ -101,12 +103,19 @@ async function main() {
 
   // RQ2
   lines.push("\n---\n## RQ2 — Evidence Ablation (SC 2.4.13)");
-  if (rq2md) {
-    lines.push("");
-    lines.push(rq2md);
-  } else if (rq2) {
-    lines.push("\n_RQ2 results available but markdown not generated yet._");
-  } else {
+  if (rq2DdMd) {
+    lines.push("\n### D_d (controlled fixtures)\n");
+    lines.push(rq2DdMd);
+  } else if (rq2Dd) {
+    lines.push("\n### D_d — results available but markdown missing.");
+  }
+  if (rq2DnewMd) {
+    lines.push("\n### D_new (realistic corpus)\n");
+    lines.push(rq2DnewMd);
+  } else if (rq2Dnew) {
+    lines.push("\n### D_new — results available but markdown missing.");
+  }
+  if (!rq2Dd && !rq2Dnew) {
     lines.push("\n_No RQ2 results found._");
   }
 
@@ -171,15 +180,16 @@ async function main() {
     const s = rq4.data.summary;
     lines.push(`- **Regression rate**: ${(s.regressionRate * 100).toFixed(1)}% — patches safe (SSIM ${s.meanSsim?.toFixed(3) ?? "n/a"})`);
   }
-  if (rq2) {
+  for (const [label, rq2] of [["D_d", rq2Dd], ["D_new", rq2Dnew]]) {
+    if (!rq2) continue;
     const perLevel = rq2.data.summary?.perLevel ?? {};
     const e1 = perLevel["E1"];
     const e3 = perLevel["E3"];
     if (e1 && e3) {
-      lines.push(`4. **Evidence ablation**: E1 (static) ${(e1.meanRate * 100).toFixed(1)}% vs E3 (runtime) ${(e3.meanRate * 100).toFixed(1)}% resolution rate`);
+      lines.push(`- **Evidence ablation (${label})**: E1 (static) ${(e1.meanRate * 100).toFixed(1)}% → E3 (runtime) ${(e3.meanRate * 100).toFixed(1)}% (+${((e3.meanRate - e1.meanRate) * 100).toFixed(1)}pp)`);
       const test = rq2.data.summary?.tests?.["E1_vs_E3"];
       if (test && test.p != null) {
-        lines.push(`   McNemar E1 vs E3: p=${test.p.toFixed(4)}, Cohen's h=${test.cohensH?.toFixed(3)}, ${test.significant ? "**significant**" : "not significant"}`);
+        lines.push(`  McNemar: χ²=${test.chi2?.toFixed(3)}, p=${test.p.toFixed(4)}, Cohen's h=${test.cohensH?.toFixed(3)}, ${test.significant ? "**significant**" : "not significant"}`);
       }
     }
   }

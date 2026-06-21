@@ -1,6 +1,6 @@
 # RepairA11y — Experiment Results Summary
 
-_Generated: 2026-06-21T06:11:17.628Z_
+_Generated: 2026-06-21T07:03:35.151Z_
 
 ---
 
@@ -32,34 +32,36 @@ _Generated: 2026-06-21T06:11:17.628Z_
 ---
 ## RQ2 — Evidence Ablation (SC 2.4.13)
 
+### D_d (controlled fixtures)
+
 # RQ2 — Evidence Ablation (SC 2.4.13)
 
-- runs: **1**, seeds: **1**, dry: **true**
-- generated: 2026-06-21T06:07:22.468Z
+- runs: **3**, seeds: **1,2,3**, dry: **false**
+- generated: 2026-06-21T06:19:00.931Z
 
 ## Per-level resolution rate (mean ± std across runs)
 | Level | Mean | Std | Cases (n_trials) |
 |---|---|---|---|
-| E1 | 14.3% | ±0.0% | 7 |
-| E2 | 14.3% | ±0.0% | 7 |
-| E3 | 14.3% | ±0.0% | 7 |
-| E4 | 14.3% | ±0.0% | 7 |
+| E1 | 66.7% | ±0.0% | 54 |
+| E2 | 53.7% | ±11.1% | 54 |
+| E3 | 92.6% | ±8.8% | 54 |
+| E4 | 88.9% | ±11.8% | 54 |
 
 ## McNemar paired tests
 | Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
 |---|---|---|---|---|---|---|---|---|
-| E1_vs_E2 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
-| E1_vs_E3 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
-| E1_vs_E4 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
-| E2_vs_E3 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
-| E3_vs_E4 | 14.3% | 14.3% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E2 | 66.7% | 53.7% | 7 | 0 | 5.143 | 0.0233 | 0.266 | ✓ |
+| E1_vs_E3 | 66.7% | 92.6% | 2 | 16 | 9.389 | 0.0022 | 0.680 | ✓ |
+| E1_vs_E4 | 66.7% | 88.9% | 2 | 14 | 7.563 | 0.0060 | 0.551 | ✓ |
+| E2_vs_E3 | 53.7% | 92.6% | 2 | 23 | 16.000 | 0.0001 | 0.945 | ✓ |
+| E3_vs_E4 | 92.6% | 88.9% | 5 | 3 | 0.125 | 0.7237 | 0.128 |  |
 
 ## Overall aggregate
 # Experiment report — RQ2
 
 ## Summary
-- **Cases**: 28
-- **Resolution rate**: 14.3% (4/28)
+- **Cases**: 216
+- **Resolution rate**: 75.5% (163/216)
 - **Regression rate**: 0.0%
 - **Mean iterations**: 1.00
 - **Mean SSIM**: 1.000
@@ -67,19 +69,71 @@ _Generated: 2026-06-21T06:11:17.628Z_
 ## By status
 | Status | Count |
 |---|---|
-| RESOLVED | 4 |
-| UNRESOLVED | 24 |
+| RESOLVED | 163 |
+| UNRESOLVED | 36 |
 | REGRESSED | 0 |
 | DECLINED | 0 |
-| ERROR | 0 |
+| ERROR | 17 |
 
 ## By evidence level
 | Level | Resolved | Total | Rate |
 |---|---|---|---|
-| E1 | 1 | 7 | 14.3% |
-| E2 | 1 | 7 | 14.3% |
-| E3 | 1 | 7 | 14.3% |
-| E4 | 1 | 7 | 14.3% |
+| E1 | 36 | 54 | 66.7% |
+| E2 | 29 | 54 | 53.7% |
+| E3 | 50 | 54 | 92.6% |
+| E4 | 48 | 54 | 88.9% |
+
+
+### D_new (realistic corpus)
+
+# RQ2 — Evidence Ablation (SC 2.4.13)
+
+- runs: **1**, seeds: **1,2,3**, dry: **false**
+- generated: 2026-06-21T07:03:24.329Z
+
+## Per-level resolution rate (mean ± std across runs)
+| Level | Mean | Std | Cases (n_trials) |
+|---|---|---|---|
+| E1 | 33.3% | ±8.2% | 21 |
+| E2 | 42.9% | ±0.0% | 21 |
+| E3 | 81.0% | ±8.2% | 21 |
+| E4 | 85.7% | ±14.3% | 21 |
+
+## McNemar paired tests
+| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
+|---|---|---|---|---|---|---|---|---|
+| E1_vs_E2 | 33.3% | 42.9% | 0 | 2 | 0.500 | 0.4795 | 0.196 |  |
+| E1_vs_E3 | 33.3% | 81.0% | 0 | 10 | 8.100 | 0.0044 | 1.007 | ✓ |
+| E1_vs_E4 | 33.3% | 85.7% | 0 | 11 | 9.091 | 0.0026 | 1.135 | ✓ |
+| E2_vs_E3 | 42.9% | 81.0% | 0 | 8 | 6.125 | 0.0133 | 0.811 | ✓ |
+| E3_vs_E4 | 81.0% | 85.7% | 1 | 2 | 0.000 | 1.0000 | 0.128 |  |
+
+## Overall aggregate
+# Experiment report — RQ2
+
+## Summary
+- **Cases**: 84
+- **Resolution rate**: 60.7% (51/84)
+- **Regression rate**: 0.0%
+- **Mean iterations**: 1.00
+- **Mean SSIM**: 1.000
+
+## By status
+| Status | Count |
+|---|---|
+| RESOLVED | 51 |
+| UNRESOLVED | 28 |
+| REGRESSED | 0 |
+| DECLINED | 0 |
+| ERROR | 5 |
+
+## By evidence level
+| Level | Resolved | Total | Rate |
+|---|---|---|---|
+| E1 | 7 | 21 | 33.3% |
+| E2 | 9 | 21 | 42.9% |
+| E3 | 17 | 21 | 81.0% |
+| E4 | 18 | 21 | 85.7% |
 
 
 ---
@@ -154,5 +208,7 @@ _Generated: 2026-06-21T06:11:17.628Z_
 3. **Rule-based (D_new)** resolves 100.0% (7/7)
 4. **LLM-based (D_new)** resolves 76.2% (16/21)
 - **Regression rate**: 0.0% — patches safe (SSIM 1.000)
-4. **Evidence ablation**: E1 (static) 14.3% vs E3 (runtime) 14.3% resolution rate
-   McNemar E1 vs E3: p=1.0000, Cohen's h=0.000, not significant
+- **Evidence ablation (D_d)**: E1 (static) 66.7% → E3 (runtime) 92.6% (+25.9pp)
+  McNemar: χ²=9.389, p=0.0022, Cohen's h=0.680, **significant**
+- **Evidence ablation (D_new)**: E1 (static) 33.3% → E3 (runtime) 81.0% (+47.6pp)
+  McNemar: χ²=8.100, p=0.0044, Cohen's h=1.007, **significant**

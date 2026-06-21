@@ -1,0 +1,2689 @@
+{
+  "opts": {
+    "runs": 1,
+    "sc": "2.4.13",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "dry": false,
+    "dnew": true
+  },
+  "summary": {
+    "perLevel": {
+      "E1": {
+        "meanRate": 0.3333333333333333,
+        "stdRate": 0.08247860988423225,
+        "runRates": [
+          0.42857142857142855,
+          0.2857142857142857,
+          0.2857142857142857
+        ],
+        "cases": 21
+      },
+      "E2": {
+        "meanRate": 0.42857142857142855,
+        "stdRate": 0,
+        "runRates": [
+          0.42857142857142855,
+          0.42857142857142855,
+          0.42857142857142855
+        ],
+        "cases": 21
+      },
+      "E3": {
+        "meanRate": 0.8095238095238094,
+        "stdRate": 0.08247860988423221,
+        "runRates": [
+          0.8571428571428571,
+          0.8571428571428571,
+          0.7142857142857143
+        ],
+        "cases": 21
+      },
+      "E4": {
+        "meanRate": 0.8571428571428572,
+        "stdRate": 0.14285714285714285,
+        "runRates": [
+          1,
+          0.8571428571428571,
+          0.7142857142857143
+        ],
+        "cases": 21
+      }
+    },
+    "tests": {
+      "E1_vs_E2": {
+        "b": 0,
+        "c": 2,
+        "chi2": 0.5,
+        "p": 0.4794999836952528,
+        "significant": false,
+        "n": 21,
+        "meanA": 0.3333333333333333,
+        "meanB": 0.42857142857142855,
+        "cohensH": 0.19648934054875644
+      },
+      "E1_vs_E3": {
+        "b": 0,
+        "c": 10,
+        "chi2": 8.1,
+        "p": 0.004426653781650192,
+        "significant": true,
+        "n": 21,
+        "meanA": 0.3333333333333333,
+        "meanB": 0.8095238095238095,
+        "cohensH": 1.007366354089955
+      },
+      "E1_vs_E4": {
+        "b": 0,
+        "c": 11,
+        "chi2": 9.090909090909092,
+        "p": 0.002568970081442856,
+        "significant": true,
+        "n": 21,
+        "meanA": 0.3333333333333333,
+        "meanB": 0.8571428571428571,
+        "cohensH": 1.1354398629386568
+      },
+      "E2_vs_E3": {
+        "b": 0,
+        "c": 8,
+        "chi2": 6.125,
+        "p": 0.013328347844706045,
+        "significant": true,
+        "n": 21,
+        "meanA": 0.42857142857142855,
+        "meanB": 0.8095238095238095,
+        "cohensH": 0.8108770135411985
+      },
+      "E3_vs_E4": {
+        "b": 1,
+        "c": 2,
+        "chi2": 0,
+        "p": 0.999999999,
+        "significant": false,
+        "n": 21,
+        "meanA": 0.8095238095238095,
+        "meanB": 0.8571428571428571,
+        "cohensH": 0.12807350884870194
+      }
+    },
+    "aggregate": {
+      "total": 84,
+      "resolved": 51,
+      "resolutionRate": 0.6071428571428571,
+      "byStatus": {
+        "RESOLVED": 51,
+        "UNRESOLVED": 28,
+        "REGRESSED": 0,
+        "DECLINED": 0,
+        "ERROR": 5
+      },
+      "regressionRate": 0,
+      "meanIterations": 1,
+      "meanSimilarity": 1,
+      "bySC": {
+        "2.4.13": {
+          "total": 84,
+          "resolved": 51,
+          "rate": 0.6071428571428571
+        }
+      },
+      "byGenerator": {
+        "openrouter-llm": {
+          "total": 84,
+          "resolved": 51,
+          "rate": 0.6071428571428571
+        }
+      },
+      "byEvidenceLevel": {
+        "E1": {
+          "total": 21,
+          "resolved": 7,
+          "rate": 0.3333333333333333
+        },
+        "E2": {
+          "total": 21,
+          "resolved": 9,
+          "rate": 0.42857142857142855
+        },
+        "E3": {
+          "total": 21,
+          "resolved": 17,
+          "rate": 0.8095238095238095
+        },
+        "E4": {
+          "total": 21,
+          "resolved": 18,
+          "rate": 0.8571428571428571
+        }
+      }
+    },
+    "markdown": "# RQ2 — Evidence Ablation (SC 2.4.13)\n\n- runs: **1**, seeds: **1,2,3**, dry: **false**\n- generated: 2026-06-21T07:03:24.329Z\n\n## Per-level resolution rate (mean ± std across runs)\n| Level | Mean | Std | Cases (n_trials) |\n|---|---|---|---|\n| E1 | 33.3% | ±8.2% | 21 |\n| E2 | 42.9% | ±0.0% | 21 |\n| E3 | 81.0% | ±8.2% | 21 |\n| E4 | 85.7% | ±14.3% | 21 |\n\n## McNemar paired tests\n| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |\n|---|---|---|---|---|---|---|---|---|\n| E1_vs_E2 | 33.3% | 42.9% | 0 | 2 | 0.500 | 0.4795 | 0.196 |  |\n| E1_vs_E3 | 33.3% | 81.0% | 0 | 10 | 8.100 | 0.0044 | 1.007 | ✓ |\n| E1_vs_E4 | 33.3% | 85.7% | 0 | 11 | 9.091 | 0.0026 | 1.135 | ✓ |\n| E2_vs_E3 | 42.9% | 81.0% | 0 | 8 | 6.125 | 0.0133 | 0.811 | ✓ |\n| E3_vs_E4 | 81.0% | 85.7% | 1 | 2 | 0.000 | 1.0000 | 0.128 |  |\n\n## Overall aggregate\n# Experiment report — RQ2\n\n## Summary\n- **Cases**: 84\n- **Resolution rate**: 60.7% (51/84)\n- **Regression rate**: 0.0%\n- **Mean iterations**: 1.00\n- **Mean SSIM**: 1.000\n\n## By status\n| Status | Count |\n|---|---|\n| RESOLVED | 51 |\n| UNRESOLVED | 28 |\n| REGRESSED | 0 |\n| DECLINED | 0 |\n| ERROR | 5 |\n\n## By evidence level\n| Level | Resolved | Total | Rate |\n|---|---|---|---|\n| E1 | 7 | 21 | 33.3% |\n| E2 | 9 | 21 | 42.9% |\n| E3 | 17 | 21 | 81.0% |\n| E4 | 18 | 21 | 85.7% |\n"
+  },
+  "allResults": [
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 23010
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "nav a",
+        "payload": {
+          "rule": "nav a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 30851
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid black !important; }"
+        },
+        "rationale": "Adds a 2 px high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 26975
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline for keyboard focus, meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 28577
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 46922
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 27805
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 34704
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 27313
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 31115
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 24812
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 29586
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 0px !important; }"
+        },
+        "rationale": "Adds a visible 2 px black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 46244
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 27572
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 36343
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 25292
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a:focus",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 33038
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #005fcc !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a 2 px solid outline on focus to meet the minimum area and contrast requirements for AAA.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 31212
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #ffffff !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Increase outline color contrast to meet 3:1 requirement",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 30279
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a:focus",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #005FCC !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a 2 px solid outline with sufficient contrast for keyboard focus.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 41728
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px black outline on focus to meet 2.4.13 contrast and area requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 28072
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px white outline on focus to meet 3:1 contrast and required area.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 31974
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 23925
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #ffbf00 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a visible 2 px high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 3
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 46065
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid outline with sufficient contrast for keyboard focus",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 25784
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #ffffff !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Increase outline color contrast to meet 3:1 requirement",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 30417
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a:focus",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #005FCC !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a 2 px solid outline on focus to meet minimum area and contrast for AAA.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 41728
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Provide a 2 px solid black outline on focus to meet ≥3:1 contrast and required area.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 29481
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px white outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 32812
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "input:focus",
+        "payload": {
+          "rule": "input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 22695
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "nav a",
+        "payload": {
+          "rule": "nav a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 29254
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #000000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 28567
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "ERROR",
+      "iterations": 1,
+      "patch": null,
+      "verify": null,
+      "error": "generator: OpenRouter response missing choices[0]",
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 8228
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000000 !important; }"
+        },
+        "rationale": "Add a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 40980
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 27572
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 32722
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 22811
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 207209
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "ERROR",
+      "iterations": 1,
+      "patch": null,
+      "verify": null,
+      "error": "generator: OpenRouter response missing choices[0]",
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 7963
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 29534
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 46823
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 110906
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 34503
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet required area and contrast.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 25594
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a:focus",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 32271
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a:focus",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid rgb(0, 95, 204) !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Increase outline width to 2 px and ensure sufficient contrast for keyboard focus.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 26644
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #ffffff !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Increase outline color contrast to meet 3:1 ratio",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 32219
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a:focus",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #005FCC !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Increase outline width to 2 px and ensure high‑contrast color for keyboard focus",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 41007
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Provide a high‑contrast 2 px solid black outline on focus to meet 3:1 contrast and area requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 38734
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px white outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 32531
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; outline-offset: 0px !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 24347
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a:focus",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 32831
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid outline with sufficient contrast for keyboard focus.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 28091
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #ffffff !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Provide a high‑contrast white outline of 2 px on focus to meet 3:1 contrast and required area.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 30584
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px high‑contrast outline on focus to meet 2.4.13 requirements",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 40371
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px solid outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 30731
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; outline-style: solid !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Adds a high‑contrast white 2 px solid outline on focus to meet 2.4.13 contrast and area requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 36931
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": null,
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 35334
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "nav a",
+        "payload": {
+          "rule": "nav a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 30995
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "ERROR",
+      "iterations": 1,
+      "patch": null,
+      "verify": null,
+      "error": "generator: Response was not valid JSON (attempt 3/3)",
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 27800
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 26830
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 40929
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 30319
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 33607
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 23824
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "nav a",
+        "payload": {
+          "rule": "nav a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 29870
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 25065
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Add a visible 2 px solid outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 27384
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 55547
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 28586
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px solid black outline on focus to meet size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 52507
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid black focus outline meeting size and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 24526
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a:focus",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 30735
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "ERROR",
+      "iterations": 1,
+      "patch": null,
+      "verify": null,
+      "error": "generator: OpenRouter response missing choices[0]",
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 102508
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button",
+        "payload": {
+          "rule": "button:focus { outline: 2px solid #ffffff !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px white outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 31076
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 AAA requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 42679
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #005fcc !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Add high‑contrast outline on focus to meet 2 px width and ≥3:1 contrast",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 28360
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Add high‑contrast white outline on focus to meet 3:1 contrast and 2 px width",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 34267
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input:focus",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "Adds a 2 px high‑contrast outline for keyboard focus",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 22679
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a:focus",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a 2 px solid high‑contrast outline on focus to meet 2.4.13 area and contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 30932
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid rgb(0,95,204) !important; outline-offset: 0 !important; }"
+        },
+        "rationale": "Increase outline width to meet 2 px minimum and ensure sufficient contrast",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 344820
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 2px solid #000 !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Provide a high‑contrast black outline of 2 px to meet 3:1 contrast requirement.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 32748
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "ERROR",
+      "iterations": 1,
+      "patch": null,
+      "verify": null,
+      "error": "generator: OpenRouter response missing choices[0]",
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 54531
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid rgb(0,0,0) !important; outline-offset: 2px !important; }"
+        },
+        "rationale": "Adds a high‑contrast 2 px black outline on focus to meet 2.4.13 requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 29170
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "Adds a 2 px solid white outline on focus to meet 3:1 contrast and required area.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 39103
+    }
+  ]
+}
