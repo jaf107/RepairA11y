@@ -5,12 +5,14 @@ import { buildPrompt as buildSC2413 } from "./prompt_templates/sc_2_4_13.js";
 import { buildPrompt as buildSC247 } from "./prompt_templates/sc_2_4_7.js";
 import { buildPrompt as buildSC2411 } from "./prompt_templates/sc_2_4_11.js";
 import { buildPrompt as buildSC2412 } from "./prompt_templates/sc_2_4_12.js";
+import { buildPrompt as buildSC243 } from "./prompt_templates/sc_2_4_3.js";
 
 const PROMPTS = {
   "2.4.13": buildSC2413,
   "2.4.7": buildSC247,
   "2.4.11": buildSC2411,
   "2.4.12": buildSC2412,
+  "2.4.3": buildSC243,
 };
 
 /**

@@ -22,6 +22,24 @@ export class OpenRouterError extends Error {
   }
 }
 
+// Module-level rate limiter shared across all client instances.
+// DeepSeek free tier = 3 RPM → enforce 22s minimum between requests.
+// Override via OPENROUTER_RPM env var (e.g. OPENROUTER_RPM=10 for paid tiers).
+const _rpm = parseInt(process.env.OPENROUTER_RPM ?? "3", 10);
+const _minIntervalMs = Math.ceil((60 / _rpm) * 1000) + 500; // +500ms safety margin
+let _lastCallAt = 0;
+
+async function _throttle() {
+  const now = Date.now();
+  const elapsed = now - _lastCallAt;
+  if (_lastCallAt > 0 && elapsed < _minIntervalMs) {
+    const wait = _minIntervalMs - elapsed;
+    console.warn(`[openrouter] rate-throttle — waiting ${Math.round(wait / 1000)}s`);
+    await new Promise((r) => setTimeout(r, wait));
+  }
+  _lastCallAt = Date.now();
+}
+
 export function createOpenRouterClient(opts = {}) {
   const apiKey = opts.apiKey ?? process.env.OPENROUTER_API_KEY;
   const fetchImpl = opts.fetch ?? globalThis.fetch;
@@ -49,6 +67,7 @@ export function createOpenRouterClient(opts = {}) {
         "OPENROUTER_API_KEY not set — set env var or pass opts.apiKey",
       );
     }
+    await _throttle();
     const body = {
       model,
       messages: [{ role: "user", content: prompt }],

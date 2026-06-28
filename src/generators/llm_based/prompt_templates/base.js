@@ -12,7 +12,7 @@ RESPOND WITH A SINGLE JSON OBJECT, NO PROSE, NO MARKDOWN FENCES.
 The JSON must conform to this schema (use exactly one patch_type):
 
 {
-  "patch_type": "css_inject" | "attr_set" | "style_override" | "dom_reorder",
+  "patch_type": "css_inject" | "attr_set" | "attr_set_all" | "style_override" | "dom_reorder",
   "target_selector": "<CSS selector string>",
   "payload": <type-specific object>,
   "rationale": "<short string explaining the fix>",
@@ -22,6 +22,7 @@ The JSON must conform to this schema (use exactly one patch_type):
 Payload shape per patch_type:
 - css_inject:    { "rule": "selector { property: value; }" }
 - attr_set:      { "attribute": "<name>", "value": "<string|null>" }
+- attr_set_all:  { "attribute": "<name>", "value": "<string|null>" }  // applies to EVERY element matching target_selector (use a comma-joined selector list)
 - style_override: { "property": "<css-prop>", "value": "<string>" }
 - dom_reorder:   { "parent_selector": "<sel>", "insert_before_selector": "<sel|null>" }
 
