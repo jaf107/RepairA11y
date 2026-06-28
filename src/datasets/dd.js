@@ -6,8 +6,8 @@
  * SC matches the listed scs. This avoids re-running detection just to
  * categorize fixtures.
  *
- * Only the focus-behavior fixtures relevant to SC 2.4.7 / 2.4.11 / 2.4.12 /
- * 2.4.13 are listed (SC 2.4.3 dropped per project decision).
+ * Covers the focus-behavior fixtures for SC 2.4.3 / 2.4.7 / 2.4.11 / 2.4.12 /
+ * 2.4.13.
  */
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
@@ -119,6 +119,30 @@ export const DD_CASES = [
     scs: ["2.4.7"],
     expectFail: false,
     description: "Reference PASS — box-shadow indicator",
+  },
+
+  // ----- SC 2.4.3 — Focus Order (A) -----
+  {
+    id: "tabindex-positive",
+    file: f("keyboard-access-tabindex-greater-than-0.html"),
+    scs: ["2.4.3"],
+    expectFail: true,
+    description: "Link with tabindex=5 jumps ahead of DOM order (W3C Failure F44)",
+  },
+  {
+    id: "focus-order-visual-match",
+    file: f("focus-order-matches-visual-order.html"),
+    scs: ["2.4.3"],
+    expectFail: false,
+    description: "Reference PASS — tab order matches visual reading order",
+  },
+  {
+    id: "focus-order-skip-link",
+    file: f("focus-order-correct-with-skip-link.html"),
+    scs: ["2.4.3"],
+    expectFail: false,
+    description:
+      "Reference PASS — skip link is allowed a positive tabindex (F44 exemption)",
   },
 
   // ----- SC 2.4.11 / 2.4.12 — Focus Not Obscured -----

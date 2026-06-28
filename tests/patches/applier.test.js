@@ -150,6 +150,54 @@ describe("applyPatch — attr_set", () => {
   });
 });
 
+describe("applyPatch — attr_set_all", () => {
+  const dataUrl =
+    "data:text/html," +
+    encodeURIComponent(
+      "<a id='a' href='#' tabindex='2'>a</a><a id='b' href='#' tabindex='5'>b</a><a id='c' href='#'>c</a>",
+    );
+
+  it("sets the attribute on every match and undo restores each", async () => {
+    await withPage(dataUrl, async (page) => {
+      const handle = await applyPatch(page, {
+        patch_type: "attr_set_all",
+        target_selector: "a[tabindex='2'], a[tabindex='5']",
+        payload: { attribute: "tabindex", value: "0" },
+        rationale: "reset positive tabindex",
+        wcag_technique_cited: "F44",
+      });
+      expect(handle.applied.count).toBe(2);
+
+      const after = await page.evaluate(() => [
+        document.getElementById("a").getAttribute("tabindex"),
+        document.getElementById("b").getAttribute("tabindex"),
+      ]);
+      expect(after).toEqual(["0", "0"]);
+
+      await handle.undo();
+      const restored = await page.evaluate(() => [
+        document.getElementById("a").getAttribute("tabindex"),
+        document.getElementById("b").getAttribute("tabindex"),
+      ]);
+      expect(restored).toEqual(["2", "5"]);
+    });
+  });
+
+  it("throws when selector matches nothing", async () => {
+    await withPage(dataUrl, async (page) => {
+      await expect(
+        applyPatch(page, {
+          patch_type: "attr_set_all",
+          target_selector: ".nope",
+          payload: { attribute: "tabindex", value: "0" },
+          rationale: "x",
+          wcag_technique_cited: null,
+        }),
+      ).rejects.toBeInstanceOf(ApplierError);
+    });
+  });
+});
+
 describe("applyPatch — style_override", () => {
   it("sets and reverts inline style", async () => {
     await withPage(

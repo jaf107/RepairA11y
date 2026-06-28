@@ -99,6 +99,69 @@ async function applyAttrSet(page, patch) {
   };
 }
 
+async function applyAttrSetAll(page, patch) {
+  const { target_selector, payload } = patch;
+  const { attribute, value } = payload;
+
+  const handles = await page.$$(target_selector);
+  if (handles.length === 0) {
+    throw new ApplierError(
+      `attr_set_all: selector '${target_selector}' matched no elements`,
+      { selector: target_selector },
+    );
+  }
+
+  // Capture each element's pre-state so undo can restore them individually.
+  const priors = await Promise.all(
+    handles.map((h) =>
+      h.evaluate(
+        (el, attr) => ({
+          had: el.hasAttribute(attr),
+          previous: el.getAttribute(attr),
+        }),
+        attribute,
+      ),
+    ),
+  );
+
+  await Promise.all(
+    handles.map((h) =>
+      h.evaluate(
+        (el, { attr, val }) => {
+          if (val === null || val === undefined) el.removeAttribute(attr);
+          else el.setAttribute(attr, val);
+        },
+        { attr: attribute, val: value },
+      ),
+    ),
+  );
+
+  return {
+    ok: true,
+    applied: {
+      type: "attr_set_all",
+      selector: target_selector,
+      attribute,
+      value,
+      count: handles.length,
+    },
+    async undo() {
+      await Promise.all(
+        handles.map((h, i) =>
+          h.evaluate(
+            (el, { attr, had, previous }) => {
+              if (!had) el.removeAttribute(attr);
+              else el.setAttribute(attr, previous);
+            },
+            { attr: attribute, had: priors[i].had, previous: priors[i].previous },
+          ),
+        ),
+      );
+      await Promise.all(handles.map((h) => h.dispose()));
+    },
+  };
+}
+
 async function applyStyleOverride(page, patch) {
   const { target_selector, payload } = patch;
   const { property, value } = payload;
@@ -217,6 +280,7 @@ async function applyDomReorder(page, patch) {
 const HANDLERS = {
   css_inject: applyCssInject,
   attr_set: applyAttrSet,
+  attr_set_all: applyAttrSetAll,
   style_override: applyStyleOverride,
   dom_reorder: applyDomReorder,
 };

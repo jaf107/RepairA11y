@@ -13,21 +13,17 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { chromium } from "playwright";
-
 import { detectWithPatchLive } from "../../src/verifier/runWithPatchLive.js";
 import { diffViolations } from "../../src/verifier/diff.js";
 import { compareScreenshots } from "../../src/verifier/ssim.js";
-import { captureBeforeAfter } from "../../src/showcase/screenshot.js";
-import { runDetection, sanitizeUrl } from "../../src/detector/index.js";
+import { captureResolvedState, cropToBbox } from "../../src/showcase/screenshot.js";
+import { runDetection } from "../../src/detector/index.js";
 import { packageEvidence } from "../../src/evidence/packager.js";
 import { createLlmGenerator } from "../../src/generators/llm_based/index.js";
-import { applyPatch } from "../../src/patches/applier.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SCAN_RESULTS_DIR = join(__dirname, "../dr_detection_scan/results");
 const REPAIR_RESULTS_DIR = join(__dirname, "results");
-const SCREENSHOTS_DIR = join(__dirname, "screenshots");
 
 function parseArgs() {
   const argv = process.argv.slice(2);
@@ -117,7 +113,6 @@ async function main() {
     : createLlmGenerator({ evidenceLevel: opts.level });
 
   await mkdir(REPAIR_RESULTS_DIR, { recursive: true });
-  await mkdir(SCREENSHOTS_DIR, { recursive: true });
 
   const results = [];
 
@@ -155,7 +150,7 @@ async function main() {
         continue;
       }
 
-      const { baselineDetection, patchedDetection, baselineScreenshotPath, screenshotPath } =
+      const { baselineDetection, patchedDetection, baselineScreenshotPath, screenshotPath, tempFile, baselineMhtml, patchedMhtml } =
         await detectWithPatchLive({ url, patch });
 
       const delta = diffViolations(
@@ -171,46 +166,55 @@ async function main() {
         ssim = { similarity: null, error: e.message };
       }
 
-      const siteDir = join(SCREENSHOTS_DIR, sanitizeUrl(url));
-      await mkdir(siteDir, { recursive: true });
-      const beforePath = join(siteDir, "before.png");
-      const afterPath = join(siteDir, "after.png");
-      const selector = violation.element?.selector;
-
-      let screenshotError = null;
-      if (selector) {
-        // Dedicated browser for focused :focus-visible showcase — separate from
-        // detectWithPatchLive. Failures here are cosmetic; don't sink the result.
-        const showcaseBrowser = await chromium.launch();
+      // Use NavA11y's own screenshots — authoritative, show actual focused state + SC badge.
+      // before: violation screenshot from baseline detection (always a FAIL record with screenshot).
+      // after: matching element screenshot from patched detection (may be null for PASS records
+      //        since NavA11y only screenshots FAILs; null means the patch resolved the violation).
+      const rawBeforePath = violation.screenshot
+        ? join(detection.reportDir, violation.screenshot)
+        : null;
+      // Crop full-page NavA11y screenshot to element bbox so the before image is
+      // element-level, not the entire page.
+      let beforePath = rawBeforePath;
+      if (rawBeforePath && violation.element?.bbox) {
         try {
-          const ctx = await showcaseBrowser.newContext({ viewport: { width: 1280, height: 800 } });
-          const pg = await ctx.newPage();
-          await pg.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-          await pg.waitForLoadState("load").catch(() => {});
-          await pg.waitForTimeout(2000);
-          // Guard: skip if element not present (JS-rendered, bot-blocked, etc.)
-          const elCount = await pg.locator(selector).count();
-          if (elCount > 0) {
-            await captureBeforeAfter({
-              page: pg,
-              selector,
-              beforePath,
-              afterPath,
-              applyFn: (p) => applyPatch(p, patch),
-            });
-          } else {
-            screenshotError = `element not found: ${selector}`;
-          }
-          await ctx.close();
+          const croppedBefore = rawBeforePath.replace(/\.png$/, "_crop.png");
+          await cropToBbox({ inputPath: rawBeforePath, bbox: violation.element.bbox, outputPath: croppedBefore });
+          beforePath = croppedBefore;
         } catch (e) {
-          screenshotError = e.message;
-          console.warn(`  screenshot failed: ${e.message}`);
-        } finally {
-          await showcaseBrowser.close();
+          // fall back to full-page
         }
       }
+      // Exact selector match first, then fallback to any FAIL on same SC in patched detection.
+      const afterViolation =
+        patchedDetection.violations.find(
+          (v) => v.element?.selector === violation.element?.selector && v.sc === violation.sc,
+        ) ??
+        patchedDetection.violations.find(
+          (v) => v.sc === violation.sc && v.result === "FAIL" && v.screenshot,
+        );
+      let afterPath = afterViolation?.screenshot
+        ? join(patchedDetection.reportDir, afterViolation.screenshot)
+        : null;
 
       const status = resolveStatus(delta);
+
+      // When the original element was resolved (no matching FAIL in patched) generate a
+      // green-badge screenshot. Applies to RESOLVED and REGRESSED-but-original-fixed cases.
+      if (!afterPath && tempFile && violation.element?.selector) {
+        try {
+          const resolvedOut = join(patchedDetection.reportDir, "resolved_showcase.png");
+          await captureResolvedState({
+            htmlFile: tempFile,
+            selector: violation.element.selector,
+            sc: violation.sc,
+            outputPath: resolvedOut,
+          });
+          afterPath = resolvedOut;
+        } catch (e) {
+          console.warn(`  resolved screenshot failed: ${e.message}`);
+        }
+      }
       console.log(`  ${status}  selector=${violation.element?.selector}`);
 
       results.push({
@@ -223,9 +227,10 @@ async function main() {
         ssim,
         resolved: delta.resolved.length,
         newFailures: delta.newFailures.length,
-        beforePath: screenshotError ? null : beforePath,
-        afterPath: screenshotError ? null : afterPath,
-        screenshotError: screenshotError ?? undefined,
+        beforePath,
+        afterPath,
+        baselineMhtml,
+        patchedMhtml,
       });
     } catch (e) {
       console.error(`  ERROR: ${e.message}`);

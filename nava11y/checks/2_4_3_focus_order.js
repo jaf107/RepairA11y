@@ -27,7 +27,6 @@ import {
 function isSkipLink(element) {
   if (!element || element.tabIndex <= 0) return false;
 
-  const selector = (element.selector || "").toLowerCase();
   const tag = (element.tagName || "").toLowerCase();
 
   // Skip links are typically anchors
@@ -36,7 +35,17 @@ function isSkipLink(element) {
   // Check if href points to anchor
   const hasAnchorHref = element.attributes?.href?.startsWith("#");
 
-  // Check for common skip link patterns in selector or class
+  // Check for common skip link patterns. The structural selector
+  // (e.g. "html > body > a") rarely carries the skip keyword, so also inspect
+  // the element's class and id where skip links actually advertise themselves.
+  const haystack = [
+    element.selector || "",
+    element.attributes?.class || "",
+    element.attributes?.id || "",
+  ]
+    .join(" ")
+    .toLowerCase();
+
   const skipPatterns = [
     "skip",
     "jump-to",
@@ -47,7 +56,7 @@ function isSkipLink(element) {
   ];
 
   const matchesPattern = skipPatterns.some((pattern) =>
-    selector.includes(pattern),
+    haystack.includes(pattern),
   );
 
   return hasAnchorHref && matchesPattern;

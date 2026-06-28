@@ -68,6 +68,28 @@ describe("patch schema — invalid cases rejected", () => {
     expect(validate(bad)).toBe(false);
   });
 
+  it("accepts a valid attr_set_all patch", () => {
+    const good = {
+      patch_type: "attr_set_all",
+      target_selector: "a.one, a.two",
+      payload: { attribute: "tabindex", value: "0" },
+      rationale: "reset positive tabindex on all offenders",
+      wcag_technique_cited: "F44",
+    };
+    expect(validate(good), JSON.stringify(validate.errors)).toBe(true);
+  });
+
+  it("rejects attr_set_all with extra payload keys", () => {
+    const bad = {
+      patch_type: "attr_set_all",
+      target_selector: "a",
+      payload: { attribute: "tabindex", value: "0", rule: "x" },
+      rationale: "x",
+      wcag_technique_cited: "F44",
+    };
+    expect(validate(bad)).toBe(false);
+  });
+
   it("rejects unknown wcag_technique_cited value", () => {
     const bad = {
       patch_type: "css_inject",

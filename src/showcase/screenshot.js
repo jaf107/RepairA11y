@@ -33,6 +33,96 @@ async function addRedBorder(input, outputPath) {
 }
 
 /**
+ * Take a full-page screenshot of a patched HTML file with the repaired element
+ * focused, and overlay a green "RESOLVED" badge matching NavA11y's red badge style.
+ * Used when NavA11y has no after-screenshot (PASS records aren't screenshotted).
+ *
+ * @param {object} opts
+ * @param {string} opts.htmlFile    Path to patched serialized HTML (from detectWithPatchLive)
+ * @param {string} opts.selector    CSS selector of the repaired element
+ * @param {string} opts.sc          WCAG SC string e.g. "2.4.13"
+ * @param {string} opts.outputPath  Destination PNG
+ */
+export async function captureResolvedState({ htmlFile, selector, sc, outputPath }) {
+  const { chromium } = await import("playwright");
+  const sharp = (await import("sharp")).default;
+
+  const browser = await chromium.launch();
+  let buf;
+  try {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await ctx.newPage();
+    await page.goto(`file://${htmlFile}`);
+    await page.waitForLoadState("networkidle").catch(() => {});
+    const loc = page.locator(selector).first();
+    await loc.scrollIntoViewIfNeeded().catch(() => {});
+    await loc.focus().catch(() => {});
+    await page.waitForTimeout(150);
+    // Crop to element — shows the focused state clearly, not the whole page.
+    buf = await loc.screenshot({ timeout: 5000 }).catch(async () => {
+      // Fallback to full-page if locator screenshot fails.
+      return page.screenshot({ fullPage: false });
+    });
+    await ctx.close();
+  } finally {
+    await browser.close();
+  }
+
+  // Pad with 20px on each side so context is visible, minimum 300px wide for badge.
+  const PADDING = 20;
+  const rawMeta = await sharp(buf).metadata();
+  const minWidth = 300;
+  const extraW = Math.max(0, minWidth - (rawMeta.width + PADDING * 2));
+  const paddedBuf = await sharp(buf)
+    .extend({
+      top: PADDING,
+      bottom: PADDING,
+      left: PADDING + Math.floor(extraW / 2),
+      right: PADDING + Math.ceil(extraW / 2),
+      background: { r: 255, g: 255, b: 255, alpha: 1 },
+    })
+    .toBuffer();
+
+  // Overlay green badge top-right — mirrors NavA11y's red badge position/style.
+  const paddedMeta = await sharp(paddedBuf).metadata();
+  const label = `SC ${sc}: RESOLVED ✓`;
+  const badgeW = Math.min(220, paddedMeta.width - 8);
+  const badgeH = 26;
+  const badgeX = paddedMeta.width - badgeW - 4;
+  const badge = Buffer.from(
+    `<svg width="${badgeW}" height="${badgeH}">` +
+      `<rect width="${badgeW}" height="${badgeH}" fill="#1a7f37" rx="3"/>` +
+      `<text x="8" y="18" font-family="sans-serif" font-size="12" fill="white">${label}</text>` +
+      `</svg>`,
+  );
+
+  await sharp(paddedBuf)
+    .composite([{ input: badge, top: 4, left: badgeX }])
+    .png()
+    .toFile(outputPath);
+}
+
+/**
+ * Crop a full-page screenshot to the element's bounding box with padding.
+ * Used to turn NavA11y's full-page before-screenshots into element-level crops.
+ */
+export async function cropToBbox({ inputPath, bbox, outputPath, padding = 20 }) {
+  const sharp = (await import("sharp")).default;
+  const { x, y, width, height } = normalizeBbox(bbox);
+  const meta = await sharp(inputPath).metadata();
+
+  const left = Math.max(0, Math.round(x - padding));
+  const top = Math.max(0, Math.round(y - padding));
+  const right = Math.min(meta.width, Math.round(x + width + padding));
+  const bottom = Math.min(meta.height, Math.round(y + height + padding));
+
+  await sharp(inputPath)
+    .extract({ left, top, width: right - left, height: bottom - top })
+    .png()
+    .toFile(outputPath);
+}
+
+/**
  * Draw a 3px red rectangle at `bbox` over `inputPath` and write to `outputPath`.
  * Used by E4 evidence annotator (full-page screenshot + element bbox overlay).
  */

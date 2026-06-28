@@ -106,7 +106,7 @@ Stage 5: Verification → src/verifier/ → re-run NavA11y, SSIM diff
 
 ```json
 {
-  "patch_type": "css_inject" | "attr_set" | "dom_reorder" | "style_override",
+  "patch_type": "css_inject" | "attr_set" | "attr_set_all" | "dom_reorder" | "style_override",
   "target_selector": "string",
   "payload": {},
   "rationale": "string",

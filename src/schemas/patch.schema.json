@@ -6,6 +6,7 @@
   "oneOf": [
     { "$ref": "#/definitions/css_inject" },
     { "$ref": "#/definitions/attr_set" },
+    { "$ref": "#/definitions/attr_set_all" },
     { "$ref": "#/definitions/dom_reorder" },
     { "$ref": "#/definitions/style_override" }
   ],
@@ -74,6 +75,33 @@
                 "value": {
                   "type": ["string", "null"],
                   "description": "New attribute value, or null to remove the attribute."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": ["patch_type"]
+        }
+      ]
+    },
+    "attr_set_all": {
+      "allOf": [
+        { "$ref": "#/definitions/common_fields" },
+        {
+          "properties": {
+            "patch_type": { "type": "string", "const": "attr_set_all" },
+            "payload": {
+              "type": "object",
+              "required": ["attribute", "value"],
+              "properties": {
+                "attribute": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "HTML attribute name to set on every element matching target_selector."
+                },
+                "value": {
+                  "type": ["string", "null"],
+                  "description": "New attribute value applied to all matches, or null to remove the attribute."
                 }
               },
               "additionalProperties": false
