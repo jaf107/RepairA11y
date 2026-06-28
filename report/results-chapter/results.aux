@@ -1,0 +1,70 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Experimental Setup}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Hardware and software environment}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Software environment.}}{2}{table.1}\protected@file@percent }
+\newlabel{tab:env}{{5.1}{2}{Software environment}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}The repair pipeline and its fixed configuration}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Fixed configuration (the system has no trained parameters).}}{3}{table.2}\protected@file@percent }
+\newlabel{tab:config}{{5.2}{3}{Fixed configuration (the system has no trained parameters)}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Datasets}{3}{subsection.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Datasets. FAIL-case counts are per Success Criterion, as registered in \texttt  {src/datasets/}.}}{3}{table.3}\protected@file@percent }
+\newlabel{tab:data}{{5.3}{3}{Datasets. FAIL-case counts are per Success Criterion, as registered in \texttt {src/datasets/}}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Repeated trials and determinism}{4}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Evaluation Metrics}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}What counts as a successful repair}{4}{subsection.3.1}\protected@file@percent }
+\newlabel{eq:res}{{5.1}{4}{What counts as a successful repair}{equation.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Regression rate}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{eq:reg}{{5.2}{4}{Regression rate}{equation.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Visual stability}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{eq:ssim}{{5.3}{5}{Visual stability}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Statistics for the evidence ablation}{5}{subsection.3.4}\protected@file@percent }
+\newlabel{eq:mcnemar}{{5.4}{5}{Statistics for the evidence ablation}{equation.4}{}}
+\newlabel{eq:cohen}{{5.5}{5}{Statistics for the evidence ablation}{equation.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Metrics that do not apply}{5}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Experimental Results}{6}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Quantitative results}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1.1}RQ1: evidence ablation (the central result)}{6}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces RQ1 resolution rate per evidence level, \ensuremath  {D_d}{} (SC 2.4.13). Recorded run \texttt  {run-2026-06-21T06-19-00-943Z}.}}{6}{table.4}\protected@file@percent }
+\newlabel{tab:rq2dd}{{5.4}{6}{RQ1 resolution rate per evidence level, \Dd {} (SC 2.4.13). Recorded run \texttt {run-2026-06-21T06-19-00-943Z}}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces RQ1 McNemar paired tests, \ensuremath  {D_d}. ``Significant'' means $p < 0.05$.}}{6}{table.5}\protected@file@percent }
+\newlabel{tab:mcdd}{{5.5}{6}{RQ1 McNemar paired tests, \Dd . ``Significant'' means $p < 0.05$}{table.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1.2}Worked examples of LLM repairs on \ensuremath  {D_d}}{6}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces The LLM patch (level E3) for each \ensuremath  {D_d}{} SC 2.4.13 case, from the recorded run \texttt  {run-2026-06-21T06-19-00-943Z}.}}{7}{table.6}\protected@file@percent }
+\newlabel{tab:examples}{{5.6}{7}{The LLM patch (level E3) for each \Dd {} SC 2.4.13 case, from the recorded run \texttt {run-2026-06-21T06-19-00-943Z}}{table.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Three \ensuremath  {D_d}{} button cases, each shown focused before (left) and after (right) the recorded LLM patch is applied. Top: a low-contrast 2px outline becomes a compliant black one. Middle: a thin (1px) outline is thickened to a 2px black one. Bottom: a thin border-based indicator is replaced by a 2px black outline.}}{7}{figure.1}\protected@file@percent }
+\newlabel{fig:examples}{{5.1}{7}{Three \Dd {} button cases, each shown focused before (left) and after (right) the recorded LLM patch is applied. Top: a low-contrast 2px outline becomes a compliant black one. Middle: a thin (1px) outline is thickened to a 2px black one. Bottom: a thin border-based indicator is replaced by a 2px black outline}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1.3}Regression and safety of the LLM patches}{8}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.7}{\ignorespaces Regression and safety of the LLM patches, measured on the RQ1 \ensuremath  {D_d}{} runs (216 trials across the four evidence levels). Recorded run \texttt  {run-2026-06-21T06-19-00-943Z}.}}{8}{table.7}\protected@file@percent }
+\newlabel{tab:safety}{{5.7}{8}{Regression and safety of the LLM patches, measured on the RQ1 \Dd {} runs (216 trials across the four evidence levels). Recorded run \texttt {run-2026-06-21T06-19-00-943Z}}{table.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1.4}\ensuremath  {D_r}: scale of the problem and live repair}{8}{subsubsection.4.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.8}{\ignorespaces \ensuremath  {D_r}{} detection scan (recorded run; 26 of 27 sites scanned, 1 error).}}{8}{table.8}\protected@file@percent }
+\newlabel{tab:drdetect}{{5.8}{8}{\Dr {} detection scan (recorded run; 26 of 27 sites scanned, 1 error)}{table.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.9}{\ignorespaces \ensuremath  {D_r}{} live repair on production sites (SC 2.4.13, level E3, recorded runs).}}{8}{table.9}\protected@file@percent }
+\newlabel{tab:drrepair}{{5.9}{8}{\Dr {} live repair on production sites (SC 2.4.13, level E3, recorded runs)}{table.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Visual results}{9}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces RQ1 evidence ablation on the controlled corpus \ensuremath  {D_d}. The rate rises sharply from E1 to E3 and is flat from E3 to E4.}}{9}{figure.2}\protected@file@percent }
+\newlabel{fig:rq2dd}{{5.2}{9}{RQ1 evidence ablation on the controlled corpus \Dd . The rate rises sharply from E1 to E3 and is flat from E3 to E4}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Total focus-behavior violations detected across production sites, by SC.}}{9}{figure.3}\protected@file@percent }
+\newlabel{fig:drsc}{{5.3}{9}{Total focus-behavior violations detected across production sites, by SC}{figure.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Comparative Analysis}{10}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Against a no-op baseline}{10}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Static versus runtime evidence}{10}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Against published repair systems}{10}{subsection.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.10}{\ignorespaces Positioning against published work. ``Ablation'' is whether the system measures the contribution of different evidence inputs.}}{10}{table.10}\protected@file@percent }
+\newlabel{tab:related}{{5.10}{10}{Positioning against published work. ``Ablation'' is whether the system measures the contribution of different evidence inputs}{table.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Statistical Analysis}{11}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Choice of test}{11}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.2}Confidence intervals}{11}{subsection.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.11}{\ignorespaces Wilson 95\% confidence intervals for the RQ1 per-level rates (recorded run). $n$ is the number of trials behind each proportion.}}{11}{table.11}\protected@file@percent }
+\newlabel{tab:wilson}{{5.11}{11}{Wilson 95\% confidence intervals for the RQ1 per-level rates (recorded run). $n$ is the number of trials behind each proportion}{table.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.3}Effect sizes}{11}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Resource Utilization}{11}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.8}Discussion of Findings}{12}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.9}Threats to Validity and Limitations}{12}{section.9}\protected@file@percent }
+\newlabel{sec:threats}{{5.9}{12}{Threats to Validity and Limitations}{section.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.10}Summary}{13}{section.10}\protected@file@percent }
+\gdef \@abspage@last{13}

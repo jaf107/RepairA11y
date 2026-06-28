@@ -1,0 +1,766 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\sisetup{detect-all = true}
+\graphicspath{{figures/}}
+
+% This is Chapter 5: number equations, tables, and figures as 5.x to match the prose
+% references (Equation 5.1, Table 5.1, Figure 5.1) and the Markdown version.
+\renewcommand{\theequation}{5.\arabic{equation}}
+\renewcommand{\thetable}{5.\arabic{table}}
+\renewcommand{\thefigure}{5.\arabic{figure}}
+\renewcommand{\thesection}{5.\arabic{section}}
+
+% Give tables room to breathe: taller rows and wider column gaps.
+\renewcommand{\arraystretch}{1.35}
+\setlength{\tabcolsep}{8pt}
+
+% Shorthands for the dataset names so underscores never reach text mode.
+\newcommand{\Dd}{\ensuremath{D_d}}
+\newcommand{\Dr}{\ensuremath{D_r}}
+
+\title{Chapter 5: Results and Analysis}
+\author{RepairA11y}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{quote}
+\textbf{Note on data provenance.} Every number in this chapter is produced by an
+evaluation script in this repository and is traceable to a saved result file under
+\texttt{experiments/<name>/results/}. The exact command and result file for each
+figure are listed in the companion \texttt{README.md}. The numbers (the RQ1
+ablation, the safety check measured on the same runs, and the \Dr{} detection and
+live repair) come from recorded live runs dated 2026-06-20 and 2026-06-21. The
+recorded runs are the source of truth because re-running the full LLM suite requires
+the OpenRouter free-tier quota, which was exhausted at the time of writing. Where a
+quantity could not be verified from a script it is tagged \texttt{[VERIFY]} with an
+explanation of what is needed to confirm it.
+\end{quote}
+
+\section{Introduction}
+
+This chapter reports the empirical evaluation of RepairA11y, the automated repair
+system for WCAG 2.4 focus-behavior violations introduced in the previous chapter.
+The purpose of the chapter is to answer, with measured data, the central question
+that decides whether the system is worth building, and to position the result against
+the closest published repair systems while stating honestly what the evidence can and
+cannot support.
+
+The central research question is stated here in plain language.
+
+\begin{quote}
+\textbf{RQ1 (evidence ablation): does runtime evidence help a large language model
+(LLM) repair focus-behavior violations better than static evidence alone?}
+\end{quote}
+
+The question is answered by holding everything constant and varying only the evidence
+bundle across four graduated levels, E1 to E4. Static evidence (the HTML and a
+screenshot) is the lower end; runtime evidence (the computed styles and the measured
+contrast ratio captured while the page is focused) is added at E3. The fourth level
+(E4) adds a visual crop on top of the runtime evidence and acts as a control, testing
+whether the effect keeps growing or saturates once runtime evidence is present.
+
+Alongside effectiveness, the chapter reports a safety check on the same runs: do the
+LLM patches introduce new conformance failures or change the page in a visually
+disruptive way? A repair that fixes one problem but breaks another is not useful, so
+this is reported next to every effectiveness number rather than as a separate study.
+
+An earlier effectiveness comparison of generators, a separate rule-based generator,
+and a focus-order criterion (SC 2.4.3) are out of scope for this chapter, which
+focuses on the LLM repair path and the evidence it is given.
+
+The headline findings are as follows. Runtime evidence (level E3) produces a large
+and statistically significant improvement over static evidence (level E1) for LLM
+repair. Adding the WCAG technique text alone (level E2) does not help, and on this
+corpus it hurts. Adding a visual crop on top of runtime evidence (level E4) gives no
+significant further gain, which shows the effect saturates once runtime evidence is
+present. The patches are safe: across the 216 ablation trials no patch introduced a
+new failure. Finally, the production scan shows that the target violation type is
+common on real websites, which is the practical motivation for the work.
+
+\section{Experimental Setup}
+
+This section gives the detail needed to reproduce the experiments: the machine, the
+software versions, the datasets, and the fixed configuration of the system. The
+system has no training phase, so there are no learned hyperparameters to report. In
+their place, the fixed configuration knobs and thresholds are listed, because those
+are the values a reader would need to reproduce the numbers.
+
+\subsection{Hardware and software environment}
+
+The experiments were run on a single Apple macOS workstation (Darwin kernel
+25.2.0, arm64). All code is JavaScript executed by Node.js (engine requirement
+\verb|>=20.6.0|), with one Python script used only to draw the figures in this
+chapter. The relevant software versions are fixed by the project's
+\texttt{package.json} and are listed in Table~\ref{tab:env}.
+
+\begin{table}[h]
+\centering
+\caption{Software environment.}
+\label{tab:env}
+\begin{tabular}{ll}
+\toprule
+Component & Version / setting \\
+\midrule
+Node.js & $\geq 20.6.0$ (uses the built-in \texttt{-{}-env-file} flag) \\
+Playwright (headless Chromium) & \verb|^1.58.0| \\
+pixelmatch (visual diff) & \verb|^7.2.0| \\
+pngjs & \verb|^7.0.0| \\
+sharp (image crop for E4) & \verb|^0.35.2| \\
+ajv (JSON-schema validation) & \verb|^8.18.0| \\
+vitest (unit tests) & \verb|^2.1.0| \\
+LLM provider & OpenRouter, free tier \\
+LLM model & \texttt{openai/gpt-oss-120b:free} \\
+Decoding temperature & 0 (deterministic) \\
+Provider rate limit & 3 requests per minute (free tier) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The detection engine is NavA11y, the system from the previous chapter, used here
+unchanged as both the violation detector (Stage 1) and the verification oracle
+(Stage 5). NavA11y drives a headless Chromium browser through Playwright, calls
+\texttt{.focus()} on each interactive element, and records 22 computed CSS properties
+before and after focus, the measured contrast ratio of the focus indicator, and
+whether the focused element is obscured by another element.
+
+\subsection{The repair pipeline and its fixed configuration}
+
+RepairA11y is a five-stage pipeline: detection, evidence packaging, generation, patch
+application, and verification. The configuration knobs that affect the results, with
+their fixed values, are listed in Table~\ref{tab:config}. These values were held
+constant across every experiment in this chapter.
+
+\begin{table}[h]
+\centering
+\caption{Fixed configuration (the system has no trained parameters).}
+\label{tab:config}
+\begin{tabular}{lll}
+\toprule
+Knob & Value & Meaning \\
+\midrule
+\texttt{temperature} & 0 & Deterministic LLM decoding, for reproducibility \\
+\texttt{maxAttempts} & 3 & Retries when the LLM returns malformed JSON \\
+\texttt{maxIterations} & 1 & Repair attempts per violation in the experiments \\
+\texttt{ssimThreshold} & 0.9 & Visual-similarity floor for a regression flag \\
+\texttt{RPM} & 3 & Free-tier request cap, a \texttt{\char`~}22\,s gate between calls \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The evidence packager is the experimental lever for RQ1. It produces one of four
+graduated, strictly additive bundles. Each higher level contains everything in the
+level below it, so the only difference between two adjacent levels is the new
+information added.
+
+\begin{itemize}
+  \item E1: the element's outer HTML plus a full-page screenshot.
+  \item E2: E1 plus the relevant WCAG technique text (for example, techniques F78,
+    C27, G1).
+  \item E3: E2 plus the runtime slice, namely the before-and-after computed style
+    snapshots, the measured contrast ratio, and the obscurer element data.
+  \item E4: E3 plus an annotated, cropped screenshot of the element with its bounding
+    box drawn on.
+\end{itemize}
+
+\subsection{Datasets}
+
+Two datasets are used. Their sizes and sources are summarized in
+Table~\ref{tab:data}. The evidence ablation (RQ1), and the safety check measured on
+the same runs, use the controlled corpus \Dd, where the ground truth is known and the
+same cases can be repaired many times. The production corpus \Dr{} is used to measure
+how common the target violation is in the wild and to test live repair.
+
+\begin{table}[h]
+\centering
+\caption{Datasets. FAIL-case counts are per Success Criterion, as registered in
+\texttt{src/datasets/}.}
+\label{tab:data}
+\begin{tabular}{p{1.6cm}p{2.6cm}p{5.5cm}p{3cm}}
+\toprule
+Dataset & Role & Size & Source \\
+\midrule
+\Dd & Controlled fixtures & 15 HTML files; FAIL cases: SC 2.4.11 = 2, SC 2.4.12 = 2, SC 2.4.13 = 6 & NavA11y focus-behavior fixture suite \\
+\Dr & Production websites & 27 evaluable sites & Top-30 Semrush ranking, minus 3 exclusions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three of the top-30 production sites were excluded for access reasons, not for
+convenience: Craigslist (geographic IP redirect), DoorDash (a bot-detection popup),
+and MakeMyTrip (HTTP 403). The remaining 27 sites are the same corpus used by the
+GenA11y detection study, which supports comparison.
+
+One detail of the controlled dataset shapes the tables that follow. SC 2.4.7 has zero
+FAIL cases in \Dd. This is not an omission. NavA11y classifies a completely absent or
+invisible focus indicator under SC 2.4.13 (Focus Appearance), so cases that a reader
+might expect under SC 2.4.7 (Focus Visible) appear under SC 2.4.13 instead. The
+evidence ablation therefore runs on SC 2.4.13, which is where the controlled cases
+concentrate and where the production violations are most common.
+
+\subsection{Repeated trials and determinism}
+
+The LLM generator is stochastic in principle, although temperature is pinned to 0 to
+reduce variation. To measure the residual variation, the RQ1 experiment repeats each
+cell: three independent runs over three seeds, so each evidence level is measured over
+54 trials (6 cases times 3 seeds times 3 runs) rather than once.
+
+\section{Evaluation Metrics}
+
+This section defines every metric precisely, including the terms a reader could
+misread. The most important definition is what counts as a successful repair.
+
+\subsection{What counts as a successful repair}
+
+A repair attempt on a single violation ends in exactly one status, produced by the
+three-pass verifier in \texttt{src/verifier/index.js}.
+
+\begin{itemize}
+  \item \textbf{RESOLVED.} The target violation no longer fails when NavA11y is
+    re-run on the patched page, \emph{and} the patch introduced no new failing
+    element, \emph{and} the visual similarity between the page before and after the
+    patch is at least the threshold of 0.9. All three conditions must hold.
+  \item \textbf{UNRESOLVED.} The patch applied cleanly but the target still fails.
+  \item \textbf{REGRESSED.} The patch introduced at least one new failing element, or
+    it dropped visual similarity below 0.9.
+  \item \textbf{DECLINED.} The generator explicitly returned no patch.
+  \item \textbf{ERROR.} The attempt could not complete, for example because of an LLM
+    rate-limit timeout, a malformed response after all retries, or a crash.
+\end{itemize}
+
+The primary metric is the resolution rate, defined in Equation~\ref{eq:res}.
+
+\begin{equation}
+\label{eq:res}
+\text{resolution rate} = \frac{\text{number of RESOLVED trials}}{\text{total trials}}
+\end{equation}
+
+In the aggregate reporting code (\texttt{src/reporting/aggregate.js}), ERROR trials
+are counted in the denominator. This is the conservative choice. Where errors are a
+large share of trials, this chapter reports the resolution rate both with errors
+included (the script default) and with errors excluded, and labels which is which.
+
+\subsection{Regression rate}
+
+The regression rate (Equation~\ref{eq:reg}) is the share of trials whose patch
+introduced at least one new failure. It is the key safety metric, reported on the RQ1
+runs.
+
+\begin{equation}
+\label{eq:reg}
+\text{regression rate} = \frac{\text{trials with} \ge 1 \text{ new failing element}}{\text{total trials}}
+\end{equation}
+
+\subsection{Visual stability}
+
+Visual stability measures how much the patch changed the rendered page, reported as a
+similarity in $[0,1]$ where 1 means identical. Although the code calls this value
+``SSIM'', the implementation in \texttt{src/verifier/ssim.js} is not structural
+similarity; it is a per-pixel difference computed with the pixelmatch library
+(Equation~\ref{eq:ssim}). This chapter uses the term ``pixel similarity'' to avoid
+implying a computation that does not happen.
+
+\begin{equation}
+\label{eq:ssim}
+\text{pixel similarity} = 1 - \frac{\text{mismatched pixels}}{\text{compared pixels}}
+\end{equation}
+
+When the before and after screenshots differ in size (which happens on live pages
+that reflow), the comparison crops both to their common top-left overlap and reports
+the fraction compared.
+
+\subsection{Statistics for the evidence ablation}
+
+RQ1 compares evidence levels on the same cases, so the outcomes are paired. The
+correct test for paired binary outcomes is McNemar's test, not a $t$-test. The
+implementation (\texttt{experiments/\_common/stats.js}) uses the continuity-corrected
+form in Equation~\ref{eq:mcnemar}, with one degree of freedom, and reports a result
+as significant when $p < 0.05$.
+
+\begin{equation}
+\label{eq:mcnemar}
+\chi^2 = \frac{(\lvert b - c \rvert - 1)^2}{b + c}
+\end{equation}
+
+Here $b$ is the number of cases that succeeded at the lower evidence level but failed
+at the higher one, and $c$ is the number that failed at the lower level but succeeded
+at the higher one. Only discordant pairs enter the test.
+
+The effect size between two proportions is Cohen's $h$ (Equation~\ref{eq:cohen}). The
+conventional reading is that $\lvert h \rvert$ below 0.2 is negligible, 0.2 to 0.5
+small, 0.5 to 0.8 medium, and 0.8 or above large.
+
+\begin{equation}
+\label{eq:cohen}
+h = \left\lvert\, 2\arcsin\!\sqrt{p_1} - 2\arcsin\!\sqrt{p_2} \,\right\rvert
+\end{equation}
+
+For every reported proportion, a 95\% confidence interval is computed with the Wilson
+score method, which is appropriate for small samples and for proportions near 0 or 1.
+
+\subsection{Metrics that do not apply}
+
+Several standard metrics are deliberately not reported, because the system does not
+produce the quantities they need.
+
+\begin{itemize}
+  \item \textbf{Precision, recall, F1, accuracy:} not applicable. These are detection
+    metrics; detection is the subject of the previous chapter. RepairA11y is a repair
+    system, whose unit of success is a resolved violation.
+  \item \textbf{Confusion matrix:} not applicable, for the same reason.
+  \item \textbf{ROC curve and AUC:} not applicable. The system emits a typed patch,
+    not a probability score.
+  \item \textbf{Learning curve:} not applicable. There is no training phase; the LLM
+    is used zero-shot.
+\end{itemize}
+
+\section{Experimental Results}
+
+\subsection{Quantitative results}
+
+\subsubsection{RQ1: evidence ablation (the central result)}
+
+RQ1 holds everything constant and varies only the evidence bundle.
+Table~\ref{tab:rq2dd} reports the per-level resolution rate on the controlled corpus,
+and Table~\ref{tab:mcdd} reports the McNemar paired tests. Each level is measured over
+54 trials (6 cases times 3 seeds times 3 runs).
+
+\begin{table}[h]
+\centering
+\caption{RQ1 resolution rate per evidence level, \Dd{} (SC 2.4.13). Recorded run
+\texttt{run-2026-06-21T06-19-00-943Z}.}
+\label{tab:rq2dd}
+\begin{tabular}{lrr}
+\toprule
+Level & Resolved / total & Rate \\
+\midrule
+E1 (static) & 36 / 54 & \SI{66.7}{\percent} \\
+E2 (+ WCAG text) & 29 / 54 & \SI{53.7}{\percent} \\
+E3 (+ runtime) & 50 / 54 & \SI{92.6}{\percent} \\
+E4 (+ visual crop) & 48 / 54 & \SI{88.9}{\percent} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{RQ1 McNemar paired tests, \Dd. ``Significant'' means $p < 0.05$.}
+\label{tab:mcdd}
+\begin{tabular}{lrrrrrrl}
+\toprule
+Comparison & rate A & rate B & $b$ & $c$ & $\chi^2$ & $p$ & Cohen's $h$ \\
+\midrule
+E1 vs E2 & \SI{66.7}{\percent} & \SI{53.7}{\percent} & 7 & 0 & 5.143 & 0.0233 & 0.266 \\
+E1 vs E3 & \SI{66.7}{\percent} & \SI{92.6}{\percent} & 2 & 16 & 9.389 & 0.0022 & 0.680 \\
+E1 vs E4 & \SI{66.7}{\percent} & \SI{88.9}{\percent} & 2 & 14 & 7.563 & 0.0060 & 0.551 \\
+E2 vs E3 & \SI{53.7}{\percent} & \SI{92.6}{\percent} & 2 & 23 & 16.000 & 0.0001 & 0.945 \\
+E3 vs E4 & \SI{92.6}{\percent} & \SI{88.9}{\percent} & 5 & 3 & 0.125 & 0.7237 & 0.128 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three results stand out. First, moving from static evidence (E1) to runtime evidence
+(E3) produces a large, significant gain of 25.9 percentage points ($p = 0.0022$, with
+a medium-to-large effect size of $h = 0.680$). Second, adding the WCAG technique text
+alone (E2) does not help and actually hurts, a significant drop of 13 points ($p =
+0.0233$). Third, adding the visual crop on top of runtime evidence (E4) does not
+significantly change the result ($p = 0.7237$, $h = 0.128$, negligible): the effect
+has saturated once runtime evidence is present. Runtime evidence is the ingredient
+that matters.
+
+\subsubsection{Worked examples of LLM repairs on \Dd}
+
+To make the repairs concrete, Table~\ref{tab:examples} lists the actual patch the LLM
+produced at level E3 for each of the six controlled SC 2.4.13 cases, taken directly
+from the recorded run (not reconstructed). Every patch is a CSS injection that adds a
+compliant focus outline with \texttt{!important}, citing technique C15. Two details
+are worth noting. First, the model chooses the colour to fit the element: it picks
+black (\texttt{\#000}) for the dark-text buttons on a white background, where black
+gives the most contrast, and a blue (\texttt{\#005fcc}) for the links, which matches
+their existing styling while still meeting the contrast threshold. Second, it adds
+\texttt{outline-offset} only where the element sits flush against other content, which
+is the behavior runtime evidence enables: the model is reacting to the measured
+layout, not guessing.
+
+\begin{table}[h]
+\centering
+\caption{The LLM patch (level E3) for each \Dd{} SC 2.4.13 case, from the recorded
+run \texttt{run-2026-06-21T06-19-00-943Z}.}
+\label{tab:examples}
+\small
+\begin{tabular}{p{2.4cm}p{3.3cm}p{6.0cm}c}
+\toprule
+Case & What was wrong & LLM patch on the focused element (the fix) & Tech. \\
+\midrule
+No focus indicator & Focus produced no visible indicator & \texttt{outline: 2px solid \#005fcc !important; outline-offset: 2px} & C15 \\
+Focus not indicated & Keyboard focus not shown visually & \texttt{outline: 2px solid \#005fcc !important; outline-offset: 2px} & C15 \\
+Insufficient outline contrast & 2px outline at ${\sim}2.85{:}1$, below 3:1 & \texttt{outline: 2px solid \#000 !important; outline-offset: 0} & C15 \\
+Insufficient outline width & Outline thinner than 2px & \texttt{outline: 2px solid \#000 !important} & C15 \\
+Insufficient border width & Border-based indicator too thin & \texttt{outline: 2px solid \#000 !important} & C15 \\
+Low background contrast & Indicator low-contrast against background & \texttt{outline: 2px solid \#000 !important} & C15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:examples} shows the focused element before and after the patch for
+three of these cases. The change is deliberately small (a focus outline appearing or
+becoming compliant), because that is exactly the repair the criterion requires; the
+patch table above states precisely what changed in each case.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.40\textwidth]{dd1_before.png}\hfill\includegraphics[width=0.40\textwidth]{dd1_after.png}\\[8pt]
+\includegraphics[width=0.40\textwidth]{dd2_before.png}\hfill\includegraphics[width=0.40\textwidth]{dd2_after.png}\\[8pt]
+\includegraphics[width=0.40\textwidth]{dd3_before.png}\hfill\includegraphics[width=0.40\textwidth]{dd3_after.png}
+\caption{Three \Dd{} button cases, each shown focused before (left) and after (right)
+the recorded LLM patch is applied. Top: a low-contrast 2px outline becomes a compliant
+black one. Middle: a thin (1px) outline is thickened to a 2px black one. Bottom: a
+thin border-based indicator is replaced by a 2px black outline.}
+\label{fig:examples}
+\end{figure}
+
+\subsubsection{Regression and safety of the LLM patches}
+
+Safety is measured on the same RQ1 runs, so it covers exactly the patches whose
+effectiveness is reported above, with no separate experiment. Across all 216 ablation
+trials the verifier flagged no regression: no patch introduced a new failing element,
+and the mean pixel similarity between the page before and after the patch was 1.000.
+Table~\ref{tab:safety} summarizes this.
+
+\begin{table}[h]
+\centering
+\caption{Regression and safety of the LLM patches, measured on the RQ1 \Dd{} runs
+(216 trials across the four evidence levels). Recorded run
+\texttt{run-2026-06-21T06-19-00-943Z}.}
+\label{tab:safety}
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Trials evaluated & 216 \\
+Trials that introduced a new failure & 0 (\SI{0.0}{\percent}) \\
+Mean pixel similarity & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Because a patch that breaks the page is recorded as REGRESSED and never as RESOLVED,
+the resolution rates in Table~\ref{tab:rq2dd} already exclude any unsafe patch. The
+zero regression count means the effectiveness numbers are not bought at the cost of
+breaking the page.
+
+\subsubsection{\Dr: scale of the problem and live repair}
+
+The production scan establishes that focus-behavior violations are common on real
+sites. Table~\ref{tab:drdetect} reports the detection scan across 27 sites.
+
+\begin{table}[h]
+\centering
+\caption{\Dr{} detection scan (recorded run; 26 of 27 sites scanned, 1 error).}
+\label{tab:drdetect}
+\begin{tabular}{lrrr}
+\toprule
+SC & Sites affected & Total violations & Mean per affected site \\
+\midrule
+2.4.7 & 18 & 270 & 10.38 \\
+2.4.11 & 14 & 283 & 10.88 \\
+2.4.12 & 21 & 497 & 19.12 \\
+2.4.13 & 25 & 1841 & 70.81 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+SC 2.4.13 dominates: 25 of 26 successfully scanned sites have at least one Focus
+Appearance violation, with 1{,}841 in total. Live repair on production sites is the
+hardest test. Two numbers are reported with equal weight, because they answer
+different questions (Table~\ref{tab:drrepair}).
+
+\begin{table}[h]
+\centering
+\caption{\Dr{} live repair on production sites (SC 2.4.13, level E3, recorded runs).}
+\label{tab:drrepair}
+\begin{tabular}{p{2.6cm}p{6.5cm}r}
+\toprule
+Reading & Definition & Result \\
+\midrule
+Single-run rate & One attempt per site, errors excluded & 10 / 21 = \SI{48}{\percent} \\
+Best-of rate & Best outcome per site across retries & 18 / 25 = \SI{72}{\percent} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The single-run rate (\SI{48}{\percent}) is the honest per-attempt expectation on a
+noisy free tier: of 25 sites, one run resolved 10, left 9 unresolved, regressed 2,
+and hit 4 rate-limit or timeout errors. The best-of rate (\SI{72}{\percent}) is the
+upper bound when each site is retried, and it should be read with two caveats: it
+counted one site (adp.com) as a regression from a dry-run stub with no real API call,
+and one site (live.com) regressed badly, with a pixel similarity of 0.493 and 60 new
+failures.
+
+\subsection{Visual results}
+
+Figure~\ref{fig:rq2dd} shows the RQ1 evidence ablation on the controlled corpus: the
+jump at E3 and the flat step to E4 are both visible. Figure~\ref{fig:drsc} shows the
+scale of violations across production sites.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{rq2_ablation_dd.png}
+\caption{RQ1 evidence ablation on the controlled corpus \Dd. The rate rises sharply
+from E1 to E3 and is flat from E3 to E4.}
+\label{fig:rq2dd}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{dr_violations_by_sc.png}
+\caption{Total focus-behavior violations detected across production sites, by SC.}
+\label{fig:drsc}
+\end{figure}
+
+Before-and-after screenshots of the controlled cases are shown in
+Figure~\ref{fig:examples}, using the real recorded LLM patches. Screenshots of live
+production repairs are not shown: the only production captures available were not
+genuine repairs (one site was a dry-run stub with no patch applied, another returned a
+bot-challenge page rather than the real site), so the production results are reported
+as numbers (Table~\ref{tab:drrepair}) rather than as images. No machine-learning
+training figures (learning curves, ROC curves) are shown either, because the system
+has no training phase and emits no probability score; those figures are not
+applicable here.
+
+\section{Comparative Analysis}
+
+\subsection{Against a no-op baseline}
+
+The simplest baseline is to do nothing, which by construction resolves
+\SI{0}{\percent} of violations. Every result in this chapter is therefore measured
+against a \SI{0}{\percent} floor.
+
+\subsection{Static versus runtime evidence}
+
+The cleanest internal comparison is E1 against E3, because the only difference between
+them is the runtime slice. Runtime evidence lifts the LLM resolution rate by 25.9
+points, a statistically significant change. This is reported as a controlled ablation
+rather than a comparison against an external tool, because no external tool exposes
+the same lever.
+
+\subsection{Against published repair systems}
+
+Table~\ref{tab:related} places RepairA11y next to the closest published LLM repair
+systems. The comparison must be read carefully: these systems target different Success
+Criteria, use different detectors, and report different metrics. The numbers for prior
+systems are taken from their papers, cited in \texttt{docs/LITERATURE.md}.
+
+\begin{table}[h]
+\centering
+\caption{Positioning against published work. ``Ablation'' is whether the system
+measures the contribution of different evidence inputs.}
+\label{tab:related}
+\begin{tabular}{p{3.2cm}p{1.8cm}p{2.2cm}p{2.6cm}cc}
+\toprule
+System & Task & Detector & Reported result & Ablation & Focus SCs \\
+\midrule
+GenA11y (FSE 2025) & Detection & GPT-4o + DOM & \SI{94.5}{\percent} P, \SI{87.6}{\percent} R & no & partial \\
+AccessGuru (ASSETS 2025) & Repair & axe + LLM & up to \SI{84}{\percent} score reduction & no & no \\
+Fern\'andez-Navarro \& Chicano (2026) & Repair & axe + Selenium & \SI{80}{\percent} static, \SI{86}{\percent} Angular & no & no \\
+DesignRepair (ICSE 2025) & Frontend & source + view & \SI{92.9}{\percent} R, \SI{90.1}{\percent} P & no & no \\
+RepairA11y (this work) & Repair & NavA11y runtime & E3 \SI{92.6}{\percent} on \Dd & yes & yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The published repair systems report fix rates in the \SI{80}{\percent} to
+\SI{86}{\percent} range, broadly comparable to RepairA11y's runtime-evidence result.
+The contribution of this chapter is not a higher headline number on a shared
+benchmark, which does not exist for these SCs. It is the evidence ablation: none of
+the prior systems measures whether runtime evidence helps, because each uses a single
+fixed evidence model, and most are bounded by what the axe static analyzer reports.
+
+\section{Statistical Analysis}
+
+\subsection{Choice of test}
+
+The RQ1 comparisons are paired: the same cases are repaired at each evidence level.
+For paired binary outcomes the appropriate test is McNemar's test. A two-sample
+$t$-test would be wrong, because the outcomes are binary and paired, not continuous
+and independent. A chi-square test of independence would also be wrong, because it
+ignores the pairing. McNemar is reported with the continuity correction
+(Equation~\ref{eq:mcnemar}) and one degree of freedom. For the smallest discordant
+counts the chi-square approximation is weaker than an exact binomial test; this is
+noted as a limitation in Section~\ref{sec:threats} rather than corrected, because the
+significant results have discordant counts large enough for the approximation to hold.
+
+\subsection{Confidence intervals}
+
+Because the proportions are estimated from a small sample (6 SC 2.4.13 cases, repeated
+to 54 trials per level), Wilson score 95\% intervals are reported instead of
+normal-approximation intervals. Table~\ref{tab:wilson} reports the interval for each
+per-level proportion.
+
+\begin{table}[h]
+\centering
+\caption{Wilson 95\% confidence intervals for the RQ1 per-level rates (recorded run).
+$n$ is the number of trials behind each proportion.}
+\label{tab:wilson}
+\begin{tabular}{lrrl}
+\toprule
+Level & Rate & $n$ & Wilson 95\% CI \\
+\midrule
+E1 & \SI{66.7}{\percent} & 54 & (\SI{53.4}{\percent}, \SI{77.8}{\percent}) \\
+E2 & \SI{53.7}{\percent} & 54 & (\SI{40.6}{\percent}, \SI{66.3}{\percent}) \\
+E3 & \SI{92.6}{\percent} & 54 & (\SI{82.4}{\percent}, \SI{97.1}{\percent}) \\
+E4 & \SI{88.9}{\percent} & 54 & (\SI{77.8}{\percent}, \SI{94.8}{\percent}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The intervals for E1 and E3 do not overlap, which is consistent with the significant
+McNemar result. The E3 and E4 intervals overlap heavily, consistent with the
+non-significant step from E3 to E4.
+
+\subsection{Effect sizes}
+
+The effect of runtime evidence is not only statistically significant, it is large.
+Cohen's $h$ for E1 versus E3 is 0.680 (medium to large). By contrast, E3 versus E4 has
+$h = 0.128$, which is negligible.
+
+\section{Resource Utilization}
+
+The monetary cost is zero. Every LLM call uses the OpenRouter free tier, so no
+experiment in this chapter incurred a charge. The free tier is the reason the project
+pins temperature to 0 and uses a single free model.
+
+The dominant time cost is the free-tier rate limit, not computation. The provider
+allows three requests per minute, which the client enforces as a gate of about 22
+seconds between calls. On top of this, each trial runs NavA11y twice (baseline
+detection and post-patch verification), and each pass drives a real headless browser,
+taking roughly 15 to 30 seconds. A single LLM trial therefore takes on the order of a
+minute, and RQ1, at 216 trials across the four levels, takes hours of wall-clock time.
+The repair loop used a mean of 1.0 iterations.
+
+Token counts and per-call latency are not written to the result files in a form this
+chapter can total reliably. Reporting an exact token total is therefore marked
+\texttt{[VERIFY]}: confirming it would require adding token accounting to the LLM
+client and re-running, which was out of scope for a zero-budget evaluation.
+
+\section{Discussion of Findings}
+
+The central finding is that runtime evidence makes LLM repair work, and the reason is
+visible in the failure cases. At levels E1 and E2 the model can see the HTML and, at
+E2, the WCAG technique text, but it cannot see the computed result of the page's CSS.
+For a Focus Appearance violation the deciding facts are the actual rendered outline
+width, the actual indicator colour, and the actual background colour behind it, none
+of which can be read reliably from the source because they come from external
+stylesheets, CSS resets, and custom properties. Without those facts the model guesses,
+and its most common guess is a black outline, which fails on dark backgrounds. At E3
+the model is given the measured contrast ratio and the before-and-after computed
+styles, so it stops guessing. This directly answers RQ1.
+
+The result that E2 does not help, and on this corpus hurts, is consistent with the
+literature that more context can degrade an LLM. Adding the WCAG text without the
+runtime numbers gives the model more to read but nothing new to reason with. This is
+why the chapter does not treat ``E3 is better than E1'' as obvious: a plausible
+competing hypothesis, that any extra context helps, is contradicted by E2.
+
+The result that E4 does not beat E3 is the reason E4 was included at all. E4 is the
+control that tests whether the gain keeps growing once runtime evidence is present. It
+does not: the annotated crop adds visual grounding, but once the model already has the
+measured numbers, the picture is largely redundant. The practical reading is that
+runtime evidence is the sweet spot, and the system does not need to pay the extra cost
+of rendering and cropping an annotated image. This answers the natural follow-up
+question, ``would a picture help even more?'', with measured data: no.
+
+On safety, the zero regression rate and the pixel similarity of 1.000 across the 216
+ablation trials say the LLM patches do not break the controlled pages: the
+effectiveness gain is not bought by damaging the rest of the page. The honest
+qualifier is that this is demonstrated on fixtures, and the production runs show a
+regression tail (notably live.com) that the controlled suite does not capture. Safety
+on fixtures is necessary but not sufficient for safety in the wild.
+
+The drop from controlled to production performance (a single-run \SI{48}{\percent} on
+\Dr) is explained by three compounding factors: the free tier loses roughly one trial
+in fourteen to errors, the oracle's transparent-background bug blocks some correct
+patches, and live pages are larger and messier than fixtures. None of these undermines
+the RQ1 finding, which is an internal comparison where all three factors apply equally
+to every level.
+
+\section{Threats to Validity and Limitations}
+\label{sec:threats}
+
+\textbf{Small, single, in-house corpus.} The evidence ablation rests on one
+controlled corpus of 6 SC 2.4.13 cases (repeated to 54 trials per level), authored by
+the same project. This is the chapter's main external-validity limit: the controlled
+effect is measured cleanly, but its generalization to pages the team did not write is
+argued, not yet proven on a held-out repair benchmark. The production scan (\Dr)
+shows the problem is real at scale, and the production repair run gives a first
+out-of-lab data point, but the controlled ablation itself is in-house.
+
+\textbf{Wide confidence intervals.} With 54 trials per level the Wilson intervals are
+wide (Table~\ref{tab:wilson}). The significant RQ1 results survive this because they
+are paired and the effect is large, but the per-level point estimates should be read
+as indicative.
+
+\textbf{Repeated-case pairing in McNemar.} The McNemar test is applied to pairs formed
+by (case, run, seed), which treats repeats of the same case as independent trials.
+This inflates the effective sample size and narrows the p-values relative to a test
+that pairs only at the case level. The direction and size of the effect are not in
+doubt, but the exact p-values should be read with this in mind.
+
+\textbf{LLM stochasticity.} Temperature 0 and repeated runs reduce but do not
+eliminate variation. A fresh run is a new sample and will not reproduce the recorded
+numbers exactly.
+
+\textbf{Oracle conservativeness.} The verifier is NavA11y itself, which for elements
+with a transparent background treats the background as black when computing contrast,
+so a correct outline patch can be marked as still failing. This makes the reported
+rates conservative for those cases.
+
+\textbf{Free-tier flakiness.} Roughly \SI{7}{\percent} of trials are lost to
+rate-limit timeouts, malformed JSON after retries, or browser crashes. These are
+counted as ERROR and, by default, against the resolution rate, making the headline
+rates a lower bound.
+
+\textbf{Optimistic best-of reporting.} The \SI{72}{\percent} best-of figure on
+production sites is an upper bound obtained by retrying each site, and it includes at
+least one site counted from a dry-run stub. It is reported alongside the single-run
+\SI{48}{\percent} so it is not mistaken for the expected per-attempt result.
+
+\textbf{Single Success Criterion for the ablation.} RQ1 is run on SC 2.4.13 only. The
+ablation finding is established for Focus Appearance; generalization to the other SCs
+is plausible but not yet measured.
+
+\textbf{Oracle overfitting.} Because the generator is verified by the same engine that
+detects, there is a risk of fitting the oracle rather than fixing the page. This is
+the largest reviewer concern. The chapter reports the oracle pass rate; a full
+independent manual review remains future work.
+
+\section{Summary}
+
+This chapter evaluated RepairA11y on a controlled corpus and on production data around
+one central research question. The central result, for RQ1, is that runtime evidence
+(E3) improved LLM repair over static evidence (E1) by 25.9 points ($p = 0.0022$,
+medium to large effect), while adding WCAG text alone (E2) gave no gain and hurt, and
+adding a visual crop (E4) gave no significant further gain, showing the effect
+saturates at runtime evidence. The same patches were safe: across the 216 ablation
+trials none introduced a new failure, with mean pixel similarity of 1.000. On
+production sites, focus-appearance violations are common (1{,}841 across 25 sites),
+one-shot repair resolved about half of the targeted violations, and retried repair
+resolved about three-quarters, with a regression tail that must be watched.
+
+The practical message is that the value of an LLM accessibility repair system comes
+less from the model and more from the runtime evidence it is given, and that this
+contribution can be measured. The next chapter draws the thesis together and discusses
+how runtime-grounded repair could be extended to the remaining focus-behavior Success
+Criteria and hardened for production use.
+
+\end{document}
