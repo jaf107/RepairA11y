@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 11 — live-chat launcher fully covers focused "back to top" button</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; min-height: 200vh; }
+      /* Two fixed corner widgets stacked in the same bottom-right spot.
+         The chat launcher (added later, higher z-index) fully covers the
+         back-to-top button. Extremely common on marketing sites. */
+      .back-to-top {
+        position: fixed; bottom: 24px; right: 24px;
+        width: 56px; height: 56px; z-index: 10;
+        border: none; border-radius: 50%; background: #444; color: #fff;
+        cursor: pointer;
+      }
+      .chat-launcher {
+        position: fixed; bottom: 20px; right: 20px;
+        width: 64px; height: 64px; z-index: 900;
+        border-radius: 50%; background: #06c; color: #fff;
+        display: flex; align-items: center; justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 11 — chat widget over back-to-top</h1>
+    <p>Scroll down; the round "back to top" button is stacked beneath the chat
+       launcher in the same corner, so its keyboard focus is entirely hidden.</p>
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+    <div class="chat-launcher" role="img" aria-label="Chat">💬</div>
+  </body>
+</html>

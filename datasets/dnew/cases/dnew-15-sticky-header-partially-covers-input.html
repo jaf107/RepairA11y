@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 15 — sticky header partially covers top of focused search input</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; }
+      .site-header {
+        position: fixed; top: 0; left: 0; right: 0; height: 60px;
+        background: #22303c; color: #fff; z-index: 400;
+        display: flex; align-items: center; padding: 0 1rem;
+      }
+      main { padding: 1rem; }
+      /* Tall search input parked so its upper ~half slides under the 60px
+         sticky header. Bottom half stays visible → partial obscuration.
+         Passes 2.4.11 (still visible) but fails 2.4.12 (enhanced = zero
+         tolerance). */
+      .search-input {
+        position: absolute; top: 30px; left: 24px;
+        width: 260px; height: 60px; font-size: 1rem;
+        padding: 0 10px; box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">Docs search</header>
+    <main>
+      <input class="search-input" type="search" placeholder="Search the docs…" />
+      <p style="margin-top: 140px">
+        The top half of the focused search field is tucked under the sticky
+        header — partial obscuration (SC 2.4.12 only).
+      </p>
+    </main>
+  </body>
+</html>

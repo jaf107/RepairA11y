@@ -82,6 +82,67 @@ export const DNEW_CASES = [
     expectFail: true,
     description: "Dark theme: focus outline same color as dark background, contrast ~1:1",
   },
+
+  // ----- SC 2.4.11 / 2.4.12 — Focus Not Obscured (obscuration corpus) -----
+  // Full-obscuration cases (obscuredRatio ≥ 0.99) fail BOTH 2.4.11 (minimum)
+  // and 2.4.12 (enhanced). Partial-obscuration cases (0 < ratio < 0.99) fail
+  // only 2.4.12. SC mapping verified by running NavA11y detection on each file.
+  {
+    id: "dnew-10",
+    file: f("dnew-10-sticky-header-covers-anchor-target.html"),
+    scs: ["2.4.11", "2.4.12"],
+    expectFail: true,
+    description: "Quick-jump link fully hidden under fixed 80px sticky site header (ratio 1)",
+  },
+  {
+    id: "dnew-11",
+    file: f("dnew-11-chat-widget-covers-back-to-top.html"),
+    scs: ["2.4.11", "2.4.12"],
+    expectFail: true,
+    description: "Back-to-top button stacked beneath fixed chat launcher in same corner (ratio 1)",
+  },
+  {
+    id: "dnew-12",
+    file: f("dnew-12-promo-bar-covers-newsletter-submit.html"),
+    scs: ["2.4.11", "2.4.12"],
+    expectFail: true,
+    description: "Newsletter submit button fully covered by fixed bottom promo bar (ratio 1)",
+  },
+  {
+    id: "dnew-13",
+    file: f("dnew-13-social-fab-covers-footer-link.html"),
+    scs: ["2.4.12"],
+    expectFail: true,
+    description: "Footer contact link ~53% covered by floating social FAB — partial (2.4.12 only)",
+  },
+  {
+    id: "dnew-14",
+    file: f("dnew-14-leftover-overlay-covers-retry.html"),
+    scs: ["2.4.11", "2.4.12"],
+    expectFail: true,
+    description: "Leftover near-invisible full-page scrim (z-index 9999) fully obscures retry button (ratio 1)",
+  },
+  {
+    id: "dnew-15",
+    file: f("dnew-15-sticky-header-partially-covers-input.html"),
+    scs: ["2.4.12"],
+    expectFail: true,
+    description: "Top ~43% of focused search input tucked under sticky header — partial (2.4.12 only)",
+  },
+  {
+    id: "dnew-16",
+    file: f("dnew-16-cookie-strip-partially-covers-checkbox.html"),
+    scs: ["2.4.12"],
+    expectFail: true,
+    description: "Lower ~57% of focused consent button under fixed cookie strip — partial (2.4.12 only)",
+  },
+  {
+    id: "dnew-17",
+    file: f("dnew-17-sidebar-partially-covers-nav-link.html"),
+    scs: ["2.4.11", "2.4.12"],
+    expectFail: true,
+    description: "Breadcrumb link fully covered by fixed left sidebar overlap (ratio 1)",
+  },
 ];
 
 export function dnewCasesForSc(sc, { failOnly = true } = {}) {

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 12 — fixed promo bar fully covers focused newsletter submit button</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      .newsletter { margin-top: 1rem; }
+      /* Submit button pinned to the bottom-left, sitting entirely inside the
+         fixed promo bar's band. Promo bar has higher z-index → button hidden. */
+      .subscribe-btn {
+        position: fixed; bottom: 12px; left: 24px;
+        z-index: 5; padding: 10px 22px;
+        background: #0a7d33; color: #fff; border: none; cursor: pointer;
+      }
+      .promo-bar {
+        position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
+        z-index: 800; background: #b3005c; color: #fff;
+        display: flex; align-items: center; padding: 0 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 12 — promo bar over newsletter submit</h1>
+    <form class="newsletter">
+      <label>Email <input type="email" name="email" /></label>
+      <button class="subscribe-btn" type="submit">Subscribe</button>
+    </form>
+    <div class="promo-bar">🎉 Summer sale — 40% off everything this week!</div>
+  </body>
+</html>

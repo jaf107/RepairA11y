@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 10 — focused in-page link fully hidden under sticky site header</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; }
+      .site-header {
+        position: fixed; top: 0; left: 0; right: 0; height: 80px;
+        background: #1a2b4c; color: #fff; z-index: 500;
+        display: flex; align-items: center; padding: 0 1rem;
+      }
+      main { padding: 1rem; }
+      /* A quick-jump link parked at the very top of the scroll area, so once
+         the sticky 80px header paints over it, keyboard focus lands entirely
+         beneath the header. Real-world pattern: sticky nav + short pages. */
+      .jump-link {
+        position: absolute; top: 20px; left: 24px;
+        display: inline-block; padding: 6px 10px;
+        background: #eee; color: #14417a; text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">Acme Corp</header>
+    <main>
+      <a class="jump-link" href="#section-2">Skip to pricing</a>
+      <p style="margin-top: 200px">
+        The quick-jump link above sits under the fixed 80px header, so when it
+        receives keyboard focus it is entirely hidden (SC 2.4.11 / 2.4.12).
+      </p>
+    </main>
+  </body>
+</html>

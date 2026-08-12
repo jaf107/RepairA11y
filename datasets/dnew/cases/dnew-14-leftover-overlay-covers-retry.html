@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 14 — transparent leftover overlay fully covers focused retry button</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      .card { max-width: 320px; }
+      .retry-btn {
+        margin-top: 1rem; padding: 10px 20px;
+        background: #444; color: #fff; border: none; cursor: pointer;
+      }
+      /* A dismissed loading overlay that faded to a near-invisible scrim but was
+         never removed from the DOM. It still paints above the page, so every
+         focusable control underneath is obscured. A very common real-world SPA
+         bug. */
+      .loading-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        background: rgba(0, 0, 0, 0.03);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>D_new 14 — leftover overlay over retry</h1>
+      <p>Failed to load. Try again?</p>
+      <button class="retry-btn">Retry</button>
+    </div>
+    <div class="loading-overlay" aria-hidden="true"></div>
+  </body>
+</html>

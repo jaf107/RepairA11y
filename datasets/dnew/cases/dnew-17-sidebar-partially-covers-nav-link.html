@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 17 — fixed sidebar partially covers focused nav link</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; }
+      .sidebar {
+        position: fixed; top: 0; left: 0; bottom: 0; width: 120px;
+        background: #2b2d42; color: #fff; z-index: 300; padding: 1rem;
+        box-sizing: border-box;
+      }
+      main { padding: 1rem 1rem 1rem 100px; }
+      /* Nav link straddles the sidebar edge: its left portion is under the
+         120px fixed sidebar, its right portion is visible. Partial obscuration
+         → 2.4.12 fails, 2.4.11 passes. */
+      .breadcrumb-link {
+        position: absolute; top: 24px; left: 60px;
+        display: inline-block; padding: 6px 10px;
+        background: #eee; color: #0645ad; text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="sidebar">Menu</nav>
+    <main>
+      <a class="breadcrumb-link" href="/home">Home</a>
+      <p style="margin-top: 80px">
+        The focused breadcrumb link's left edge is tucked behind the fixed
+        sidebar — partial obscuration (SC 2.4.12 only).
+      </p>
+    </main>
+  </body>
+</html>

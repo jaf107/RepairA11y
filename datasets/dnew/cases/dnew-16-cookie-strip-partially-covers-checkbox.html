@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 16 — cookie strip partially covers focused consent button</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      /* "Accept" button pinned low on the page; the fixed cookie strip overlaps
+         its lower portion. Bottom of the button is hidden, top is visible →
+         partial obscuration (2.4.12 fails, 2.4.11 passes). */
+      .accept-btn {
+        position: fixed; bottom: 12px; left: 24px;
+        width: 200px; height: 56px; z-index: 5;
+        background: #0a7d33; color: #fff; border: none; cursor: pointer;
+        font-size: 1rem;
+      }
+      .cookie-strip {
+        position: fixed; bottom: 0; left: 0; right: 0; height: 40px;
+        z-index: 700; background: #333; color: #fff;
+        display: flex; align-items: center; padding: 0 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 16 — cookie strip over consent button</h1>
+    <p>The lower part of the fixed "Accept and continue" button is tucked under
+       the cookie strip — partial obscuration (SC 2.4.12 only).</p>
+    <button class="accept-btn">Accept and continue</button>
+    <div class="cookie-strip">This site uses cookies. 🍪</div>
+  </body>
+</html>

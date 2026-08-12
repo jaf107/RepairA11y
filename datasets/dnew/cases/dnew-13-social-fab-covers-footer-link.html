@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D_new 13 — floating social widget fully covers focused footer link</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; }
+      /* A fixed floating "share" widget parked over a footer contact link.
+         The link is fixed in the same spot with a lower z-index. */
+      .contact-link {
+        position: fixed; bottom: 30px; right: 30px;
+        z-index: 20; padding: 8px 12px;
+        background: #eee; color: #0645ad; text-decoration: underline;
+      }
+      .social-fab {
+        position: fixed; bottom: 24px; right: 24px;
+        width: 60px; height: 60px; z-index: 1200;
+        border-radius: 50%; background: #25d366; color: #fff;
+        display: flex; align-items: center; justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>D_new 13 — social FAB over footer link</h1>
+    <p>The "Contact us" link is fixed in the bottom-right corner, beneath the
+       floating share widget, so its keyboard focus is entirely obscured.</p>
+    <a class="contact-link" href="/contact">Contact us</a>
+    <div class="social-fab" role="img" aria-label="Share">↗</div>
+  </body>
+</html>
