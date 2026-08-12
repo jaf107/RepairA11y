@@ -48,6 +48,10 @@ export function createLlmGenerator(opts = {}) {
     }
 
     const prompt = buildPrompt({ bundle: evidence, history });
+    // E4 bundles carry an annotated element crop — attach it as a real image
+    // part so vision-capable models actually see it (not just a text mention).
+    const crop = evidence.screenshot?.annotatedCropBase64;
+    const images = crop ? [crop] : undefined;
 
     for (let i = 1; i <= maxAttempts; i++) {
       const seed = (attempt ?? 1) * 1000 + i;
@@ -56,6 +60,7 @@ export function createLlmGenerator(opts = {}) {
         model,
         temperature,
         seed,
+        images,
         maxAttempts: 3,
       });
       usageRecord.calls.push({

@@ -73,7 +73,7 @@ export function renderEvidence(bundle) {
   }
   if (bundle.screenshot?.annotatedCropBase64) {
     lines.push(
-      `\nANNOTATED ELEMENT CROP (base64 PNG, ${bundle.screenshot.annotatedCropBase64.length} chars): see attached image.`,
+      `\nANNOTATED ELEMENT CROP: attached as an image. The red box marks the target element in its rendered context.`,
     );
   }
   if (bundle.wcagTechniques) {

@@ -5,6 +5,10 @@ import {
   OpenRouterError,
 } from "../../../src/generators/llm_based/client_openrouter.js";
 
+// The client's shared rate limiter persists across tests in this process;
+// disable the wait so mocked-fetch tests don't blow their 5s timeouts.
+process.env.OPENROUTER_RPM = "100000";
+
 describe("tryParseJson", () => {
   it("parses straight JSON", () => {
     expect(tryParseJson('{"a":1}')).toEqual({ a: 1 });

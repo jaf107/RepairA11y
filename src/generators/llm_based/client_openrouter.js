@@ -12,7 +12,21 @@
  * For testing without an API key, pass `fetch` and `apiKey` via opts.
  */
 const DEFAULT_MODEL = "google/gemma-4-31b-it:free";
-const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+// Any OpenAI-compatible chat-completions endpoint works — e.g. a local
+// Ollama server (http://localhost:11434/v1/chat/completions) to avoid
+// free-tier rate limits entirely. Override via LLM_ENDPOINT.
+const ENDPOINT =
+  process.env.LLM_ENDPOINT ?? "https://openrouter.ai/api/v1/chat/completions";
+const IS_LOCAL = ENDPOINT.includes("localhost") || ENDPOINT.includes("127.0.0.1");
+// For local Ollama we use the NATIVE /api/chat endpoint instead of the
+// OpenAI-compat layer: it supports think:false (gemma4 is a thinking model —
+// via the compat layer it burns max_tokens on hidden reasoning and returns
+// empty content), strict format:"json", per-request num_ctx, and keep_alive
+// (avoids ~60s model reloads between Playwright phases).
+const NATIVE_ENDPOINT = IS_LOCAL
+  ? ENDPOINT.replace(/\/v1\/chat\/completions\/?$/, "/api/chat")
+  : null;
+const LOCAL_NUM_CTX = parseInt(process.env.LLM_NUM_CTX ?? "16384", 10);
 
 export class OpenRouterError extends Error {
   constructor(message, details = {}) {
@@ -25,15 +39,20 @@ export class OpenRouterError extends Error {
 // Module-level rate limiter shared across all client instances.
 // DeepSeek free tier = 3 RPM → enforce 22s minimum between requests.
 // Override via OPENROUTER_RPM env var (e.g. OPENROUTER_RPM=10 for paid tiers).
-const _rpm = parseInt(process.env.OPENROUTER_RPM ?? "3", 10);
-const _minIntervalMs = Math.ceil((60 / _rpm) * 1000) + 500; // +500ms safety margin
 let _lastCallAt = 0;
 
 async function _throttle() {
+  // Read RPM at call time (not module load) so tests and callers can adjust
+  // process.env.OPENROUTER_RPM after import.
+  const rpm = parseInt(
+    process.env.OPENROUTER_RPM ?? (IS_LOCAL ? "1000" : "3"),
+    10,
+  );
+  const minIntervalMs = Math.ceil((60 / rpm) * 1000) + 500; // +500ms safety margin
   const now = Date.now();
   const elapsed = now - _lastCallAt;
-  if (_lastCallAt > 0 && elapsed < _minIntervalMs) {
-    const wait = _minIntervalMs - elapsed;
+  if (_lastCallAt > 0 && elapsed < minIntervalMs) {
+    const wait = minIntervalMs - elapsed;
     console.warn(`[openrouter] rate-throttle — waiting ${Math.round(wait / 1000)}s`);
     await new Promise((r) => setTimeout(r, wait));
   }
@@ -41,12 +60,15 @@ async function _throttle() {
 }
 
 export function createOpenRouterClient(opts = {}) {
-  const apiKey = opts.apiKey ?? process.env.OPENROUTER_API_KEY;
+  // Local endpoints (Ollama) accept any bearer token — no key required.
+  const apiKey =
+    opts.apiKey ?? process.env.OPENROUTER_API_KEY ?? (IS_LOCAL ? "ollama" : null);
   const fetchImpl = opts.fetch ?? globalThis.fetch;
   const baseModel = opts.model ?? process.env.OPENROUTER_MODEL ?? DEFAULT_MODEL;
   const referer = opts.referer ?? "https://github.com/jaf107/RepairA11y";
   const title = opts.title ?? "RepairA11y";
-  const fetchTimeoutMs = opts.fetchTimeoutMs ?? 60_000;
+  // Local inference on laptop hardware can take minutes per response.
+  const fetchTimeoutMs = opts.fetchTimeoutMs ?? (IS_LOCAL ? 300_000 : 60_000);
 
   if (!fetchImpl) {
     throw new OpenRouterError(
@@ -61,6 +83,7 @@ export function createOpenRouterClient(opts = {}) {
     maxTokens = 800,
     seed,
     responseFormat,
+    images, // optional array of base64 PNG strings, attached as image parts
   }) {
     if (!apiKey) {
       throw new OpenRouterError(
@@ -68,20 +91,57 @@ export function createOpenRouterClient(opts = {}) {
       );
     }
     await _throttle();
-    const body = {
-      model,
-      messages: [{ role: "user", content: prompt }],
-      temperature,
-      max_tokens: maxTokens,
-    };
-    if (seed != null) body.seed = seed;
-    if (responseFormat) body.response_format = responseFormat;
+    let url, body;
+    if (IS_LOCAL) {
+      // Native Ollama request shape.
+      body = {
+        model,
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+            ...(images?.length > 0 ? { images } : {}),
+          },
+        ],
+        stream: false,
+        think: false,
+        keep_alive: "2h",
+        options: {
+          temperature,
+          num_predict: maxTokens,
+          num_ctx: LOCAL_NUM_CTX,
+          ...(seed != null ? { seed } : {}),
+        },
+        ...(responseFormat ? { format: "json" } : {}),
+      };
+      url = NATIVE_ENDPOINT;
+    } else {
+      const content =
+        images?.length > 0
+          ? [
+              { type: "text", text: prompt },
+              ...images.map((b64) => ({
+                type: "image_url",
+                image_url: { url: `data:image/png;base64,${b64}` },
+              })),
+            ]
+          : prompt;
+      body = {
+        model,
+        messages: [{ role: "user", content }],
+        temperature,
+        max_tokens: maxTokens,
+      };
+      if (seed != null) body.seed = seed;
+      if (responseFormat) body.response_format = responseFormat;
+      url = ENDPOINT;
+    }
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), fetchTimeoutMs);
     let res;
     try {
-      res = await fetchImpl(ENDPOINT, {
+      res = await fetchImpl(url, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
@@ -124,6 +184,21 @@ export function createOpenRouterClient(opts = {}) {
       );
     }
     const data = await res.json();
+    if (IS_LOCAL) {
+      // Native Ollama response shape.
+      if (!data.message) {
+        throw new OpenRouterError("Ollama response missing message", { data });
+      }
+      return {
+        text: data.message.content ?? "",
+        model: data.model ?? model,
+        usage: {
+          prompt_tokens: data.prompt_eval_count ?? null,
+          completion_tokens: data.eval_count ?? null,
+        },
+        raw: data,
+      };
+    }
     const choice = data.choices?.[0];
     if (!choice) {
       throw new OpenRouterError("OpenRouter response missing choices[0]", {
