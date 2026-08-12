@@ -11,7 +11,7 @@
  *
  * For testing without an API key, pass `fetch` and `apiKey` via opts.
  */
-const DEFAULT_MODEL = "deepseek/deepseek-chat-v3-0324:free";
+const DEFAULT_MODEL = "google/gemma-4-31b-it:free";
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 
 export class OpenRouterError extends Error {
