@@ -43,6 +43,27 @@ export function cohensH(p1, p2) {
   return Math.abs(phi(p1) - phi(p2));
 }
 
+/**
+ * Wilson score interval for a binomial proportion — better small-n coverage
+ * than the normal (Wald) interval, which is why it is preferred for the per-SC
+ * ablation tables (n as low as 18 trials/level).
+ *   z = 1.96 for a 95% two-sided interval.
+ * Returns { lower, upper } clamped to [0, 1]. n = 0 → the full [0, 1] range.
+ */
+export function wilsonInterval(successes, n, z = 1.96) {
+  if (n === 0) return { lower: 0, upper: 1 };
+  const p = successes / n;
+  const z2 = z * z;
+  const denom = 1 + z2 / n;
+  const center = (p + z2 / (2 * n)) / denom;
+  const margin =
+    (z * Math.sqrt((p * (1 - p)) / n + z2 / (4 * n * n))) / denom;
+  return {
+    lower: Math.max(0, center - margin),
+    upper: Math.min(1, center + margin),
+  };
+}
+
 export function mean(xs) {
   if (!xs.length) return 0;
   return xs.reduce((a, b) => a + b, 0) / xs.length;

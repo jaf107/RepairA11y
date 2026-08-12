@@ -19,7 +19,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import { runCase } from "../_common/runner.js";
-import { mcNemar, cohensH, mean, std } from "../_common/stats.js";
+import { mcNemar, cohensH, mean, std, wilsonInterval } from "../_common/stats.js";
 import { createLlmGenerator } from "../../src/generators/llm_based/index.js";
 import { ddCasesForSc, dnewCasesForSc } from "../../src/datasets/index.js";
 import { aggregate, renderAggregateMarkdown } from "../../src/reporting/index.js";
@@ -155,11 +155,16 @@ function analyze(results, opts) {
   for (const lvl of LEVELS) {
     const rs = results.filter((r) => r.evidenceLevel === lvl);
     const rates = bucketRatesByRun(rs);
+    const resolved = rs.filter((r) => r.status === "RESOLVED").length;
     perLevel[lvl] = {
       meanRate: mean(rates),
       stdRate: std(rates),
       runRates: rates,
       cases: rs.length,
+      resolved,
+      // Pooled Wilson 95% CI over all trials at this level (not run-averaged),
+      // so small-n levels report an honest coverage interval.
+      wilson: wilsonInterval(resolved, rs.length),
     };
   }
 
@@ -235,11 +240,17 @@ function renderRq2Markdown({ opts, perLevel, tests, aggregateSummary }) {
   lines.push(`- generated: ${new Date().toISOString()}`);
   lines.push("");
   lines.push("## Per-level resolution rate (mean ± std across runs)");
-  lines.push("| Level | Mean | Std | Cases (n_trials) |", "|---|---|---|---|");
+  lines.push(
+    "| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |",
+    "|---|---|---|---|---|",
+  );
   for (const lvl of LEVELS) {
     const p = perLevel[lvl];
+    const ci = p.wilson
+      ? `[${(p.wilson.lower * 100).toFixed(1)}%, ${(p.wilson.upper * 100).toFixed(1)}%]`
+      : "—";
     lines.push(
-      `| ${lvl} | ${(p.meanRate * 100).toFixed(1)}% | ±${(p.stdRate * 100).toFixed(1)}% | ${p.cases} |`,
+      `| ${lvl} | ${(p.meanRate * 100).toFixed(1)}% | ±${(p.stdRate * 100).toFixed(1)}% | ${ci} | ${p.cases} |`,
     );
   }
   lines.push("");
