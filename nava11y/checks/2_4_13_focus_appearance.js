@@ -59,7 +59,12 @@ export function checkFocusAppearance(trace, config = {}) {
     if (outlineWidth >= MIN_OUTLINE_WIDTH) {
       // Also check outline color contrast against background
       const outlineColor = parseColor(after.outlineColor);
-      const bgColor = parseColor(after.backgroundColor);
+      // A fully transparent background (rgba(0,0,0,0)) means the element's
+      // effective background comes from its ancestors — comparing against it
+      // would treat it as black and mis-fail e.g. black outlines on white
+      // pages. Treat it like an unparseable color and accept the indicator.
+      let bgColor = parseColor(after.backgroundColor);
+      if (bgColor && bgColor.a === 0) bgColor = null;
       if (outlineColor && bgColor) {
         const outlineBgContrast = getContrastRatio(outlineColor, bgColor);
         if (outlineBgContrast >= MIN_CONTRAST_RATIO) {
@@ -95,7 +100,9 @@ export function checkFocusAppearance(trace, config = {}) {
       // Also need to check if border color has sufficient contrast
       const beforeBorder = parseColor(before.borderTopColor || before.borderColor);
       const afterBorder = parseColor(after.borderTopColor || after.borderColor);
-      const bgColor = parseColor(after.backgroundColor);
+      // Same transparent-background rule as the outline check above.
+      let bgColor = parseColor(after.backgroundColor);
+      if (bgColor && bgColor.a === 0) bgColor = null;
 
       if (afterBorder && bgColor) {
         const borderBgContrast = getContrastRatio(afterBorder, bgColor);
@@ -104,6 +111,9 @@ export function checkFocusAppearance(trace, config = {}) {
         } else {
           failures.push(`Border contrast with background ${borderBgContrast.toFixed(2)}:1 is below minimum ${MIN_CONTRAST_RATIO}:1`);
         }
+      } else {
+        // Can't parse colors — accept the indicator (same as outline check)
+        hasValidIndicator = true;
       }
     } else if (maxWidth > 0) {
       failures.push(`Border width increase ${maxWidth.toFixed(1)}px is below minimum ${MIN_OUTLINE_WIDTH}px`);
