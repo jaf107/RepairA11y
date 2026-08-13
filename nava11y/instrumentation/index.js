@@ -38,6 +38,10 @@ window.__snapshotComputedStyle = function (el) {
     borderTopColor: cs.borderTopColor,
 
     backgroundColor: cs.backgroundColor,
+    // First non-transparent background walking up the ancestor chain —
+    // the color an outline is actually seen against when the element's own
+    // background is transparent. Falls back to white (browser default canvas).
+    effectiveBackgroundColor: window.__getEffectiveBackgroundColor(el),
     color: cs.color,
     opacity: parseFloat(cs.opacity),
     transform: cs.transform,
@@ -61,6 +65,20 @@ window.__snapshotComputedStyle = function (el) {
     isFocusVisible: el.matches ? el.matches(":focus-visible") : false,
     bbox: { x: box.x, y: box.y, width: box.width, height: box.height },
   };
+};
+
+window.__getEffectiveBackgroundColor = function (el) {
+  let node = el;
+  while (node && node !== document.documentElement.parentElement) {
+    const bg = window.getComputedStyle(node).backgroundColor;
+    // Anything with a non-zero alpha counts as the visible backdrop.
+    // getComputedStyle normalizes to rgb()/rgba(); rgba(...,0) is transparent.
+    if (bg && bg !== "transparent" && !/rgba\([^)]+,\s*0\)$/.test(bg)) {
+      return bg;
+    }
+    node = node.parentElement;
+  }
+  return "rgb(255, 255, 255)";
 };
 
 window.__snapshotPseudo = function (el, pseudo) {

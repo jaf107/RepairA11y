@@ -59,12 +59,18 @@ export function checkFocusAppearance(trace, config = {}) {
     if (outlineWidth >= MIN_OUTLINE_WIDTH) {
       // Also check outline color contrast against background
       const outlineColor = parseColor(after.outlineColor);
-      // A fully transparent background (rgba(0,0,0,0)) means the element's
-      // effective background comes from its ancestors — comparing against it
-      // would treat it as black and mis-fail e.g. black outlines on white
-      // pages. Treat it like an unparseable color and accept the indicator.
+      // A fully transparent background (rgba(0,0,0,0)) means the outline is
+      // actually seen against the nearest opaque ANCESTOR background — use
+      // the effective background captured by instrumentation. Comparing
+      // against the raw transparent value would treat it as black and
+      // mis-fail e.g. black outlines on white pages. If no effective value
+      // is available (older snapshots), treat it like an unparseable color
+      // and accept the indicator.
       let bgColor = parseColor(after.backgroundColor);
-      if (bgColor && bgColor.a === 0) bgColor = null;
+      if (bgColor && bgColor.a === 0) {
+        bgColor = parseColor(after.effectiveBackgroundColor);
+        if (bgColor && bgColor.a === 0) bgColor = null;
+      }
       if (outlineColor && bgColor) {
         const outlineBgContrast = getContrastRatio(outlineColor, bgColor);
         if (outlineBgContrast >= MIN_CONTRAST_RATIO) {
@@ -102,7 +108,10 @@ export function checkFocusAppearance(trace, config = {}) {
       const afterBorder = parseColor(after.borderTopColor || after.borderColor);
       // Same transparent-background rule as the outline check above.
       let bgColor = parseColor(after.backgroundColor);
-      if (bgColor && bgColor.a === 0) bgColor = null;
+      if (bgColor && bgColor.a === 0) {
+        bgColor = parseColor(after.effectiveBackgroundColor);
+        if (bgColor && bgColor.a === 0) bgColor = null;
+      }
 
       if (afterBorder && bgColor) {
         const borderBgContrast = getContrastRatio(afterBorder, bgColor);
