@@ -1,0 +1,211 @@
+{
+  "summary": {
+    "casesAudited": 25,
+    "dualFlaggedCases": 1,
+    "dualFlagged247Elements": 5,
+    "coResolvedCases": 0,
+    "residual247Elements": 2
+  },
+  "rows": [
+    {
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 2,
+      "after2413": 1
+    },
+    {
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 2,
+      "after2413": 1
+    },
+    {
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 2,
+      "after2413": 1
+    },
+    {
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "before247": 5,
+      "after247": 2,
+      "before2413": 5,
+      "after2413": 2
+    },
+    {
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 1,
+      "after2413": 0
+    },
+    {
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 12,
+      "after2413": 8
+    },
+    {
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 3,
+      "after2413": 2
+    },
+    {
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "before247": 0,
+      "after247": 0,
+      "before2413": 5,
+      "after2413": 0
+    }
+  ]
+}
