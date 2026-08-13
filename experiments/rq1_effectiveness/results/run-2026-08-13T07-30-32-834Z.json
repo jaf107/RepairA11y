@@ -1,0 +1,2945 @@
+{
+  "opts": {
+    "runs": 3,
+    "ruleOnly": false,
+    "llmOnly": true,
+    "dr": false,
+    "dnew": true,
+    "dry": false,
+    "scs": [
+      "2.4.7",
+      "2.4.11",
+      "2.4.12",
+      "2.4.13"
+    ],
+    "evidenceLevel": "E3"
+  },
+  "summary": {
+    "total": 96,
+    "resolved": 75,
+    "resolutionRate": 0.78125,
+    "byStatus": {
+      "RESOLVED": 75,
+      "UNRESOLVED": 21,
+      "REGRESSED": 0,
+      "DECLINED": 0,
+      "ERROR": 0
+    },
+    "regressionRate": 0,
+    "meanIterations": 1,
+    "meanSimilarity": 1,
+    "bySC": {
+      "2.4.11": {
+        "total": 24,
+        "resolved": 15,
+        "rate": 0.625
+      },
+      "2.4.12": {
+        "total": 33,
+        "resolved": 21,
+        "rate": 0.6363636363636364
+      },
+      "2.4.13": {
+        "total": 39,
+        "resolved": 39,
+        "rate": 1
+      }
+    },
+    "byGenerator": {
+      "llm_based": {
+        "total": 96,
+        "resolved": 75,
+        "rate": 0.78125
+      }
+    },
+    "byEvidenceLevel": {
+      "E3": {
+        "total": 96,
+        "resolved": 75,
+        "rate": 0.78125
+      }
+    }
+  },
+  "all": [
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 101 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed footer element.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button:focus",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed cookie banner, preventing it from being obscured.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 101 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed footer element.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button:focus",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed cookie banner, preventing it from being obscured.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 101 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed footer element.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button:focus",
+        "payload": {
+          "rule": "html > body > main > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed cookie banner, preventing it from being obscured.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed footer, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie banner, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed footer, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie banner, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-fixed-footer.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed footer, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-fixed-footer",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-obscured-by-cookie-banner.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie banner, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "obscured-by-cookie-banner",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of 2.85:1 against the background, which is below the required 3:1. Changing the color to black (or any high-contrast color) and ensuring a minimum width of 2px satisfies SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least a 2 CSS pixel solid perimeter. Increasing it to 2px ensures compliance.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-border-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator uses 'outline-style: none', which removes the default focus ring. Adding a solid 3px outline ensures it meets the minimum area requirement and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-background-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "Ensures a visible focus indicator with at least 2 CSS pixels of width and high contrast (black on light background) to meet SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/colour-and-contrast-focus-not-visible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px satisfies the requirement for a focus indicator area of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/keyboard-access-keyboard-focus-is-not-indicated-visually.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px ensures the focus indicator covers an area of at least 2 CSS pixels as required by SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of 2.85:1 against the background, which is below the required 3:1. Changing the color to black (or any high-contrast color) and ensuring a minimum width of 2px satisfies SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least a 2 CSS pixel solid perimeter. Increasing it to 2px ensures compliance.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-border-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator uses 'outline-style: none', which removes the visual indicator. Adding a solid 3px outline ensures it meets the minimum area requirement and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-background-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "Ensures a visible focus indicator with at least 2 CSS pixels of width and high contrast (black on light background) to meet SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/colour-and-contrast-focus-not-visible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px satisfies the requirement for a focus indicator area of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/keyboard-access-keyboard-focus-is-not-indicated-visually.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px ensures the focus indicator covers an area of at least 2 CSS pixels as required by SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of 2.85:1 against the background, which is below the required 3:1. Changing the color to black (or any high-contrast color) and ensuring a minimum width of 2px satisfies SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-outline-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 2px solid #000 !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least a 2 CSS pixel solid perimeter. Increasing it to 2px ensures compliance.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "outline-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-border-insufficient-width.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator uses 'outline-style: none', which removes the visual indicator. Adding a solid 3px outline ensures it meets the minimum area requirement and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "border-insufficient-width",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/focus-appearance-background-insufficient-contrast.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > button",
+        "payload": {
+          "rule": "html > body > main > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "Ensures a visible focus indicator with at least 2 CSS pixels of width and high contrast (black on light background) to meet SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "background-insufficient-contrast",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/colour-and-contrast-focus-not-visible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px satisfies the requirement for a focus indicator area of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-visible",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/nava11y/dataset/focus-behavior-dataset/tests/keyboard-access-keyboard-focus-is-not-indicated-visually.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a",
+        "payload": {
+          "rule": "html > body > main > a:focus { outline: 2px solid rgb(0, 0, 238) !important; }"
+        },
+        "rationale": "The current outline width is 1px. Increasing it to 2px ensures the focus indicator covers an area of at least 2 CSS pixels as required by SC 2.4.13.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "focus-not-indicated-visually",
+      "corpus": "D_d",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header has a height of 80px. Adding scroll-padding-top ensures that when an element is focused or scrolled into view, it is not covered by the fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused element to ensure it is rendered above the chat launcher widget (which has a z-index of 900).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed promo bar.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar (which has a z-index of 300).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header has a height of 80px. Adding scroll-padding-top ensures that when an element is focused or scrolled into view, it is not covered by the fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused element to ensure it is rendered above the chat launcher widget (which has a z-index of 900).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed promo bar.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar (which has a z-index of 300).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header has a height of 80px. Adding scroll-padding-top ensures that when an element is focused or scrolled into view, it is not covered by the fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused element to ensure it is rendered above the chat launcher widget (which has a z-index of 900).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the fixed promo bar.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.11",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar (which has a z-index of 300).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator is 'outline: none' or insufficient. Adding a 3px solid black outline ensures the indicator meets the minimum area (2 CSS pixels) and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator has 'outline-style: none', making it invisible. Adding a high-contrast solid outline ensures the focus indicator meets the 2 CSS pixel area and 3:1 contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 3
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid rgb(13, 110, 253) !important; }"
+        },
+        "rationale": "The current focus indicator has an outline width of 1px. Increasing the outline to at least 2px satisfies the SC 2.4.13 requirement for a solid perimeter of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.04:1 against the blue background. Changing it to a high-contrast color (black) ensures it meets the 3:1 requirement while maintaining a thickness of at least 2px.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid white !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least 2 CSS pixels. Increasing to 2px and using a high-contrast color (white) ensures visibility.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #005a9c !important; }"
+        },
+        "rationale": "The current focus outline color (rgb(147, 197, 253)) has a contrast ratio of only 1.8:1 against the background. Changing it to a high-contrast blue (#005a9c) ensures at least a 3:1 ratio while maintaining a 2px solid perimeter.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.4:1 against the background. Changing it to white (or another high-contrast color) ensures at least a 3:1 ratio while maintaining a 2px width.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator is 'outline: none' or insufficient. Adding a 3px solid black outline ensures the indicator meets the minimum area (2 CSS pixels) and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator has 'outline-style: none', making it invisible. Adding a high-contrast solid outline ensures the focus indicator meets the 2 CSS pixel area and 3:1 contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 3
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid rgb(13, 110, 253) !important; }"
+        },
+        "rationale": "The current focus indicator has an outline width of 1px. Increasing the outline to at least 2px satisfies the SC 2.4.13 requirement for a solid perimeter of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.04:1 against the blue background. Changing it to a high-contrast color (black) ensures it meets the 3:1 requirement while maintaining a thickness of at least 2px.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid white !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least 2 CSS pixels. Increasing to 2px and using a high-contrast color (white) ensures visibility.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #005a9c !important; }"
+        },
+        "rationale": "The current focus outline color (rgb(147, 197, 253)) has a contrast ratio of only 1.8:1 against the background. Changing it to a high-contrast blue (#005a9c) ensures at least a 3:1 ratio while maintaining a 2px solid perimeter.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.4:1 against the background. Changing it to white (or another high-contrast color) ensures at least a 3:1 ratio while maintaining a 2px width.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 2,
+      "seed": 2
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-02-input-focus-color-only.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > label > input",
+        "payload": {
+          "rule": "html > body > label > input:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator is 'outline: none' or insufficient. Adding a 3px solid black outline ensures the indicator meets the minimum area (2 CSS pixels) and provides high contrast against the background.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-02",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-04-global-outline-none-reset.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > nav > a",
+        "payload": {
+          "rule": "html > body > nav > a:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus indicator has 'outline-style: none', making it invisible. Adding a high-contrast solid outline ensures the focus indicator meets the 2 CSS pixel area and 3:1 contrast requirements.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 3
+      },
+      "caseId": "dnew-04",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-05-bootstrap-style-btn-focus-shadow.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > p > a",
+        "payload": {
+          "rule": "html > body > p > a:focus { outline: 2px solid rgb(13, 110, 253) !important; }"
+        },
+        "rationale": "The current focus indicator has an outline width of 1px. Increasing the outline to at least 2px satisfies the SC 2.4.13 requirement for a solid perimeter of at least 2 CSS pixels.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-05",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-06-css-variables-focus-color.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { outline: 3px solid #000 !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.04:1 against the blue background. Changing it to a high-contrast color (black) ensures it meets the 3:1 requirement while maintaining a thickness of at least 2px.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-06",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-07-sticky-header-obscures-focus.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > header > nav > a",
+        "payload": {
+          "rule": "html > body > header > nav > a:focus { outline: 2px solid white !important; }"
+        },
+        "rationale": "The current outline width is 1px, which fails the SC 2.4.13 requirement of at least 2 CSS pixels. Increasing to 2px and using a high-contrast color (white) ensures visibility.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 4
+      },
+      "caseId": "dnew-07",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-08-tailwind-style-ring-insufficient.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "#email",
+        "payload": {
+          "rule": "#email:focus { outline: 2px solid #005a9c !important; }"
+        },
+        "rationale": "The current focus outline color (rgb(147, 197, 253)) has a contrast ratio of only 1.8:1 against the background. Changing it to a high-contrast blue (#005a9c) ensures at least a 3:1 ratio while maintaining a 2px solid perimeter.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-08",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html",
+      "sc": "2.4.13",
+      "evidenceLevel": "E3",
+      "generator": "llm_based",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > nav > a",
+        "payload": {
+          "rule": "html > body > div > nav > a:focus { outline: 2px solid #ffffff !important; }"
+        },
+        "rationale": "The current focus outline has a contrast ratio of only 1.4:1 against the background. Changing it to white (or another high-contrast color) ensures at least a 3:1 ratio while maintaining a 2px width.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 5
+      },
+      "caseId": "dnew-09",
+      "corpus": "D_new",
+      "runIdx": 3,
+      "seed": 3
+    }
+  ]
+}

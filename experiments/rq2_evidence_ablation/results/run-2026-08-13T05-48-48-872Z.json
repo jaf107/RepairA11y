@@ -1,0 +1,524 @@
+{
+  "opts": {
+    "runs": 1,
+    "sc": "2.4.3",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "dry": false,
+    "dnew": true
+  },
+  "summary": {
+    "perLevel": {
+      "E1": {
+        "meanRate": 0,
+        "stdRate": 0,
+        "runRates": [
+          0,
+          0,
+          0
+        ],
+        "cases": 3,
+        "resolved": 0,
+        "wilson": {
+          "lower": 0,
+          "upper": 0.5615060804490177
+        }
+      },
+      "E2": {
+        "meanRate": 0,
+        "stdRate": 0,
+        "runRates": [
+          0,
+          0,
+          0
+        ],
+        "cases": 3,
+        "resolved": 0,
+        "wilson": {
+          "lower": 0,
+          "upper": 0.5615060804490177
+        }
+      },
+      "E3": {
+        "meanRate": 1,
+        "stdRate": 0,
+        "runRates": [
+          1,
+          1,
+          1
+        ],
+        "cases": 3,
+        "resolved": 3,
+        "wilson": {
+          "lower": 0.43849391955098227,
+          "upper": 1
+        }
+      },
+      "E4": {
+        "meanRate": 1,
+        "stdRate": 0,
+        "runRates": [
+          1,
+          1,
+          1
+        ],
+        "cases": 3,
+        "resolved": 3,
+        "wilson": {
+          "lower": 0.43849391955098227,
+          "upper": 1
+        }
+      }
+    },
+    "tests": {
+      "E1_vs_E2": {
+        "b": 0,
+        "c": 0,
+        "chi2": 0,
+        "p": 1,
+        "significant": false,
+        "n": 3,
+        "meanA": 0,
+        "meanB": 0,
+        "cohensH": 0
+      },
+      "E1_vs_E3": {
+        "b": 0,
+        "c": 3,
+        "chi2": 1.3333333333333333,
+        "p": 0.2482131941503969,
+        "significant": false,
+        "n": 3,
+        "meanA": 0,
+        "meanB": 1,
+        "cohensH": 3.141592653589793
+      },
+      "E1_vs_E4": {
+        "b": 0,
+        "c": 3,
+        "chi2": 1.3333333333333333,
+        "p": 0.2482131941503969,
+        "significant": false,
+        "n": 3,
+        "meanA": 0,
+        "meanB": 1,
+        "cohensH": 3.141592653589793
+      },
+      "E2_vs_E3": {
+        "b": 0,
+        "c": 3,
+        "chi2": 1.3333333333333333,
+        "p": 0.2482131941503969,
+        "significant": false,
+        "n": 3,
+        "meanA": 0,
+        "meanB": 1,
+        "cohensH": 3.141592653589793
+      },
+      "E3_vs_E4": {
+        "b": 0,
+        "c": 0,
+        "chi2": 0,
+        "p": 1,
+        "significant": false,
+        "n": 3,
+        "meanA": 1,
+        "meanB": 1,
+        "cohensH": 0
+      }
+    },
+    "aggregate": {
+      "total": 12,
+      "resolved": 6,
+      "resolutionRate": 0.5,
+      "byStatus": {
+        "RESOLVED": 6,
+        "UNRESOLVED": 6,
+        "REGRESSED": 0,
+        "DECLINED": 0,
+        "ERROR": 0
+      },
+      "regressionRate": 0,
+      "meanIterations": 1,
+      "meanSimilarity": 1,
+      "bySC": {
+        "2.4.3": {
+          "total": 12,
+          "resolved": 6,
+          "rate": 0.5
+        }
+      },
+      "byGenerator": {
+        "openrouter-llm": {
+          "total": 12,
+          "resolved": 6,
+          "rate": 0.5
+        }
+      },
+      "byEvidenceLevel": {
+        "E1": {
+          "total": 3,
+          "resolved": 0,
+          "rate": 0
+        },
+        "E2": {
+          "total": 3,
+          "resolved": 0,
+          "rate": 0
+        },
+        "E3": {
+          "total": 3,
+          "resolved": 3,
+          "rate": 1
+        },
+        "E4": {
+          "total": 3,
+          "resolved": 3,
+          "rate": 1
+        }
+      }
+    },
+    "markdown": "# RQ2 — Evidence Ablation (SC 2.4.3)\n\n- runs: **1**, seeds: **1,2,3**, dry: **false**\n- generated: 2026-08-13T05:48:48.847Z\n\n## Per-level resolution rate (mean ± std across runs)\n| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |\n|---|---|---|---|---|\n| E1 | 0.0% | ±0.0% | [0.0%, 56.2%] | 3 |\n| E2 | 0.0% | ±0.0% | [0.0%, 56.2%] | 3 |\n| E3 | 100.0% | ±0.0% | [43.8%, 100.0%] | 3 |\n| E4 | 100.0% | ±0.0% | [43.8%, 100.0%] | 3 |\n\n## McNemar paired tests\n| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |\n|---|---|---|---|---|---|---|---|---|\n| E1_vs_E2 | 0.0% | 0.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |\n| E1_vs_E3 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |\n| E1_vs_E4 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |\n| E2_vs_E3 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |\n| E3_vs_E4 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |\n\n## Overall aggregate\n# Experiment report — RQ2\n\n## Summary\n- **Cases**: 12\n- **Resolution rate**: 50.0% (6/12)\n- **Regression rate**: 0.0%\n- **Mean iterations**: 1.00\n- **Mean SSIM**: 1.000\n\n## By status\n| Status | Count |\n|---|---|\n| RESOLVED | 6 |\n| UNRESOLVED | 6 |\n| REGRESSED | 0 |\n| DECLINED | 0 |\n| ERROR | 0 |\n\n## By evidence level\n| Level | Resolved | Total | Rate |\n|---|---|---|---|\n| E1 | 0 | 3 | 0.0% |\n| E2 | 0 | 3 | 0.0% |\n| E3 | 3 | 3 | 100.0% |\n| E4 | 3 | 3 | 100.0% |\n"
+  },
+  "allResults": [
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Removing positive tabindex values ensures the keyboard focus order follows the natural DOM order, resolving the SC 2.4.3 violation.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 59284
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Resetting positive tabindex values to 0 ensures the keyboard focus order follows the natural DOM order while keeping elements reachable.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 53315
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 95829
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 90860
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Removing positive tabindex values ensures the keyboard focus order follows the natural DOM order, resolving the SC 2.4.3 violation.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 36952
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Resetting positive tabindex values to 0 ensures the keyboard focus order follows the natural DOM order while keeping elements reachable.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 36300
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 50714
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 50221
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Removing positive tabindex values ensures the keyboard focus order follows the natural DOM order, resolving the SC 2.4.3 violation.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 35645
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set_all",
+        "target_selector": "[tabindex] [tabindex] > 0",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "Resetting positive tabindex values to 0 ensures the keyboard focus order follows the natural DOM order while keeping elements reachable.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": null,
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 34880
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 50677
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-03-skiplink-positive-tabindex-nav.html",
+      "sc": "2.4.3",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "attr_set",
+        "target_selector": "html > body > nav > a:nth-of-type(3)",
+        "payload": {
+          "attribute": "tabindex",
+          "value": "0"
+        },
+        "rationale": "The element has a positive tabindex (3), which violates SC 2.4.3 by forcing it out of the natural DOM order. Setting it to 0 preserves its focusability while restoring correct tab sequence.",
+        "wcag_technique_cited": "F44"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-03",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 51113
+    }
+  ]
+}

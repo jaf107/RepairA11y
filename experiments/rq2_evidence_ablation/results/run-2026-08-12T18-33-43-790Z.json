@@ -1,0 +1,3536 @@
+{
+  "opts": {
+    "runs": 1,
+    "sc": "2.4.12",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "dry": false,
+    "dnew": true
+  },
+  "summary": {
+    "perLevel": {
+      "E1": {
+        "meanRate": 0.7777777777777778,
+        "stdRate": 0,
+        "runRates": [
+          0.7777777777777778,
+          0.7777777777777778,
+          0.7777777777777778
+        ],
+        "cases": 27,
+        "resolved": 21,
+        "wilson": {
+          "lower": 0.5924270453692919,
+          "upper": 0.8939290451059105
+        }
+      },
+      "E2": {
+        "meanRate": 0.7777777777777778,
+        "stdRate": 0,
+        "runRates": [
+          0.7777777777777778,
+          0.7777777777777778,
+          0.7777777777777778
+        ],
+        "cases": 27,
+        "resolved": 21,
+        "wilson": {
+          "lower": 0.5924270453692919,
+          "upper": 0.8939290451059105
+        }
+      },
+      "E3": {
+        "meanRate": 0.5555555555555556,
+        "stdRate": 0,
+        "runRates": [
+          0.5555555555555556,
+          0.5555555555555556,
+          0.5555555555555556
+        ],
+        "cases": 27,
+        "resolved": 15,
+        "wilson": {
+          "lower": 0.37312719479576884,
+          "upper": 0.7241440232992717
+        }
+      },
+      "E4": {
+        "meanRate": 0.5555555555555556,
+        "stdRate": 0,
+        "runRates": [
+          0.5555555555555556,
+          0.5555555555555556,
+          0.5555555555555556
+        ],
+        "cases": 27,
+        "resolved": 15,
+        "wilson": {
+          "lower": 0.37312719479576884,
+          "upper": 0.7241440232992717
+        }
+      }
+    },
+    "tests": {
+      "E1_vs_E2": {
+        "b": 0,
+        "c": 0,
+        "chi2": 0,
+        "p": 1,
+        "significant": false,
+        "n": 27,
+        "meanA": 0.7777777777777778,
+        "meanB": 0.7777777777777778,
+        "cohensH": 0
+      },
+      "E1_vs_E3": {
+        "b": 6,
+        "c": 0,
+        "chi2": 4.166666666666667,
+        "p": 0.041226698470078205,
+        "significant": true,
+        "n": 27,
+        "meanA": 0.7777777777777778,
+        "meanB": 0.5555555555555556,
+        "cohensH": 0.4776899558753098
+      },
+      "E1_vs_E4": {
+        "b": 6,
+        "c": 0,
+        "chi2": 4.166666666666667,
+        "p": 0.041226698470078205,
+        "significant": true,
+        "n": 27,
+        "meanA": 0.7777777777777778,
+        "meanB": 0.5555555555555556,
+        "cohensH": 0.4776899558753098
+      },
+      "E2_vs_E3": {
+        "b": 6,
+        "c": 0,
+        "chi2": 4.166666666666667,
+        "p": 0.041226698470078205,
+        "significant": true,
+        "n": 27,
+        "meanA": 0.7777777777777778,
+        "meanB": 0.5555555555555556,
+        "cohensH": 0.4776899558753098
+      },
+      "E3_vs_E4": {
+        "b": 0,
+        "c": 0,
+        "chi2": 0,
+        "p": 1,
+        "significant": false,
+        "n": 27,
+        "meanA": 0.5555555555555556,
+        "meanB": 0.5555555555555556,
+        "cohensH": 0
+      }
+    },
+    "aggregate": {
+      "total": 108,
+      "resolved": 72,
+      "resolutionRate": 0.6666666666666666,
+      "byStatus": {
+        "RESOLVED": 72,
+        "UNRESOLVED": 36,
+        "REGRESSED": 0,
+        "DECLINED": 0,
+        "ERROR": 0
+      },
+      "regressionRate": 0,
+      "meanIterations": 1,
+      "meanSimilarity": 1,
+      "bySC": {
+        "2.4.12": {
+          "total": 108,
+          "resolved": 72,
+          "rate": 0.6666666666666666
+        }
+      },
+      "byGenerator": {
+        "openrouter-llm": {
+          "total": 108,
+          "resolved": 72,
+          "rate": 0.6666666666666666
+        }
+      },
+      "byEvidenceLevel": {
+        "E1": {
+          "total": 27,
+          "resolved": 21,
+          "rate": 0.7777777777777778
+        },
+        "E2": {
+          "total": 27,
+          "resolved": 21,
+          "rate": 0.7777777777777778
+        },
+        "E3": {
+          "total": 27,
+          "resolved": 15,
+          "rate": 0.5555555555555556
+        },
+        "E4": {
+          "total": 27,
+          "resolved": 15,
+          "rate": 0.5555555555555556
+        }
+      }
+    },
+    "markdown": "# RQ2 — Evidence Ablation (SC 2.4.12)\n\n- runs: **1**, seeds: **1,2,3**, dry: **false**\n- generated: 2026-08-12T18:33:43.763Z\n\n## Per-level resolution rate (mean ± std across runs)\n| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |\n|---|---|---|---|---|\n| E1 | 77.8% | ±0.0% | [59.2%, 89.4%] | 27 |\n| E2 | 77.8% | ±0.0% | [59.2%, 89.4%] | 27 |\n| E3 | 55.6% | ±0.0% | [37.3%, 72.4%] | 27 |\n| E4 | 55.6% | ±0.0% | [37.3%, 72.4%] | 27 |\n\n## McNemar paired tests\n| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |\n|---|---|---|---|---|---|---|---|---|\n| E1_vs_E2 | 77.8% | 77.8% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |\n| E1_vs_E3 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |\n| E1_vs_E4 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |\n| E2_vs_E3 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |\n| E3_vs_E4 | 55.6% | 55.6% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |\n\n## Overall aggregate\n# Experiment report — RQ2\n\n## Summary\n- **Cases**: 108\n- **Resolution rate**: 66.7% (72/108)\n- **Regression rate**: 0.0%\n- **Mean iterations**: 1.00\n- **Mean SSIM**: 1.000\n\n## By status\n| Status | Count |\n|---|---|\n| RESOLVED | 72 |\n| UNRESOLVED | 36 |\n| REGRESSED | 0 |\n| DECLINED | 0 |\n| ERROR | 0 |\n\n## By evidence level\n| Level | Resolved | Total | Rate |\n|---|---|---|---|\n| E1 | 21 | 27 | 77.8% |\n| E2 | 21 | 27 | 77.8% |\n| E3 | 15 | 27 | 55.6% |\n| E4 | 15 | 27 | 55.6% |\n"
+  },
+  "allResults": [
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 64572
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 56223
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 56025
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 55081
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 53144
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 55539
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 56268
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 42055
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 43100
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 57432
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 54641
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 55076
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58067
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 62470
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 56878
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58660
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 45631
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 46304
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 61093
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58531
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 54462
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 61292
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58186
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58978
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 60253
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58340
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 59999
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 59830
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 66821
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 55672
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 59595
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58394
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 56935
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 58810
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 57858
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 1,
+      "ms": 61596
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 57046
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 46883
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 53193
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 57172
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 53515
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 56186
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 57471
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 46052
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 44731
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 57328
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 50681
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 60244
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 56829
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 54026
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 54521
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 56173
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 45729
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 45256
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 59958
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 60467
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 55200
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 61867
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 58605
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 58435
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 61842
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 61691
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 59631
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 61131
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 59631
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 54880
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 61442
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 60138
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 56941
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 57359
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 56384
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 2,
+      "ms": 59906
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 57837
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 47884
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 54180
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 65092
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 54572
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 56054
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 55910
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 46051
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E1",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 46211
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 57089
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 48606
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 54030
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button:focus",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 56539
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > a:focus",
+        "payload": {
+          "rule": "html > body > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping author-controlled content by increasing its z-index.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 53445
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div > button:focus",
+        "payload": {
+          "rule": "html > body > div > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 54892
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused input element is rendered on top of any overlapping author-controlled content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 56467
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > button:focus",
+        "payload": {
+          "rule": "html > body > button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused button is rendered on top of any overlapping elements by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 44110
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E2",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Ensures the focused element is rendered on top of any overlapping content by increasing its z-index and ensuring it has a stacking context.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 43401
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 62048
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 60959
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 55154
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo_bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 70352
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 78379
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 65911
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 68249
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 86217
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E3",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, preventing any overlap or obscuration.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 70107
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-01-modal-traps-focus-behind-backdrop.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > div:nth-of-type(2) > button",
+        "payload": {
+          "rule": "html > body > div:nth-of-type(2) > button:focus { z-index: 1001 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the .backdrop element (which has a z-index of 1000).",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-01",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 63183
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-10-sticky-header-covers-anchor-target.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html",
+        "payload": {
+          "rule": "html { scroll-padding-top: 80px !important; }"
+        },
+        "rationale": "The fixed header (height 80px) overlaps the focused element. Adding scroll-padding ensures that when an element is scrolled into view or focused, it is offset by the height of the sticky/fixed header.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-10",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 61484
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-11-chat-widget-covers-back-to-top.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 1000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the chat launcher (zIndex 900), preventing any overlap.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-11",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 53891
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-12-promo-bar-covers-newsletter-submit.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > form > button",
+        "payload": {
+          "rule": "html > body > form > button:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the fixed promo bar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-12",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 61845
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-13-social-fab-covers-footer-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "a:focus",
+        "payload": {
+          "rule": "a:focus { z-index: 2000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused link to ensure it is rendered above the social floating button (div.social-fab) which has a z-index of 1200.",
+        "wcag_technique_cited": "C40"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-13",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 60177
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-14-leftover-overlay-covers-retry.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "UNRESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 10000 !important; }"
+        },
+        "rationale": "Increase the z-index of the focused button to ensure it is rendered above the loading overlay (which has a z-index of 9999).",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "UNRESOLVED",
+        "targetResolved": false,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 0
+      },
+      "caseId": "dnew-14",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 58120
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-15-sticky-header-partially-covers-input.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > input:focus",
+        "payload": {
+          "rule": "html > body > main > input:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused input ensures it is rendered above the fixed header, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-15",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 60618
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-16-cookie-strip-partially-covers-checkbox.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "button:focus",
+        "payload": {
+          "rule": "button:focus { z-index: 9999 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused button ensures it is rendered above the cookie strip overlay, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-16",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 58718
+    },
+    {
+      "fixturePath": "/Users/abujafar.saifullah/Documents/projects/RepairA11y/datasets/dnew/cases/dnew-17-sidebar-partially-covers-nav-link.html",
+      "sc": "2.4.12",
+      "evidenceLevel": "E4",
+      "generator": "openrouter-llm",
+      "status": "RESOLVED",
+      "iterations": 1,
+      "patch": {
+        "patch_type": "css_inject",
+        "target_selector": "html > body > main > a:focus",
+        "payload": {
+          "rule": "html > body > main > a:focus { z-index: 1000 !important; position: relative !important; }"
+        },
+        "rationale": "Increasing the z-index of the focused element ensures it is rendered above the fixed sidebar, satisfying SC 2.4.12.",
+        "wcag_technique_cited": "C15"
+      },
+      "verify": {
+        "status": "RESOLVED",
+        "targetResolved": true,
+        "regressed": false,
+        "ssimRegressed": false,
+        "similarity": 1,
+        "newFailureCount": 0,
+        "resolvedCount": 1
+      },
+      "caseId": "dnew-17",
+      "corpus": "D_new",
+      "runIdx": 1,
+      "seed": 3,
+      "ms": 60229
+    }
+  ]
+}
