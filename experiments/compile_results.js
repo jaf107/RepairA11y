@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-async function latestJson(dir, { preferNonDry = false, dnew = null } = {}) {
+async function latestJson(dir, { preferNonDry = false, dnew = null, sc = null } = {}) {
   let files;
   try {
     files = await readdir(dir);
@@ -35,6 +35,8 @@ async function latestJson(dir, { preferNonDry = false, dnew = null } = {}) {
     if (preferNonDry && data?.opts?.dry) continue;
     if (dnew === true && !data?.opts?.dnew) continue;
     if (dnew === false && data?.opts?.dnew) continue;
+    // RQ2 runs default to 2.4.13 when opts.sc is absent (pre-multi-SC runs).
+    if (sc !== null && (data?.opts?.sc ?? "2.4.13") !== sc) continue;
     return { file: f, data };
   }
   return null;
@@ -54,8 +56,17 @@ async function latestMd(dir) {
 
 async function main() {
   const rq1 = await latestJson(join(__dirname, "rq1_effectiveness/results"));
-  const rq2Dd = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: false });
-  const rq2Dnew = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: true });
+  const rq2Dd = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: false, sc: "2.4.13" });
+  const rq2Dnew = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, dnew: true, sc: "2.4.13" });
+  // Other-SC ablations run on the D_new obscuration/order corpora only.
+  const rq2OtherScs = [];
+  for (const sc of ["2.4.11", "2.4.12", "2.4.3"]) {
+    const r = await latestJson(join(__dirname, "rq2_evidence_ablation/results"), { preferNonDry: true, sc });
+    if (r) {
+      const md = await readFile(join(__dirname, "rq2_evidence_ablation/results", r.file.replace(".json", ".md")), "utf8").catch(() => null);
+      rq2OtherScs.push({ sc, file: r.file, md });
+    }
+  }
   const rq4 = await latestJson(join(__dirname, "rq4_regression/results"));
   const dr = await latestJson(join(__dirname, "dr_detection_scan/results"));
 
@@ -117,6 +128,17 @@ async function main() {
   }
   if (!rq2Dd && !rq2Dnew) {
     lines.push("\n_No RQ2 results found._");
+  }
+
+  // RQ2 — other SCs
+  for (const { sc, md, file } of rq2OtherScs) {
+    lines.push(`\n---\n## RQ2 — Evidence Ablation (SC ${sc})`);
+    if (md) {
+      lines.push("");
+      lines.push(md);
+    } else {
+      lines.push(`\n_Results in ${file} (markdown missing)._`);
+    }
   }
 
   // RQ4

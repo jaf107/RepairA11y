@@ -1,33 +1,35 @@
 # RepairA11y — Experiment Results Summary
 
-_Generated: 2026-06-21T07:03:35.151Z_
+_Generated: 2026-08-13T14:33:51.791Z_
 
 ---
 
 ## RQ1 — Repair Effectiveness
 
-**Source:** run-2026-06-21T06-10-45-808Z.json
+**Source:** run-2026-08-13T07-30-32-834Z.json
 
 
 ### D_d
 | Generator | Resolved | Total | Rate |
 |---|---|---|---|
-| rule_based | 6 | 6 | 100.0% |
-| llm_based | 17 | 18 | 94.4% |
+| llm_based | 30 | 30 | 100.0% |
 
 | SC | Resolved | Total | Rate |
 |---|---|---|---|
-| 2.4.13 | 23 | 24 | 95.8% |
+| 2.4.11 | 6 | 6 | 100.0% |
+| 2.4.12 | 6 | 6 | 100.0% |
+| 2.4.13 | 18 | 18 | 100.0% |
 
 ### D_new
 | Generator | Resolved | Total | Rate |
 |---|---|---|---|
-| rule_based | 7 | 7 | 100.0% |
-| llm_based | 16 | 21 | 76.2% |
+| llm_based | 45 | 66 | 68.2% |
 
 | SC | Resolved | Total | Rate |
 |---|---|---|---|
-| 2.4.13 | 23 | 28 | 82.1% |
+| 2.4.11 | 9 | 18 | 50.0% |
+| 2.4.12 | 15 | 27 | 55.6% |
+| 2.4.13 | 21 | 21 | 100.0% |
 
 ---
 ## RQ2 — Evidence Ablation (SC 2.4.13)
@@ -37,31 +39,31 @@ _Generated: 2026-06-21T07:03:35.151Z_
 # RQ2 — Evidence Ablation (SC 2.4.13)
 
 - runs: **3**, seeds: **1,2,3**, dry: **false**
-- generated: 2026-06-21T06:19:00.931Z
+- generated: 2026-08-13T12:04:58.018Z
 
 ## Per-level resolution rate (mean ± std across runs)
-| Level | Mean | Std | Cases (n_trials) |
-|---|---|---|---|
-| E1 | 66.7% | ±0.0% | 54 |
-| E2 | 53.7% | ±11.1% | 54 |
-| E3 | 92.6% | ±8.8% | 54 |
-| E4 | 88.9% | ±11.8% | 54 |
+| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |
+|---|---|---|---|---|
+| E1 | 100.0% | ±0.0% | [93.4%, 100.0%] | 54 |
+| E2 | 100.0% | ±0.0% | [93.4%, 100.0%] | 54 |
+| E3 | 100.0% | ±0.0% | [93.4%, 100.0%] | 54 |
+| E4 | 100.0% | ±0.0% | [93.4%, 100.0%] | 54 |
 
 ## McNemar paired tests
 | Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
 |---|---|---|---|---|---|---|---|---|
-| E1_vs_E2 | 66.7% | 53.7% | 7 | 0 | 5.143 | 0.0233 | 0.266 | ✓ |
-| E1_vs_E3 | 66.7% | 92.6% | 2 | 16 | 9.389 | 0.0022 | 0.680 | ✓ |
-| E1_vs_E4 | 66.7% | 88.9% | 2 | 14 | 7.563 | 0.0060 | 0.551 | ✓ |
-| E2_vs_E3 | 53.7% | 92.6% | 2 | 23 | 16.000 | 0.0001 | 0.945 | ✓ |
-| E3_vs_E4 | 92.6% | 88.9% | 5 | 3 | 0.125 | 0.7237 | 0.128 |  |
+| E1_vs_E2 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E3 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E4 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E2_vs_E3 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E3_vs_E4 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
 
 ## Overall aggregate
 # Experiment report — RQ2
 
 ## Summary
 - **Cases**: 216
-- **Resolution rate**: 75.5% (163/216)
+- **Resolution rate**: 100.0% (216/216)
 - **Regression rate**: 0.0%
 - **Mean iterations**: 1.00
 - **Mean SSIM**: 1.000
@@ -69,19 +71,19 @@ _Generated: 2026-06-21T07:03:35.151Z_
 ## By status
 | Status | Count |
 |---|---|
-| RESOLVED | 163 |
-| UNRESOLVED | 36 |
+| RESOLVED | 216 |
+| UNRESOLVED | 0 |
 | REGRESSED | 0 |
 | DECLINED | 0 |
-| ERROR | 17 |
+| ERROR | 0 |
 
 ## By evidence level
 | Level | Resolved | Total | Rate |
 |---|---|---|---|
-| E1 | 36 | 54 | 66.7% |
-| E2 | 29 | 54 | 53.7% |
-| E3 | 50 | 54 | 92.6% |
-| E4 | 48 | 54 | 88.9% |
+| E1 | 54 | 54 | 100.0% |
+| E2 | 54 | 54 | 100.0% |
+| E3 | 54 | 54 | 100.0% |
+| E4 | 54 | 54 | 100.0% |
 
 
 ### D_new (realistic corpus)
@@ -89,31 +91,31 @@ _Generated: 2026-06-21T07:03:35.151Z_
 # RQ2 — Evidence Ablation (SC 2.4.13)
 
 - runs: **1**, seeds: **1,2,3**, dry: **false**
-- generated: 2026-06-21T07:03:24.329Z
+- generated: 2026-08-13T14:29:24.413Z
 
 ## Per-level resolution rate (mean ± std across runs)
-| Level | Mean | Std | Cases (n_trials) |
-|---|---|---|---|
-| E1 | 33.3% | ±8.2% | 21 |
-| E2 | 42.9% | ±0.0% | 21 |
-| E3 | 81.0% | ±8.2% | 21 |
-| E4 | 85.7% | ±14.3% | 21 |
+| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |
+|---|---|---|---|---|
+| E1 | 71.4% | ±0.0% | [50.0%, 86.2%] | 21 |
+| E2 | 42.9% | ±0.0% | [24.5%, 63.5%] | 21 |
+| E3 | 100.0% | ±0.0% | [84.5%, 100.0%] | 21 |
+| E4 | 100.0% | ±0.0% | [84.5%, 100.0%] | 21 |
 
 ## McNemar paired tests
 | Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
 |---|---|---|---|---|---|---|---|---|
-| E1_vs_E2 | 33.3% | 42.9% | 0 | 2 | 0.500 | 0.4795 | 0.196 |  |
-| E1_vs_E3 | 33.3% | 81.0% | 0 | 10 | 8.100 | 0.0044 | 1.007 | ✓ |
-| E1_vs_E4 | 33.3% | 85.7% | 0 | 11 | 9.091 | 0.0026 | 1.135 | ✓ |
-| E2_vs_E3 | 42.9% | 81.0% | 0 | 8 | 6.125 | 0.0133 | 0.811 | ✓ |
-| E3_vs_E4 | 81.0% | 85.7% | 1 | 2 | 0.000 | 1.0000 | 0.128 |  |
+| E1_vs_E2 | 71.4% | 42.9% | 6 | 0 | 4.167 | 0.0412 | 0.586 | ✓ |
+| E1_vs_E3 | 71.4% | 100.0% | 0 | 6 | 4.167 | 0.0412 | 1.128 | ✓ |
+| E1_vs_E4 | 71.4% | 100.0% | 0 | 6 | 4.167 | 0.0412 | 1.128 | ✓ |
+| E2_vs_E3 | 42.9% | 100.0% | 0 | 12 | 10.083 | 0.0015 | 1.714 | ✓ |
+| E3_vs_E4 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
 
 ## Overall aggregate
 # Experiment report — RQ2
 
 ## Summary
 - **Cases**: 84
-- **Resolution rate**: 60.7% (51/84)
+- **Resolution rate**: 78.6% (66/84)
 - **Regression rate**: 0.0%
 - **Mean iterations**: 1.00
 - **Mean SSIM**: 1.000
@@ -121,31 +123,190 @@ _Generated: 2026-06-21T07:03:35.151Z_
 ## By status
 | Status | Count |
 |---|---|
-| RESOLVED | 51 |
-| UNRESOLVED | 28 |
+| RESOLVED | 66 |
+| UNRESOLVED | 15 |
 | REGRESSED | 0 |
-| DECLINED | 0 |
-| ERROR | 5 |
+| DECLINED | 3 |
+| ERROR | 0 |
 
 ## By evidence level
 | Level | Resolved | Total | Rate |
 |---|---|---|---|
-| E1 | 7 | 21 | 33.3% |
+| E1 | 15 | 21 | 71.4% |
 | E2 | 9 | 21 | 42.9% |
-| E3 | 17 | 21 | 81.0% |
-| E4 | 18 | 21 | 85.7% |
+| E3 | 21 | 21 | 100.0% |
+| E4 | 21 | 21 | 100.0% |
+
+
+---
+## RQ2 — Evidence Ablation (SC 2.4.11)
+
+# RQ2 — Evidence Ablation (SC 2.4.11)
+
+- runs: **1**, seeds: **1,2,3**, dry: **false**
+- generated: 2026-08-12T16:50:52.920Z
+
+## Per-level resolution rate (mean ± std across runs)
+| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |
+|---|---|---|---|---|
+| E1 | 66.7% | ±0.0% | [43.7%, 83.7%] | 18 |
+| E2 | 66.7% | ±0.0% | [43.7%, 83.7%] | 18 |
+| E3 | 50.0% | ±0.0% | [29.0%, 71.0%] | 18 |
+| E4 | 50.0% | ±0.0% | [29.0%, 71.0%] | 18 |
+
+## McNemar paired tests
+| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
+|---|---|---|---|---|---|---|---|---|
+| E1_vs_E2 | 66.7% | 66.7% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E3 | 66.7% | 50.0% | 3 | 0 | 1.333 | 0.2482 | 0.340 |  |
+| E1_vs_E4 | 66.7% | 50.0% | 3 | 0 | 1.333 | 0.2482 | 0.340 |  |
+| E2_vs_E3 | 66.7% | 50.0% | 3 | 0 | 1.333 | 0.2482 | 0.340 |  |
+| E3_vs_E4 | 50.0% | 50.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+
+## Overall aggregate
+# Experiment report — RQ2
+
+## Summary
+- **Cases**: 72
+- **Resolution rate**: 58.3% (42/72)
+- **Regression rate**: 0.0%
+- **Mean iterations**: 1.00
+- **Mean SSIM**: 1.000
+
+## By status
+| Status | Count |
+|---|---|
+| RESOLVED | 42 |
+| UNRESOLVED | 30 |
+| REGRESSED | 0 |
+| DECLINED | 0 |
+| ERROR | 0 |
+
+## By evidence level
+| Level | Resolved | Total | Rate |
+|---|---|---|---|
+| E1 | 12 | 18 | 66.7% |
+| E2 | 12 | 18 | 66.7% |
+| E3 | 9 | 18 | 50.0% |
+| E4 | 9 | 18 | 50.0% |
+
+
+---
+## RQ2 — Evidence Ablation (SC 2.4.12)
+
+# RQ2 — Evidence Ablation (SC 2.4.12)
+
+- runs: **1**, seeds: **1,2,3**, dry: **false**
+- generated: 2026-08-12T18:33:43.763Z
+
+## Per-level resolution rate (mean ± std across runs)
+| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |
+|---|---|---|---|---|
+| E1 | 77.8% | ±0.0% | [59.2%, 89.4%] | 27 |
+| E2 | 77.8% | ±0.0% | [59.2%, 89.4%] | 27 |
+| E3 | 55.6% | ±0.0% | [37.3%, 72.4%] | 27 |
+| E4 | 55.6% | ±0.0% | [37.3%, 72.4%] | 27 |
+
+## McNemar paired tests
+| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
+|---|---|---|---|---|---|---|---|---|
+| E1_vs_E2 | 77.8% | 77.8% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E3 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |
+| E1_vs_E4 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |
+| E2_vs_E3 | 77.8% | 55.6% | 6 | 0 | 4.167 | 0.0412 | 0.478 | ✓ |
+| E3_vs_E4 | 55.6% | 55.6% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+
+## Overall aggregate
+# Experiment report — RQ2
+
+## Summary
+- **Cases**: 108
+- **Resolution rate**: 66.7% (72/108)
+- **Regression rate**: 0.0%
+- **Mean iterations**: 1.00
+- **Mean SSIM**: 1.000
+
+## By status
+| Status | Count |
+|---|---|
+| RESOLVED | 72 |
+| UNRESOLVED | 36 |
+| REGRESSED | 0 |
+| DECLINED | 0 |
+| ERROR | 0 |
+
+## By evidence level
+| Level | Resolved | Total | Rate |
+|---|---|---|---|
+| E1 | 21 | 27 | 77.8% |
+| E2 | 21 | 27 | 77.8% |
+| E3 | 15 | 27 | 55.6% |
+| E4 | 15 | 27 | 55.6% |
+
+
+---
+## RQ2 — Evidence Ablation (SC 2.4.3)
+
+# RQ2 — Evidence Ablation (SC 2.4.3)
+
+- runs: **1**, seeds: **1,2,3**, dry: **false**
+- generated: 2026-08-13T05:48:48.847Z
+
+## Per-level resolution rate (mean ± std across runs)
+| Level | Mean | Std | Wilson 95% CI | Cases (n_trials) |
+|---|---|---|---|---|
+| E1 | 0.0% | ±0.0% | [0.0%, 56.2%] | 3 |
+| E2 | 0.0% | ±0.0% | [0.0%, 56.2%] | 3 |
+| E3 | 100.0% | ±0.0% | [43.8%, 100.0%] | 3 |
+| E4 | 100.0% | ±0.0% | [43.8%, 100.0%] | 3 |
+
+## McNemar paired tests
+| Comparison | mean A | mean B | b (A→B loss) | c (A→B gain) | χ² | p | Cohen's h | sig? |
+|---|---|---|---|---|---|---|---|---|
+| E1_vs_E2 | 0.0% | 0.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+| E1_vs_E3 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |
+| E1_vs_E4 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |
+| E2_vs_E3 | 0.0% | 100.0% | 0 | 3 | 1.333 | 0.2482 | 3.142 |  |
+| E3_vs_E4 | 100.0% | 100.0% | 0 | 0 | 0.000 | 1.0000 | 0.000 |  |
+
+## Overall aggregate
+# Experiment report — RQ2
+
+## Summary
+- **Cases**: 12
+- **Resolution rate**: 50.0% (6/12)
+- **Regression rate**: 0.0%
+- **Mean iterations**: 1.00
+- **Mean SSIM**: 1.000
+
+## By status
+| Status | Count |
+|---|---|
+| RESOLVED | 6 |
+| UNRESOLVED | 6 |
+| REGRESSED | 0 |
+| DECLINED | 0 |
+| ERROR | 0 |
+
+## By evidence level
+| Level | Resolved | Total | Rate |
+|---|---|---|---|
+| E1 | 0 | 3 | 0.0% |
+| E2 | 0 | 3 | 0.0% |
+| E3 | 3 | 3 | 100.0% |
+| E4 | 3 | 3 | 100.0% |
 
 
 ---
 ## RQ4 — Regression Analysis
 
 # RQ4 — Regression Analysis
-- generated: 2026-06-20T18:27:43.050Z
+- generated: 2026-08-13T14:32:21.806Z
 
 ## Summary
-- Cases evaluated: **8**
+- Cases evaluated: **10**
 - Patches that introduced ≥1 new failure: **0** (0.0%)
-- Mean SSIM (visual stability): **1.000**
+- Mean SSIM (visual stability): **0.997**
 - Mean selector specificity (invasiveness proxy): **4.0**
 
 ## Per-SC regression rate
@@ -153,7 +314,7 @@ _Generated: 2026-06-21T07:03:35.151Z_
 |---|---|---|---|
 | 2.4.11 | 2 | 0 | 0.0% |
 | 2.4.12 | 2 | 0 | 0.0% |
-| 2.4.13 | 4 | 0 | 0.0% |
+| 2.4.13 | 6 | 0 | 0.0% |
 
 ---
 ## D_r — Production Site Violation Counts
@@ -203,12 +364,10 @@ _Generated: 2026-06-21T07:03:35.151Z_
 ---
 ## Key Observations
 
-1. **Rule-based (D_d)** resolves 100.0% (6/6)
-2. **LLM-based (D_d)** resolves 94.4% (17/18)
-3. **Rule-based (D_new)** resolves 100.0% (7/7)
-4. **LLM-based (D_new)** resolves 76.2% (16/21)
-- **Regression rate**: 0.0% — patches safe (SSIM 1.000)
-- **Evidence ablation (D_d)**: E1 (static) 66.7% → E3 (runtime) 92.6% (+25.9pp)
-  McNemar: χ²=9.389, p=0.0022, Cohen's h=0.680, **significant**
-- **Evidence ablation (D_new)**: E1 (static) 33.3% → E3 (runtime) 81.0% (+47.6pp)
-  McNemar: χ²=8.100, p=0.0044, Cohen's h=1.007, **significant**
+1. **LLM-based (D_d)** resolves 100.0% (30/30)
+2. **LLM-based (D_new)** resolves 68.2% (45/66)
+- **Regression rate**: 0.0% — patches safe (SSIM 0.997)
+- **Evidence ablation (D_d)**: E1 (static) 100.0% → E3 (runtime) 100.0% (+0.0pp)
+  McNemar: χ²=0.000, p=1.0000, Cohen's h=0.000, not significant
+- **Evidence ablation (D_new)**: E1 (static) 71.4% → E3 (runtime) 100.0% (+28.6pp)
+  McNemar: χ²=4.167, p=0.0412, Cohen's h=1.128, **significant**
