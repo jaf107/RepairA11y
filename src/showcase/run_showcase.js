@@ -49,6 +49,9 @@ function parseArgs() {
     level: get("--level") ?? "E3",
     out: get("--out") ?? join(repoRoot, "docs/showcase_output"),
     dry: argv.includes("--dry"),
+    // Optional: target a specific failing element instead of the first
+    // 2.4.13 FAIL (some sites' first violation is visually subtle).
+    selector: get("--selector"),
   };
 }
 
@@ -65,10 +68,17 @@ async function main() {
   console.log(`Detecting violations on ${label} ...`);
   const detection = await runDetection(target);
   const violation = detection.violations.find(
-    (v) => v.sc === "2.4.13" && v.result === "FAIL",
+    (v) =>
+      v.sc === "2.4.13" &&
+      v.result === "FAIL" &&
+      (!opts.selector || v.element?.selector === opts.selector),
   );
   if (!violation) {
-    console.error("No SC 2.4.13 FAIL found.");
+    console.error(
+      opts.selector
+        ? `No SC 2.4.13 FAIL found for selector: ${opts.selector}`
+        : "No SC 2.4.13 FAIL found.",
+    );
     process.exit(1);
   }
   const selector = violation.element?.selector;
