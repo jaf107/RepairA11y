@@ -8,7 +8,7 @@
  * the focus indicator visible.
  *
  * Usage:
- *   node --env-file=.env src/showcase/run_showcase.js --file datasets/dnew/cases/dnew-09-dark-theme-focus-invisible.html
+ *   node --env-file=.env src/showcase/run_showcase.js --file datasets/da/cases/da-09-dark-theme-focus-invisible.html
  *   node --env-file=.env src/showcase/run_showcase.js --url https://www.nih.gov
  *   node              src/showcase/run_showcase.js --file <path> --dry   # no API call (no patch)
  *

@@ -244,7 +244,7 @@ scripts, and CSS-in-JS pollute the runtime environment?
 
 D_new is a small, hand-curated set of three additional fixtures
 released as a reproducibility artifact alongside the thesis
-(`datasets/dnew/`). The cases exercise patterns under-represented in
+(`datasets/da/`). The cases exercise patterns under-represented in
 D_d: modal-close obscured by translucent backdrop, text input with
 1px subtle focus indicator, and positive-tabindex misuse in a real
 navigation context.
@@ -455,7 +455,7 @@ SC 2.4.3 are committed under `ground-truth/` and are exercised by
 `scripts/batch-1-e2e.js` on every regression run, providing a
 permanent fixed-point check that the full pipeline still resolves
 known-good cases. The D_new artifact (3 hand-curated edge cases)
-is committed under `datasets/dnew/` under CC-BY-4.0 for external
+is committed under `datasets/da/` under CC-BY-4.0 for external
 reuse.
 
 ---

@@ -1,0 +1,186 @@
+{
+  "$schema": "./manifest.schema.json",
+  "version": "1.0.0",
+  "license": "CC-BY-4.0",
+  "name": "D_a",
+  "description": "D_a - anti-pattern corpus for WCAG 2.4 focus-behavior repair. Each case re-creates, as a small runnable page, a failure pattern observed on the production sites scanned in the NavA11y study. Renamed from D_new; every case keeps its former identifier in legacyId.",
+  "provenance": "Patterns were observed during the production scan of the NavA11y study. That scan stored per-criterion counts rather than per-element evidence, so no case carries an attribution to a named site.",
+  "cases": [
+    {
+      "id": "da-01",
+      "legacyId": "dnew-01",
+      "file": "cases/da-01-modal-traps-focus-behind-backdrop.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Modal close button rendered below translucent backdrop (z-index mistake)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-02",
+      "legacyId": "dnew-02",
+      "file": "cases/da-02-input-focus-color-only.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "outline:none with 1px border-color change only — fails width + contrast",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-03",
+      "legacyId": "dnew-03",
+      "file": "cases/da-03-skiplink-positive-tabindex-nav.html",
+      "expectedScs": [
+        "2.4.3"
+      ],
+      "rationale": "Primary nav link has tabindex=3, forcing it ahead in tab order — SC 2.4.3 violation",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-04",
+      "legacyId": "dnew-04",
+      "file": "cases/da-04-global-outline-none-reset.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "Global * { outline:none } CSS reset — common real-world anti-pattern, multi-element page",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-05",
+      "legacyId": "dnew-05",
+      "file": "cases/da-05-bootstrap-style-btn-focus-shadow.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "Bootstrap-style box-shadow focus ring at ~2.8:1 contrast (< 3:1 minimum)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-06",
+      "legacyId": "dnew-06",
+      "file": "cases/da-06-css-variables-focus-color.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "CSS custom property --focus-ring-color resolves to insufficient contrast",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-07",
+      "legacyId": "dnew-07",
+      "file": "cases/da-07-sticky-header-obscures-focus.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "Multi-link page with sticky header — NavA11y detects 12 × SC 2.4.13 violations on links",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-08",
+      "legacyId": "dnew-08",
+      "file": "cases/da-08-tailwind-style-ring-insufficient.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "Tailwind-style ring-2 ring-blue-300 — outline-offset creates gap, effective contrast < 3:1",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-09",
+      "legacyId": "dnew-09",
+      "file": "cases/da-09-dark-theme-focus-invisible.html",
+      "expectedScs": [
+        "2.4.13"
+      ],
+      "rationale": "Dark theme: focus outline same color as dark background, contrast ~1:1",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-10",
+      "legacyId": "dnew-10",
+      "file": "cases/da-10-sticky-header-covers-anchor-target.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Quick-jump link fully hidden under fixed 80px sticky site header (ratio 1)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-11",
+      "legacyId": "dnew-11",
+      "file": "cases/da-11-chat-widget-covers-back-to-top.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Back-to-top button stacked beneath fixed chat launcher in same corner (ratio 1)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-12",
+      "legacyId": "dnew-12",
+      "file": "cases/da-12-promo-bar-covers-newsletter-submit.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Newsletter submit button fully covered by fixed bottom promo bar (ratio 1)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-13",
+      "legacyId": "dnew-13",
+      "file": "cases/da-13-social-fab-covers-footer-link.html",
+      "expectedScs": [
+        "2.4.12"
+      ],
+      "rationale": "Footer contact link ~53% covered by floating social FAB — partial (2.4.12 only)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-14",
+      "legacyId": "dnew-14",
+      "file": "cases/da-14-leftover-overlay-covers-retry.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Leftover near-invisible full-page scrim (z-index 9999) fully obscures retry button (ratio 1)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-15",
+      "legacyId": "dnew-15",
+      "file": "cases/da-15-sticky-header-partially-covers-input.html",
+      "expectedScs": [
+        "2.4.12"
+      ],
+      "rationale": "Top ~43% of focused search input tucked under sticky header — partial (2.4.12 only)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-16",
+      "legacyId": "dnew-16",
+      "file": "cases/da-16-cookie-strip-partially-covers-checkbox.html",
+      "expectedScs": [
+        "2.4.12"
+      ],
+      "rationale": "Lower ~57% of focused consent button under fixed cookie strip — partial (2.4.12 only)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    },
+    {
+      "id": "da-17",
+      "legacyId": "dnew-17",
+      "file": "cases/da-17-sidebar-partially-covers-nav-link.html",
+      "expectedScs": [
+        "2.4.11",
+        "2.4.12"
+      ],
+      "rationale": "Breadcrumb link fully covered by fixed left sidebar overlap (ratio 1)",
+      "notes": "Expected Success Criteria are those NavA11y reports when run on the finished page, not those intended when the case was authored."
+    }
+  ]
+}

@@ -513,7 +513,7 @@ Add a new strategy or improve the LLM prompt.
   experiments.
 - **D_r** — our **d**ataset of **r**eal sites: 27 production websites
   from Semrush's top sites list. Used for real-world validation.
-- **D_new** — our **new** hand-curated edge cases (in `datasets/dnew/`),
+- **D_a** — the hand-curated anti-pattern cases (formerly D_new) (in `datasets/da/`),
   released as a reproducibility artifact.
 - **Evidence level (E1-E4)** — how much information the LLM gets
   about the violation. E1 is just HTML + screenshot; E4 adds WCAG

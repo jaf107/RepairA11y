@@ -9,7 +9,7 @@ import {
  * Rule-based generator for SC 2.4.13 (Focus Appearance, AAA).
  *
  * Three fix branches:
- *   A. No visible focus indicator → inject 2px outline on :focus (C27).
+ *   A. No visible focus indicator → inject 2px outline on :focus (C40).
  *   B. Outline exists but width < 2px → bump width to 2px (preserve color).
  *   C. Outline exists with width ≥ 2px but contrast < 3:1 → adjust color.
  *
@@ -54,8 +54,8 @@ export function generate({ violation }) {
         rule: `${selector}:focus { outline: 2px solid #000000 !important; outline-offset: 2px !important; }`,
       },
       rationale:
-        "No visible focus outline detected (post-focus). Injecting a 2px solid black outline on :focus (W3C technique C27) meeting SC 2.4.13 width and contrast minima.",
-      wcag_technique_cited: "C27",
+        "No visible focus outline detected (post-focus). Injecting a 2px solid black outline on :focus (W3C technique C40) meeting SC 2.4.13 width and contrast minima.",
+      wcag_technique_cited: "C40",
     };
   }
 
@@ -85,7 +85,7 @@ export function generate({ violation }) {
         rule: `${selector}:focus { outline: 2px solid ${hex} !important; outline-offset: 2px !important; }`,
       },
       rationale: `Focus outline width ${outlineWidth}px is below SC 2.4.13 minimum (${minWidth}px). Raised to 2px solid ${hex} (${contrastRatio(color, bg)?.toFixed(2) ?? "?"}:1 contrast).`,
-      wcag_technique_cited: "C27",
+      wcag_technique_cited: "C40",
     };
   }
 
@@ -133,6 +133,6 @@ function fallbackInjectOutline(selector, bg) {
       rule: `${selector}:focus { outline: 2px solid ${pick.hex} !important; outline-offset: 2px !important; }`,
     },
     rationale: `Existing focus indicator (border or background change) does not meet SC 2.4.13 minima. Adding an explicit 2px ${pick.hex} outline on :focus as a supplementary indicator.`,
-    wcag_technique_cited: "C27",
+    wcag_technique_cited: "C40",
   };
 }

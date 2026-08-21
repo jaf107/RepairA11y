@@ -69,7 +69,7 @@ scripts/
 ├── batch-1-e2e.js       # detect → apply ground-truth → verify  [NEW]
 └── batch-2-e2e.js       # rule-based generator on full D_d 2.4.13 corpus  [NEW]
 
-datasets/dnew/           # New release artifact  [NEW]
+datasets/da/           # New release artifact  [NEW]
 ├── cases/                       # 3 hand-curated edge cases
 ├── manifest.json
 └── README.md
