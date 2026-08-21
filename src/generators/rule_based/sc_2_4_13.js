@@ -34,7 +34,11 @@ export function generate({ violation }) {
   const outlineWidth = parseFloat(after.outlineWidth ?? "0");
   const outlineColor = after.outlineColor;
   const bgColor =
-    after.backgroundColor || before.backgroundColor || "rgb(255, 255, 255)";
+    after.effectiveBackgroundColor ||
+    before.effectiveBackgroundColor ||
+    after.backgroundColor ||
+    before.backgroundColor ||
+    "rgb(255, 255, 255)";
   const hasVisibleOutline =
     outlineWidth >= 0.5 &&
     outlineColor &&

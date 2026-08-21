@@ -60,7 +60,10 @@ export function generate({ violation }) {
 
   if (hasOutline) {
     const outlineCol = parseColor(after.outlineColor);
-    const bgCol = parseColor(after.backgroundColor) || parseColor("#ffffff");
+    const bgCol =
+    parseColor(after.effectiveBackgroundColor) ||
+    parseColor(after.backgroundColor) ||
+    parseColor("#ffffff");
     if (outlineCol && bgCol) {
       const cur = contrastRatio(outlineCol, bgCol);
       if (cur != null && cur < 3) {
